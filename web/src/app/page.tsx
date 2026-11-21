@@ -1,9 +1,10 @@
 import { CaptureProvider } from "@/components/CaptureProvider";
+import { Environments } from "@/components/Environments";
 import { JudgeDialog } from "@/components/JudgeDialog";
+import { Ideas } from "@/components/Ideas";
 import { Footer, Hero, Setup } from "@/components/Sections";
-import { ShotList } from "@/components/ShotList";
-import { TaskSheet } from "@/components/TaskSheet";
 import { TopBar } from "@/components/TopBar";
+import { UploadSheet } from "@/components/UploadSheet";
 import { publicConfig } from "@/lib/config";
 
 // Read the Blob/event-code settings per request, so changing them never leaves a stale page.
@@ -15,11 +16,12 @@ export default function Page() {
       <TopBar />
       <main>
         <Hero />
+        <Environments />
         <Setup />
-        <ShotList />
+        <Ideas />
       </main>
       <Footer />
-      <TaskSheet />
+      <UploadSheet />
       <JudgeDialog />
     </CaptureProvider>
   );

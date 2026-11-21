@@ -3,7 +3,6 @@
 // through here; this route only decides whether the upload is allowed.
 import { handleUpload, type HandleUploadBody } from "@vercel/blob/client";
 import { notConfigured } from "@/lib/config";
-import { TASK_BY_ID } from "@/lib/tasks";
 import { codeMatches, MAX_BYTES, parseTakePath } from "@/lib/takes";
 
 export async function POST(request: Request) {
@@ -14,8 +13,10 @@ export async function POST(request: Request) {
       body,
       request,
       onBeforeGenerateToken: async (pathname, clientPayload) => {
+        // Paths without an environment level are still accepted, so a page loaded before the
+        // site asked "where are you filming?" can finish its upload. The page always sends one.
         const take = parseTakePath(pathname);
-        if (!take || take.ext === "json" || !TASK_BY_ID.has(take.task)) {
+        if (!take || take.ext === "json") {
           throw new Error("That upload path isn't one this site creates.");
         }
         let payload: { code?: unknown } = {};

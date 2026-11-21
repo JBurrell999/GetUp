@@ -3,10 +3,7 @@
   "private": true,
   "version": "0.1.0",
   "scripts": {
-    "sync": "node scripts/sync-data.mjs",
-    "predev": "node scripts/sync-data.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/sync-data.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"

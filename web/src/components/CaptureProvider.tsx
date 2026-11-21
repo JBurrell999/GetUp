@@ -1,8 +1,8 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useRef, useState, type ReactNode } from "react";
 import type { PublicConfig } from "@/lib/config";
-import { TASK_BY_ID } from "@/lib/tasks";
+import { isEnvId, type EnvId } from "@/lib/environments";
 import type { TakeSummary } from "@/lib/takes";
 import type { Mode } from "./sim/engine";
 
@@ -22,20 +22,24 @@ interface CaptureState {
   requestJudge: () => Promise<Judge | null>;
   judgeDialog: { open: boolean; resolve: (j: Judge | null) => void };
 
+  /** What this person has uploaded so far, oldest first. */
   takes: TakeSummary[];
-  takesByTask: Map<string, TakeSummary[]>;
   takesError: string | null;
   addTake: (t: TakeSummary) => void;
 
-  openId: string | null;
-  openTask: (id: string | null) => void;
-  /** Ids in the shot list's current order and filter, for previous/next in the sheet. */
-  order: string[];
-  setOrder: (ids: string[]) => void;
+  /** The upload panel. `what` prefills the description (from an example), or leaves it empty. */
+  uploadOpen: boolean;
+  uploadWhat: string | null;
+  openUpload: (what?: string) => void;
+  closeUpload: () => void;
 
   /** What the 3D view at the top is showing: the robot, or where to film. */
   simMode: Mode;
   setSimMode: (m: Mode) => void;
+
+  /** Where this person is filming. Chosen before the first upload and remembered on the device. */
+  env: EnvId | null;
+  setEnv: (e: EnvId) => void;
 }
 
 const Ctx = createContext<CaptureState | null>(null);
@@ -47,21 +51,18 @@ export function useCapture() {
 }
 
 const JUDGE_KEY = "getup.judge";
-
-function taskFromUrl() {
-  const id = new URLSearchParams(window.location.search).get("task");
-  return id && TASK_BY_ID.has(id) ? id : null;
-}
+const ENV_KEY = "getup.env";
 
 export function CaptureProvider({ config, children }: { config: PublicConfig; children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [judge, setJudgeState] = useState<Judge | null>(null);
   const [takes, setTakes] = useState<TakeSummary[]>([]);
   const [takesError, setTakesError] = useState<string | null>(null);
-  const [openId, setOpenId] = useState<string | null>(null);
-  const [order, setOrder] = useState<string[]>([]);
+  const [uploadOpen, setUploadOpen] = useState(false);
+  const [uploadWhat, setUploadWhat] = useState<string | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [simMode, setSimMode] = useState<Mode>("follow");
+  const [env, setEnvState] = useState<EnvId | null>(null);
   const resolver = useRef<((j: Judge | null) => void) | null>(null);
 
   useEffect(() => {
@@ -69,11 +70,26 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
       const saved = JSON.parse(localStorage.getItem(JUDGE_KEY) ?? "null");
       if (saved?.id && saved?.name) setJudgeState(saved);
     } catch {}
-    setOpenId(taskFromUrl());
+    // ?env=kitchen (say, from a QR code in that room) preselects the place
+    const fromUrl = new URLSearchParams(window.location.search).get("env");
+    let savedEnv: string | null = null;
+    try {
+      savedEnv = localStorage.getItem(ENV_KEY);
+    } catch {}
+    if (isEnvId(fromUrl)) {
+      setEnvState(fromUrl);
+      try {
+        localStorage.setItem(ENV_KEY, fromUrl);
+      } catch {}
+    } else if (isEnvId(savedEnv)) {
+      setEnvState(savedEnv);
+    }
     setHydrated(true);
     const onPop = () => {
+      // the phone's Back button closes the upload panel instead of leaving the page
+      if (!pushed.current) return;
       pushed.current = false;
-      setOpenId(taskFromUrl());
+      setUploadOpen(false);
     };
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
@@ -102,43 +118,36 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
           return [...d.takes, ...cur.filter((t) => !seen.has(t.pathname))];
         });
       })
-      .catch(() => live && setTakesError("Couldn't load your earlier takes."));
+      .catch(() => live && setTakesError("Couldn't load your earlier videos."));
     return () => {
       live = false;
     };
   }, [judge]);
 
+  const setEnv = useCallback((e: EnvId) => {
+    setEnvState(e);
+    try {
+      localStorage.setItem(ENV_KEY, e);
+    } catch {}
+  }, []);
+
   const addTake = useCallback((t: TakeSummary) => setTakes((cur) => [...cur, t]), []);
 
-  const takesByTask = useMemo(() => {
-    const m = new Map<string, TakeSummary[]>();
-    for (const t of takes) m.set(t.task, [...(m.get(t.task) ?? []), t]);
-    return m;
-  }, [takes]);
-
-  // Opening a task from the list adds a history entry, so the phone's Back button closes
-  // the sheet. Moving between tasks inside the sheet replaces that entry.
+  // Opening the upload panel adds a history entry, so the phone's Back button closes it.
   const pushed = useRef(false);
-  const openTask = useCallback((id: string | null) => {
-    const url = new URL(window.location.href);
-    const current = url.searchParams.get("task");
-    setOpenId(id);
-    if (!id) {
-      if (pushed.current) {
-        pushed.current = false;
-        window.history.back();
-      } else {
-        url.searchParams.delete("task");
-        window.history.replaceState(null, "", url);
-      }
-      return;
-    }
-    url.searchParams.set("task", id);
-    if (current) {
-      window.history.replaceState(null, "", url);
-    } else {
-      window.history.pushState(null, "", url);
+  const openUpload = useCallback((what?: string) => {
+    setUploadWhat(what ?? null);
+    setUploadOpen(true);
+    if (!pushed.current) {
+      window.history.pushState({ getupUpload: true }, "");
       pushed.current = true;
+    }
+  }, []);
+  const closeUpload = useCallback(() => {
+    setUploadOpen(false);
+    if (pushed.current) {
+      pushed.current = false;
+      window.history.back();
     }
   }, []);
 
@@ -164,15 +173,16 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
     requestJudge,
     judgeDialog: { open: dialogOpen, resolve: resolveDialog },
     takes,
-    takesByTask,
     takesError,
     addTake,
-    openId,
-    openTask,
-    order,
-    setOrder,
+    uploadOpen,
+    uploadWhat,
+    openUpload,
+    closeUpload,
     simMode,
     setSimMode,
+    env,
+    setEnv,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

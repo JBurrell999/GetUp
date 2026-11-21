@@ -54,12 +54,12 @@ export function JudgeDialog() {
       onClose={() => judgeDialog.open && judgeDialog.resolve(null)}
     >
       <form onSubmit={submit} noValidate>
-        <p className="modal-kicker">Before your first take</p>
+        <p className="modal-kicker">Before your first upload</p>
         <h2 className="modal-title" id="judge-title">
           Who&apos;s filming?
         </h2>
         <p className="modal-sub">
-          Your takes are grouped under your name so the team can line them up with your body measurements.
+          Your videos are grouped under your name so the team can line them up with your body measurements.
         </p>
 
         <label className="field">

@@ -7,7 +7,7 @@ const sans = Funnel_Sans({ subsets: ["latin"], variable: "--font-sans", display:
 
 export const metadata: Metadata = {
   title: "GetUp",
-  description: "Film yourself doing everyday tasks in the event room so a simulated Unitree G1 can learn to copy them.",
+  description: "Film yourself doing everyday things, anything you like, so a simulated Unitree G1 can learn to copy them.",
 };
 
 export const viewport: Viewport = {

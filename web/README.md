@@ -1,7 +1,9 @@
 # GetUp capture site
 
-The page people use to film themselves doing the tasks in `../tasks.json` in the event room
-and upload one video per task. The top of the page is the project's own MuJoCo scene running
+The page people use to upload videos of themselves doing anything they like, one thing per video,
+for the simulated Unitree G1 to learn to copy. There's no fixed task list: a few examples (in
+`src/lib/examples.ts`) are offered as ideas, and people describe each video in their own words
+when they upload it. The top of the page is the project's own MuJoCo scene running
 in the browser: the Unitree G1 walking a loop through the room, and a "Where to stand" view
 that flies to the filming spot.
 
@@ -32,9 +34,19 @@ vercel env pull .env.local   # or copy .env.example and paste the store's token
 npm run dev
 ```
 
-`npm run dev` and `npm run build` first copy `../tasks.json` into `src/data/`, so the list on
-the site is always the one `session.py` uses. When deploying this folder on its own, the
-committed copy is used, so commit it with task changes.
+## Share with ngrok
+
+Keep `npm run dev` running, then run this in another terminal:
+
+```bash
+ngrok http 3000
+```
+
+Share the HTTPS forwarding URL ngrok prints. Keep both processes running and this computer
+awake while others use the link. If ngrok shows a browser warning, visitors can select
+**Visit Site** to continue. The development server allows `*.ngrok-free.app` origins so
+assets and hot reload work through the tunnel. If your ngrok URL uses a different domain,
+add its hostname to `allowedDevOrigins` in `next.config.ts`.
 
 ## The 3D scene
 
@@ -60,21 +72,71 @@ trained policy exists, export its rollout to `walk.bin` instead.
 
 The filming area and tripod spot drawn in the room are set in `src/lib/capture.ts`.
 
+## Where people are filming
+
+Before a first upload, people pick where they're filming. They choose from the "Where are you
+filming?" section or the first step of the upload panel, which hides the drop zone until a place
+is chosen. The choices are the three MuJoCo scenes in `../g1_room_mujoco/`:
+
+| id | Place | Scene the sim uses |
+|---|---|---|
+| `hackathon` | Hackathon room (the event room) | `Hackathon_G1_Ultra_Detail_V2/generated/G1_HACKATHON_V2.xml` |
+| `kitchen` | Home kitchen | `Kitchen_G1_Detail/generated/G1_KITCHEN.xml` |
+| `warehouse` | Distribution warehouse | `Warehouse_G1_Detail/generated/G1_WAREHOUSE.xml` |
+
+How the choice is handled:
+
+- **Remembered:** the choice is stored on the device and can be changed per video.
+- **Link preset:** `?env=kitchen` on the link preselects it, for example from a QR code posted in
+  that room.
+- **Source:** names, blurbs and scene paths are in `src/lib/environments.ts`.
+
+The screenshots in `public/envs/` are rendered from the generated G1 scenes, with the robot at its
+start pose. Re-render them after changing a scene:
+
+```bash
+.venv/bin/python web/scripts/sim/screenshots.py            # or: ... screenshots.py kitchen
+```
+
+The 3D view at the top still shows the event room.
+
 ## What lands in the store
 
 ```
-takes/<judge>/<task_id>/<yyyymmdd-hhmmss>-<rand>.<mp4|mov|m4v|webm>   the video
-takes/<judge>/<task_id>/<yyyymmdd-hhmmss>-<rand>.json                 details, below
+takes/<judge>/<env>/<what>/<yyyymmdd-hhmmss>-<rand>.<mp4|mov|m4v|webm>   the video
+takes/<judge>/<env>/<what>/<yyyymmdd-hhmmss>-<rand>.json                 details, below
 ```
 
-`<judge>` is a slug of the name the person typed plus four random characters, so two people
-with the same name stay apart. The JSON next to each video has the judge's name, the task
-(id, number, tier, stop rule, max length), the video's size, duration and resolution as read
-in the browser, the original filename, and when consent was given. Times in paths are UTC.
+**Path parts:**
 
-Every upload is checked on the server: the path must match the pattern above, the task must
-exist in `tasks.json`, the file must be a video under 2 GB, nothing is ever overwritten, and
-the event code must match if one is set.
+- `<judge>` is a slug of the name the person typed plus four random characters, so two people
+  with the same name stay apart.
+- `<env>` is where they filmed: `hackathon`, `kitchen` or `warehouse`.
+- `<what>` is a slug of what they said the video shows ("Move a chair" becomes `move_a_chair`).
+  The JSON has their exact words.
+- **Older uploads:** they used a task id from the old fixed list in the `<what>` slot, and some
+  have no `<env>` level. Both shapes are still listed and still accepted, so a page opened before
+  a change can finish its upload.
+- Times in paths are UTC.
+
+**The JSON next to each video** (`version: 3`) has:
+
+- the judge's name
+- `environment`: `{ id, name, scene }`, where `scene` is the MuJoCo file to copy the video in,
+  relative to the repo root
+- `activity`: `{ description, slug, example }`, where `description` is what they typed and
+  `example` is `{ id, name }` if they picked one of the site's ideas, otherwise `null`
+- the video's size, duration and resolution as read in the browser
+- the original filename
+- when consent was given
+
+**Every upload is checked on the server:**
+
+- the path must match the pattern above, and any `<env>` must be one of the three
+- the details must include a description of what the video shows
+- the file must be a video under 2 GB
+- nothing is ever overwritten
+- the event code must match, if one is set
 
 Browse or download takes with `vercel blob list` / `vercel blob get`, the store's page in the
 Vercel dashboard, or the `@vercel/blob` SDK's `list({ prefix: "takes/" })`.

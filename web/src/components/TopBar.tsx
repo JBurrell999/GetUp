@@ -1,15 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { TASKS } from "@/lib/tasks";
 import { useCapture } from "./CaptureProvider";
 
-const CORE = TASKS.filter((t) => t.tier === "core");
-
 export function TopBar() {
-  const { hydrated, judge, setJudge, requestJudge, takesByTask } = useCapture();
+  const { hydrated, judge, setJudge, requestJudge, takes, openUpload } = useCapture();
   const [solid, setSolid] = useState(false);
-  const done = CORE.filter((t) => takesByTask.has(t.id)).length;
+  const n = takes.length;
 
   useEffect(() => {
     let raf = 0;
@@ -34,15 +31,9 @@ export function TopBar() {
         GetUp
       </a>
       <div className="bar-right">
-        {hydrated && judge && (
-          <a className="bar-progress" href="#tasks" title="Core tasks you've filmed">
-            <span className="num">
-              {done}/{CORE.length}
-            </span>
-            <span className="bar-meter" aria-hidden="true">
-              <span style={{ width: `${(done / CORE.length) * 100}%` }} />
-            </span>
-            <span className="sr-only">core tasks filmed</span>
+        {hydrated && judge && n > 0 && (
+          <a className="bar-count" href="#mine">
+            <span className="num">{n}</span> {n === 1 ? "video" : "videos"}
           </a>
         )}
         {!hydrated ? null : judge ? (
@@ -63,6 +54,9 @@ export function TopBar() {
             Add your name
           </button>
         )}
+        <button type="button" className="btn btn--accent btn--sm" onClick={() => openUpload()}>
+          Upload
+        </button>
       </div>
     </header>
   );
