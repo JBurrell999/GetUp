@@ -6,6 +6,8 @@ camera Gemini estimated, at the input video's resolution and fps.
 Interpretation schema: see mirror.INTERPRET_SCHEMA.
 Conventions: person starts at the origin facing +x; "left" = +y. Angles in degrees.
 """
+import tempfile
+
 import numpy as np
 import mujoco
 
@@ -187,11 +189,17 @@ PALM_SIGN = {"left": -1.0, "right": 1.0}
 
 
 class Replay:
-    def __init__(self, interp, width=848, height=480):
+    def __init__(self, interp, width=848, height=480, scene_xml=None):
+        """scene_xml: a full MJCF scene to use instead of build_scene(interp), e.g. the interpretation placed
+        inside one of the project's rooms (see in_env.py). It must keep the robot first, body "object" and
+        geoms "surface{i}"."""
         self.interp = interp
-        xml = C.SCENE_XML.parent / "_replay_scene.xml"
-        xml.write_text(build_scene(interp))
-        self.m = mujoco.MjModel.from_xml_path(str(xml))
+        # Keep includes relative to the robot assets without sharing a mutable XML file
+        # between jobs. MuJoCo has loaded all assets before the temporary file closes.
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".xml", prefix="_replay_", dir=C.SCENE_XML.parent) as xml:
+            xml.write(scene_xml or build_scene(interp))
+            xml.flush()
+            self.m = mujoco.MjModel.from_xml_path(xml.name)
         self.m.vis.global_.offwidth = max(self.m.vis.global_.offwidth, width)
         self.m.vis.global_.offheight = max(self.m.vis.global_.offheight, height)
         self.d = mujoco.MjData(self.m)
@@ -211,14 +219,24 @@ class Replay:
         self.obj_body = b("object")
         self.obj_mocap = m.body_mocapid[self.obj_body] if self.obj_body >= 0 else -1
         self.obj_geoms = set(np.where(m.geom_bodyid == self.obj_body)[0]) if self.obj_body >= 0 else set()
+        self.robot_bodies = {b("pelvis")}
+        for body in range(1, m.nbody):
+            if m.body_parentid[body] in self.robot_bodies:
+                self.robot_bodies.add(body)
         self.fingers = {"left": np.zeros(7), "right": np.zeros(7)}
         surfs = (interp.get("environment", {}) or {}).get("surfaces", []) or []
         self.env_names = {mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, f"surface{i}"): (sf.get("name") or "table")
                           for i, sf in enumerate(surfs)}
         self.self_ok = self._self_contact_whitelist()
-        for g in range(m.ngeom):   # unnamed world geoms (table legs) count as "table"
-            if m.geom_bodyid[g] == 0 and g not in self.env_names and m.geom(g).name != "floor":
-                self.env_names[g] = "table leg"
+        for g in range(m.ngeom):
+            body = m.geom_bodyid[g]
+            if body in self.robot_bodies or g in self.obj_geoms or g in self.env_names:
+                continue
+            name = m.geom(g).name
+            if "floor" in name or m.geom_type[g] == mujoco.mjtGeom.mjGEOM_PLANE:
+                self.env_names[g] = "floor"
+            else:
+                self.env_names[g] = name or (m.body(body).name if body else "table leg")
 
     def _resolve_collisions(self, traj, t, grasps, fps, iters=12, rounds=2):
         """Kinematic clean-up: push penetrating arm parts out of each other / the torso / the table / the floor along
@@ -226,7 +244,7 @@ class Replay:
         m, d = self.m, self.d
         ARMS = {"left": list(range(15, 22)), "right": list(range(22, 29))}
         jp = np.zeros((3, m.nv))
-        robot_bodies = set(range(1, m.nbody)) - {self.obj_body}
+        robot_bodies = self.robot_bodies
         fixed_frames = 0
         for _ in range(rounds):
             corr = np.zeros((len(t), C.NJ))
@@ -301,7 +319,7 @@ class Replay:
                 out.append(b)
             return out
         ok = set()
-        robot = [b for b in range(1, m.nbody) if b != self.obj_body]
+        robot = sorted(self.robot_bodies)
         ch = {b: chain(b) for b in robot}
         for i, a in enumerate(robot):
             for b in robot[i + 1:]:
@@ -317,7 +335,7 @@ class Replay:
         for i in range(d.ncon):
             c = d.contact[i]
             a, b = m.geom_bodyid[c.geom1], m.geom_bodyid[c.geom2]
-            if a > 0 and b > 0:
+            if a in self.robot_bodies and b in self.robot_bodies:
                 ok.add((min(a, b), max(a, b)))
         return ok
 
@@ -568,12 +586,14 @@ class Replay:
                         obj_pos[2] = self._support_height(obj_pos)
                 if held is not None:
                     hands = held["hands"]
-                    if len(hands) == 1:     # rigidly in the hand (tilts with the wrist, e.g. when drinking)
+                    if len(hands) == 1 and not obj.get("keep_upright", False):
+                        # Rigidly in the hand, e.g. when drinking. Pose-only sources
+                        # can request an upright carry when wrist rotation is unknown.
                         h0 = hands[0]
                         Rh = self.d.xmat[self.hand[h0]].reshape(3, 3)
                         obj_pos = self.d.xpos[self.hand[h0]] + Rh @ rel["p"]
                         mujoco.mju_mat2Quat(obj_quat, (Rh @ rel["R"]).flatten())
-                    else:                   # two hands: object upright, turning with the body; hands re-solved onto it
+                    else:                   # upright carry: turn with the body and re-solve the grip
                         dy = yaw - rel["yaw0"]
                         Rz = np.array([[np.cos(dy), -np.sin(dy), 0], [np.sin(dy), np.cos(dy), 0], [0, 0, 1]])
                         obj_pos = np.mean([self.grip_point(h, held["c_w"][h]) for h in hands], 0) + Rz @ rel["mid_off"]
@@ -605,6 +625,8 @@ class Replay:
                 if obj:
                     smp.update(object=np.asarray(obj_pos).round(2).tolist(), held=held is not None)
                 tel.setdefault("samples", []).append(smp)
+        if renderer is not None:
+            renderer.close()
         tel["collisions"] = []
         for (a, b_), hits in coll.items():           # group into time ranges
             hits.sort()
@@ -680,7 +702,7 @@ class Replay:
                 b = m.geom_bodyid[g]
                 if g in self.obj_geoms:
                     names.append("object")
-                elif b == 0:
+                elif g in self.env_names:
                     names.append(self.env_names.get(g, "floor"))
                 else:
                     names.append(self._part(b))
@@ -727,9 +749,9 @@ class Replay:
                           _quat(np.radians(st.get("yaw_deg", 0.0)), 0, 0))
         coll = [dict(what=f"{a} inside {b}" if b in ("floor",) or b in self.env_names.values() else f"{a} / {b}",
                      depth_cm=round(dep * 100, 1)) for (a, b), dep in self._collisions(0, False, False)]
-        renderer = mujoco.Renderer(self.m, self.H, self.W)
-        renderer.update_scene(self.d, self._camera())
-        return renderer.render(), coll
+        with mujoco.Renderer(self.m, self.H, self.W) as renderer:
+            renderer.update_scene(self.d, self._camera())
+            return renderer.render(), coll
 
     def _support_height(self, pos):
         best = 0.0

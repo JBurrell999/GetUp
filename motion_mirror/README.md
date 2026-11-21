@@ -43,6 +43,104 @@ The best side-by-side and its JSON are also copied to `benchmarks/`.
 Videos longer or larger than about 1080p should be transcoded first (the pipeline uses about 854 px):
 `ffmpeg -i in.MOV -vf "scale='if(gt(iw,ih),854,-2)':'if(gt(iw,ih),-2,854)'" -r 30 -an out.mp4`
 
+## Capture-site uploads → robot videos on Vercel
+
+`site_worker` reads uploads from the site's Vercel Blob store, runs each one in the room its
+uploader picked, and puts the robot videos back in the same store under `outputs/`:
+
+```bash
+./mm site_worker --list          # every take and its status; changes nothing
+./mm site_worker                 # process every new take, then exit
+./mm site_worker --watch 60      # keep running, checking for new takes every minute
+./mm site_worker --take takes/<judge>/<env>/<what>/<stamp>.mp4 [--redo]
+```
+
+For each take it writes:
+
+```
+outputs/<judge>/<env>/<what>/<stamp>/result.json        status, room, scores, placement, collisions
+outputs/<judge>/<env>/<what>/<stamp>/robot.mp4          the G1 in the room, from the filming camera
+outputs/<judge>/<env>/<what>/<stamp>/side_by_side.mp4   the person | the robot, time-synced
+outputs/<judge>/<env>/<what>/<stamp>/wide.mp4           a wider view of the room
+```
+
+- **Same path as the upload:** `takes/<x>.mp4` gets its results in `outputs/<x>/`.
+- **Status:** `result.json` is written first with `"status": "processing"`, then `"complete"` or
+  `"failed"` (with the error). A take that has a `result.json` is skipped; `--retry` picks up failed
+  ones. If Gemini had already finished a failed take, it is rendered again without new Gemini calls.
+  `--redo` starts one take over.
+- **Never touches `takes/`:** the Blob helper (`../web/scripts/blob.mjs`) refuses to write outside
+  `outputs/`.
+- **Token:** `BLOB_READ_WRITE_TOKEN` from the environment, or else `../web/.env.local`
+  (`vercel env pull`). Needs Node and `npm install` in `../web`.
+- **One at a time:** run a single worker at a time.
+
+**The room is always the one the uploader chose.** It comes from the `<env>` in the take's path,
+which the site also writes into the take's JSON. If the two disagree, the take fails before any
+Gemini call. Uploads from before the site asked where people film have no room. They're skipped
+until you run one with `--take ... --env kitchen`. A take filmed in one room can't be run in another.
+
+The room is used throughout, not only for the final render. Every phase 2 round, the one Gemini
+judges, is replayed inside the room:
+
+- The robot is placed on clear floor there and rendered from Gemini's estimated camera.
+- If a wall or fridge is in the way, the camera is pulled in.
+- Collisions with the room's furniture are reported to Gemini like any other.
+
+Phase 1 (matching Gemini's reconstructed table, object and camera to the first frame) stays in the
+plain scene, because unrelated room furniture would only confuse that comparison. `./mm mirror
+... --room kitchen` does the same outside the worker.
+
+The rooms are `../g1_room_mujoco/*/*_VISUAL.xml`, the same rooms as the site's `generated/G1_*.xml`
+scenes. Those files contain the stock G1 with rubber hands. The replay merges in the G1 with Dex3
+hands it needs for grasping.
+
+### One local file
+
+`site_worker` downloads to `runs/site_downloads/` and calls `site_job`, which works on local files:
+
+```bash
+./mm site_job /path/to/take.mp4 --metadata /path/to/take.json --name uploaded_sample
+```
+
+The metadata selects `hackathon`, `kitchen` or `warehouse`, and `--env` overrides it. Without
+either, the job is refused. Scene paths in uploaded JSON are recorded as provenance; rendering uses
+the project's known room XML files.
+
+It runs the interpretation/judging loop in that room, then writes
+`runs/mirror2/uploaded_sample/environment/robot_env.mp4`, a time-synced
+`side_by_side_env.mp4`, a wider `robot_wide.mp4`, and a reloadable `scene.xml` with
+absolute asset paths for this checkout. `job.json` records the interpretation engine, source SHA-256,
+upload metadata, room placement, scores, collision telemetry, and output paths. These are
+kinematic MuJoCo replays.
+
+Choose a unique name for each source. If interpretation finishes but room rendering is
+interrupted, repeat the same command with `--resume` to render `final.json` without new
+Gemini calls. `--env-iters`, `--iters`, `--model`, `--judge-model`, and `--fact` work as in
+`mirror`; `--no-wide` skips the second room camera.
+
+For a local workflow, first extract MediaPipe world landmarks using an existing model file.
+The default model is `../models/mediapipe/pose_landmarker_heavy.task`; the extractor never
+downloads a model. Crop and subject-center coordinates are pixels in the source video.
+These values select the central subject in the uploaded hackathon sample:
+
+```bash
+.venv/bin/python scripts/extract_local_pose.py /path/to/take.mp4 \
+    --out runs/local_landmarks --crop 245 90 610 480 --subject-center 392 263
+./mm local_pose /path/to/take.mp4 --landmarks runs/local_landmarks/local_pose.npz \
+    --out runs/mirror2/local_sample
+./mm site_job /path/to/take.mp4 --metadata /path/to/take.json \
+    --name local_sample --resume
+```
+
+For another video, choose its crop and shoulder center, or omit both to use the full frame
+and frame center. `--model /path/to/existing.task` selects another installed model. The
+extraction directory contains `local_pose.npz`, an overlay video, snapshots, and detection
+statistics. The `local_pose` stage writes `final.json` and `summary.json`; the room worker
+preserves the declared interpretation engine, extraction details, and assumptions in `job.json`.
+The local retarget preset assumes this seated water-bottle action: legs, table dimensions
+and contact times are estimates. Adjust those annotations before using it for another activity.
+
 ## How stage 1 works (`src/motion_mirror/mirror.py`, `replay.py`)
 
 **Phase 1, environment.** Gemini 4 Hydrogen reads the video at 2 fps and recreates the scene:

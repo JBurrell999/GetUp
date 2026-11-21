@@ -104,6 +104,9 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
     } catch {}
   }, []);
 
+  // Bumped to re-read the list while the robot is still copying something.
+  const [refresh, setRefresh] = useState(0);
+
   useEffect(() => {
     if (!judge) return;
     let live = true;
@@ -122,7 +125,15 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
     return () => {
       live = false;
     };
-  }, [judge]);
+  }, [judge, refresh]);
+
+  // The robot worker runs elsewhere, so check back every 15 s until every take has its result.
+  const waiting = takes.some((t) => t.env && (!t.robot || t.robot.status === "processing"));
+  useEffect(() => {
+    if (!judge || !waiting) return;
+    const id = setTimeout(() => setRefresh((n) => n + 1), 15_000);
+    return () => clearTimeout(id);
+  }, [judge, waiting, refresh]);
 
   const setEnv = useCallback((e: EnvId) => {
     setEnvState(e);

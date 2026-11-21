@@ -1,9 +1,48 @@
 "use client";
 
+import { useState } from "react";
 import { ENV_BY_ID } from "@/lib/environments";
 import { EXAMPLES } from "@/lib/examples";
-import { formatBytes, humanize } from "@/lib/takes";
+import { formatBytes, humanize, type RobotFile, type TakeSummary } from "@/lib/takes";
 import { useCapture } from "./CaptureProvider";
+
+const FILE_LABEL: Record<RobotFile, string> = { side_by_side: "You and the robot", robot: "Robot", wide: "Wide view" };
+
+/** How far the robot's copy has got, and a button to watch it once it's ready. */
+function RobotStatus({ take, open, onToggle }: { take: TakeSummary; open: boolean; onToggle: () => void }) {
+  const r = take.robot;
+  if (!take.env) return <span className="robot-state">—</span>;
+  if (!r) return <span className="robot-state">Robot: queued</span>;
+  if (r.status === "processing") return <span className="robot-state robot-state--busy">Robot: copying…</span>;
+  if (r.status === "failed" || !r.files.length)
+    return <span className="robot-state robot-state--bad">Robot: couldn&apos;t copy</span>;
+  return (
+    <button type="button" className="robot-watch" aria-expanded={open} onClick={onToggle}>
+      {open ? "Hide robot" : "Watch robot"}
+      {r.score != null && <span className="num"> · {r.score}/10</span>}
+    </button>
+  );
+}
+
+function RobotPlayer({ take }: { take: TakeSummary }) {
+  const files = take.robot?.files ?? [];
+  const [file, setFile] = useState<RobotFile>(files[0] ?? "side_by_side");
+  const src = `/api/robot?take=${encodeURIComponent(take.pathname)}&file=${file}`;
+  return (
+    <div className="robot-player">
+      {files.length > 1 && (
+        <div className="robot-tabs" role="group" aria-label="Which view">
+          {files.map((f) => (
+            <button key={f} type="button" aria-pressed={f === file} onClick={() => setFile(f)}>
+              {FILE_LABEL[f]}
+            </button>
+          ))}
+        </div>
+      )}
+      <video key={src} src={src} controls playsInline loop autoPlay muted preload="metadata" />
+    </div>
+  );
+}
 
 const two = (n: number) => String(n).padStart(2, "0");
 const when = (iso: string) =>
@@ -21,6 +60,7 @@ function Arrow() {
 export function Ideas() {
   const { openUpload, hydrated, judge, takes, takesError } = useCapture();
   const mine = [...takes].sort((a, b) => b.uploadedAt.localeCompare(a.uploadedAt));
+  const [watching, setWatching] = useState<string | null>(null);
 
   return (
     <section className="ideas" id="ideas" aria-labelledby="ideas-title">
@@ -73,6 +113,12 @@ export function Ideas() {
                   <span>{t.env ? ENV_BY_ID.get(t.env)?.name : "—"}</span>
                   <span>{when(t.uploadedAt)}</span>
                   <span className="num">{formatBytes(t.size)}</span>
+                  <RobotStatus
+                    take={t}
+                    open={watching === t.pathname}
+                    onToggle={() => setWatching((w) => (w === t.pathname ? null : t.pathname))}
+                  />
+                  {watching === t.pathname && t.robot?.status === "complete" && <RobotPlayer take={t} />}
                 </li>
               ))}
             </ol>
