@@ -98,11 +98,16 @@ Compare frame by frame: posture over time (trunk, legs, arms), which hand does w
 TELEMETRY.collisions = interpenetrations detected by the simulator (e.g. "right hand inside table, 4 cm"): physically
 impossible, they MUST be fixed (raise the arm/trunk, retime). TELEMETRY.grasps / placements say whether the hand could
 reach the object / put it down at object_end; if not, move the body closer/lower at that moment.
-Cite timestamps; be quantitative. Score 0-10 and return a corrected MOTION (the environment stays locked).
+TELEMETRY.auto_fixed lists problems already corrected automatically (e.g. a hand lifted out of the table): don't redo them.
+Cite timestamps; be quantitative. Score 0-10 and return a PATCH to the motion (the environment stays locked):
+only the keyframes you add or change (each with its "t" and ONLY the fields that change), keyframe times to remove,
+and contacts / object_end only if they change.
 LOCKED ENVIRONMENT:
 {env}
 {conv}
-Return JSON: {{"score": f, "differences": [str], "revised": <full motion JSON>}}
+Return JSON: {{"score": f, "differences": [str],
+  "patch": {{"keyframes": [{{"t": f, <changed pose fields only>}}], "remove_keyframe_t": [f], "contacts": <optional>, "object_end": <optional>}}}}
+Motion schema (for reference):
 {schema}"""
 
 
@@ -111,12 +116,16 @@ class Gemini:
     def __init__(self, model):
         self.client, self.model = genai.Client(), model
 
-    def ask(self, parts, retries=2, temperature=0.3):
+    def ask(self, parts, retries=2, temperature=0.3, thinking="LOW", low_res=False):
+        cfg = dict(response_mime_type="application/json", temperature=temperature)
+        if thinking:
+            cfg["thinking_config"] = types.ThinkingConfig(thinking_level=thinking)
+        if low_res:
+            cfg["media_resolution"] = "MEDIA_RESOLUTION_LOW"
         for k in range(retries + 1):
             try:
                 r = self.client.models.generate_content(
-                    model=self.model, contents=parts,
-                    config=types.GenerateContentConfig(response_mime_type="application/json", temperature=temperature))
+                    model=self.model, contents=parts, config=types.GenerateContentConfig(**cfg))
                 return json.loads(r.text)
             except Exception as e:  # noqa: BLE001
                 if k == retries:
@@ -173,6 +182,36 @@ def side_by_side(human, robot, out, text):
         imageio.mimsave(out, frames, fps=fps, macro_block_size=8)
 
 
+def _deep(a, b):
+    out = dict(a)
+    for k, v in b.items():
+        out[k] = _deep(out[k], v) if isinstance(v, dict) and isinstance(out.get(k), dict) else v
+    return out
+
+
+def apply_patch(motion, patch, tol=0.06):
+    """Apply the judge's patch: merge changed keyframes by time, add new ones, drop removed ones."""
+    if not patch:
+        return motion
+    m = json.loads(json.dumps(motion))
+    kfs = m.get("keyframes", [])
+    rm = patch.get("remove_keyframe_t") or []
+    kfs = [k for k in kfs if not any(abs(k["t"] - r) < tol for r in rm)]
+    for pk in patch.get("keyframes") or []:
+        hit = next((k for k in kfs if abs(k["t"] - pk.get("t", -9)) < tol), None)
+        if hit is not None:
+            hit.update(_deep(hit, pk))
+        else:
+            # new keyframe: start from the nearest earlier one so unspecified fields stay sensible
+            prev = max((k for k in kfs if k["t"] <= pk.get("t", 0)), key=lambda k: k["t"], default=kfs[0] if kfs else {})
+            kfs.append(_deep(prev, pk))
+    m["keyframes"] = sorted(kfs, key=lambda k: k["t"])
+    for key in ("contacts", "object_end"):
+        if patch.get(key) is not None:
+            m[key] = patch[key]
+    return m
+
+
 def merge(env, motion):
     it = {k: v for k, v in env.items() if k != "start_pose"}
     it["object"] = dict(env["object"]) if env.get("object") else None
@@ -184,7 +223,11 @@ def merge(env, motion):
 
 
 # ---------------------------------------------------------------- phases
-def phase_env(g, video, out, facts, iters, threshold, W, H):
+STATS = {}
+
+
+def phase_env(g, video, out, facts, iters, threshold, W, H, gj=None):
+    gj = gj or g
     print("== PHASE 1: environment", flush=True)
     t0 = time.time()
     env = g.ask([vpart(video, fps=2.0), ENV_PROMPT + facts])
@@ -202,7 +245,7 @@ def phase_env(g, video, out, facts, iters, threshold, W, H):
         label(sbs, f"SIM env iter {k}", (human0.shape[1] + 12, sbs.shape[0] - 14))
         cv2.imwrite(str(d / "still.jpg"), sbs)
         t1 = time.time()
-        j = g.ask([ipart(sbs), f"CURRENT ENVIRONMENT:\n{json.dumps(env)}\n\nCOLLISIONS:\n{json.dumps(coll)}\n{facts}\n{ENV_JUDGE}"])
+        j = gj.ask([ipart(sbs), f"CURRENT ENVIRONMENT:\n{json.dumps(env)}\n\nCOLLISIONS:\n{json.dumps(coll)}\n{facts}\n{ENV_JUDGE}"])
         (d / "judge.json").write_text(json.dumps(j, indent=1))
         sc = float(j.get("score") or 0)
         print(f"[env {k}] judge {time.time()-t1:.0f}s  score {sc}/10  collisions {len(coll)}", flush=True)
@@ -213,14 +256,18 @@ def phase_env(g, video, out, facts, iters, threshold, W, H):
             best = (key, k, env, sc)
         if sc >= threshold and not coll:
             break
+        if k - best[1] >= 2:
+            break
         env = j.get("revised") or env
     env = best[2]
     (out / "environment_locked.json").write_text(json.dumps(env, indent=1))
     print(f"[env] locked iter {best[1]} ({best[3]}/10)", flush=True)
+    STATS["env"] = dict(rounds=k + 1, best_iter=best[1], best_score=best[3], seconds=round(time.time() - t0, 1))
     return env
 
 
-def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps):
+def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None):
+    gj = gj or g
     print("== PHASE 2: motion (environment locked)", flush=True)
     envs = json.dumps(env)
     t0 = time.time()
@@ -240,8 +287,9 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps):
         side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}")
         t_rep = time.time() - t1
         t1 = time.time()
-        j = g.ask([vpart(d / "side_by_side.mp4", fps=4.0),
-                   f"CURRENT MOTION:\n{json.dumps(motion)}\n\nTELEMETRY:\n{json.dumps(tel_short, default=float)}\n{facts}\n{judge}"])
+        j = gj.ask([vpart(d / "side_by_side.mp4", fps=3.0),
+                   f"CURRENT MOTION:\n{json.dumps(motion)}\n\nTELEMETRY:\n{json.dumps(tel_short, default=float)}\n{facts}\n{judge}"],
+                  low_res=True)
         (d / "judge.json").write_text(json.dumps(j, indent=1))
         sc = float(j.get("score") or 0)
         nc = len(tel.get("collisions", []))
@@ -249,42 +297,75 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps):
         for x in (j.get("differences") or [])[:4]:
             print(f"   - {x[:150]}", flush=True)
         key = sc - 0.25 * nc
+        STATS.setdefault("motion_rounds", []).append(dict(iter=k, score=sc, collisions=nc, replay_s=round(t_rep, 1),
+                                                          judge_s=round(time.time() - t1, 1)))
         if best is None or key > best[0]:
             best = (key, k, motion, j, sc)
         if sc >= threshold and nc == 0:
             break
+        if k - best[1] >= 2:
+            print("  no improvement for 2 rounds; stopping", flush=True)
+            break
         if key < best[0]:
             print(f"  regression; reverting to motion iter {best[1]}", flush=True)
-            r = g.ask([vpart(out / "motion" / f"iter{best[1]}" / "side_by_side.mp4", fps=4.0),
+            r = gj.ask([vpart(out / "motion" / f"iter{best[1]}" / "side_by_side.mp4", fps=3.0),
                        f"CURRENT MOTION:\n{json.dumps(best[2])}\n\nA previous attempt to fix it made things WORSE. Its problems: "
                        f"{json.dumps(j.get('differences', []))}\nAvoid those changes. Fix these instead: "
-                       f"{json.dumps(best[3].get('differences', []))}\n{facts}\n{judge}"])
-            motion = r.get("revised") or best[2]
+                       f"{json.dumps(best[3].get('differences', []))}\n{facts}\n{judge}"], low_res=True)
+            motion = apply_patch(best[2], r.get("patch"))
         else:
-            motion = j.get("revised") or motion
+            motion = apply_patch(motion, j.get("patch"))
     (out / "motion_best.json").write_text(json.dumps(best[2], indent=1))
     (out / "final.json").write_text(json.dumps(merge(env, best[2]), indent=1))
     sbs = out / "motion" / f"iter{best[1]}" / "side_by_side.mp4"
     print(f"[motion] best iter {best[1]} ({best[4]}/10)  ->  {sbs}", flush=True)
+    STATS["motion"] = dict(best_iter=best[1], best_score=best[4], seconds=round(time.time() - t0, 1),
+                           telemetry=json.loads((out / "motion" / f"iter{best[1]}" / "telemetry.json").read_text()))
     return best, sbs
 
 
-def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None):
+def prepare_video(video, out):
+    """Accept any upload: convert MOV / large / odd-codec videos to a ~854 px, 30 fps H.264 mp4."""
+    video = Path(video)
+    W, H, _ = video_info(video)
+    if video.suffix.lower() == ".mp4" and max(W, H) <= 1000 and W > 0:
+        return video
+    import subprocess
+    import imageio_ffmpeg
+    dst = out / "input.mp4"
+    subprocess.run([imageio_ffmpeg.get_ffmpeg_exe(), "-y", "-loglevel", "error", "-i", str(video), "-vf",
+                    "scale='if(gt(iw,ih),854,-2)':'if(gt(iw,ih),-2,854)'", "-r", "30", "-c:v", "libx264",
+                    "-pix_fmt", "yuv420p", "-an", str(dst)], check=True)
+    print(f"[video] converted {video.name} -> {dst.name}", flush=True)
+    return dst
+
+
+def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None, judge_model=None):
     out = C.ROOT / "runs" / "mirror2" / name
+    if env_from:
+        env_from = Path(env_from)
+        keep = json.loads(env_from.read_text())
     if out.exists():
         shutil.rmtree(out)
     out.mkdir(parents=True)
+    video = prepare_video(video, out)
     W, H, fps = video_info(video)
     g = Gemini(model)
+    gj = Gemini(judge_model) if judge_model else g
     fx = ("\nUSER-VERIFIED FACTS (ground truth; never contradict or change these):\n- " + "\n- ".join(facts) + "\n") if facts else ""
     t0 = time.time()
-    env = json.loads(Path(env_from).read_text()) if env_from else phase_env(g, video, out, fx, env_iters, env_threshold, W, H)
-    best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps)
+    env = keep if env_from else phase_env(g, video, out, fx, env_iters, env_threshold, W, H, gj)
+    (out / "environment_locked.json").write_text(json.dumps(env, indent=1))
+    best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps, gj)
     bench = C.ROOT / "benchmarks"
     bench.mkdir(exist_ok=True)
     shutil.copy(sbs, bench / f"{name}_v2_score{best[4]}.mp4")
     shutil.copy(out / "final.json", bench / f"{name}_v2_score{best[4]}.json")
     print(f"[done] {time.time()-t0:.0f}s total", flush=True)
+    STATS.update(total_s=round(time.time() - t0, 1), model=model, judge_model=judge_model or model, facts=facts)
+    tel = STATS["motion"].pop("telemetry")
+    STATS["best_telemetry"] = {k: v for k, v in tel.items() if k != "samples"}
+    (out / "summary.json").write_text(json.dumps(STATS, indent=1, default=float))
 
 
 def main():
@@ -292,15 +373,16 @@ def main():
     ap.add_argument("video")
     ap.add_argument("--name", default=None)
     ap.add_argument("--model", default="gemini-4-hydrogen")
-    ap.add_argument("--env-iters", type=int, default=4)
-    ap.add_argument("--env-threshold", type=float, default=8.5)
-    ap.add_argument("--iters", type=int, default=8)
+    ap.add_argument("--env-iters", type=int, default=3)
+    ap.add_argument("--env-threshold", type=float, default=8.0)
+    ap.add_argument("--iters", type=int, default=10)
+    ap.add_argument("--judge-model", default=None, help="model for the judge rounds (default: --model), e.g. gemini-3.6-flash")
     ap.add_argument("--threshold", type=float, default=9.0)
     ap.add_argument("--fact", action="append", default=[], help="locked fact, e.g. --fact 'uses his RIGHT hand'")
     ap.add_argument("--env-from", default=None, help="skip phase 1 and use this locked environment JSON")
     a = ap.parse_args()
     run(a.video, a.name or Path(a.video).stem.replace(" ", "_"), a.model, a.env_iters, a.env_threshold,
-        a.iters, a.threshold, a.fact, a.env_from)
+        a.iters, a.threshold, a.fact, a.env_from, a.judge_model)
 
 
 if __name__ == "__main__":
