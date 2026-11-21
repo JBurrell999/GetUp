@@ -1,4 +1,5 @@
 import { CaptureProvider } from "@/components/CaptureProvider";
+import { Demos } from "@/components/Demos";
 import { Environments } from "@/components/Environments";
 import { JudgeDialog } from "@/components/JudgeDialog";
 import { Mirror } from "@/components/Mirror";
@@ -17,6 +18,7 @@ export default function Page() {
       <TopBar />
       <main>
         <Hero />
+        <Demos />
         <Mirror />
         <Environments />
         <Setup />

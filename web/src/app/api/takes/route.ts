@@ -1,10 +1,66 @@
-// GET  /api/takes?judge=<id>  the takes one person has uploaded (paths and sizes, no URLs)
+// GET  /api/takes?judge=<id>  the takes one person has uploaded (paths and sizes, no URLs), and how far
+//                             the robot's copy of each has got
 // POST /api/takes             records who uploaded a video, where, what it shows, and on what terms, next to it
-import { head, list, put } from "@vercel/blob";
+import { get, head, list, put } from "@vercel/blob";
 import { blobAccess, notConfigured } from "@/lib/config";
 import { ENV_BY_ID } from "@/lib/environments";
 import { EXAMPLES } from "@/lib/examples";
-import { codeMatches, isJudgeId, metaPathname, parseTakePath, type TakeSummary } from "@/lib/takes";
+import {
+  codeMatches,
+  isJudgeId,
+  metaPathname,
+  outputPrefix,
+  parseTakePath,
+  ROBOT_FILES,
+  type RobotFile,
+  type RobotResult,
+  type TakeSummary,
+} from "@/lib/takes";
+
+async function listAll(prefix: string) {
+  const out: { pathname: string; size: number; uploadedAt: Date }[] = [];
+  let cursor: string | undefined;
+  do {
+    const page = await list({ prefix, cursor, limit: 1000 });
+    out.push(...page.blobs);
+    cursor = page.hasMore ? page.cursor : undefined;
+  } while (cursor);
+  return out;
+}
+
+/** The robot's results for each take folder under outputs/<judge>/, keyed by folder. */
+async function robotResults(judge: string) {
+  const folders = new Map<string, Set<string>>();
+  for (const b of await listAll(`outputs/${judge}/`)) {
+    const cut = b.pathname.lastIndexOf("/") + 1;
+    const folder = b.pathname.slice(0, cut);
+    if (!folders.has(folder)) folders.set(folder, new Set());
+    folders.get(folder)!.add(b.pathname.slice(cut));
+  }
+  const results = new Map<string, RobotResult>();
+  await Promise.all(
+    [...folders].map(async ([folder, names]) => {
+      const files = (Object.keys(ROBOT_FILES) as RobotFile[]).filter((f) => names.has(ROBOT_FILES[f]));
+      let status: RobotResult["status"] = files.length ? "complete" : "processing";
+      let score: number | null = null;
+      if (names.has("result.json")) {
+        try {
+          const r = await get(`${folder}result.json`, { access: blobAccess(), useCache: false });
+          if (r?.statusCode === 200) {
+            const j = (await new Response(r.stream).json()) as { status?: string; scores?: { motion?: unknown } };
+            if (j.status === "processing" || j.status === "complete" || j.status === "failed") status = j.status;
+            if (typeof j.scores?.motion === "number") score = j.scores.motion;
+          }
+        } catch (err) {
+          console.error("[takes] result.json unreadable", folder, err);
+        }
+      }
+      // while a take is being redone, its old videos are still there: don't offer them as the new result
+      results.set(folder, { status, files: status === "complete" ? files : [], score });
+    }),
+  );
+  return results;
+}
 
 export async function GET(request: Request) {
   const judge = new URL(request.url).searchParams.get("judge") ?? "";
@@ -12,17 +68,21 @@ export async function GET(request: Request) {
   if (!process.env.BLOB_READ_WRITE_TOKEN) return Response.json({ takes: [] });
 
   const takes: TakeSummary[] = [];
-  let cursor: string | undefined;
   try {
-    do {
-      const page = await list({ prefix: `takes/${judge}/`, cursor, limit: 1000 });
-      for (const b of page.blobs) {
-        const p = parseTakePath(b.pathname);
-        if (!p || p.ext === "json") continue;
-        takes.push({ pathname: b.pathname, env: p.env, what: p.what, uploadedAt: new Date(b.uploadedAt).toISOString(), size: b.size });
-      }
-      cursor = page.hasMore ? page.cursor : undefined;
-    } while (cursor);
+    const [blobs, robot] = await Promise.all([listAll(`takes/${judge}/`), robotResults(judge)]);
+    for (const b of blobs) {
+      const p = parseTakePath(b.pathname);
+      if (!p || p.ext === "json") continue;
+      const prefix = outputPrefix(p);
+      takes.push({
+        pathname: b.pathname,
+        env: p.env,
+        what: p.what,
+        uploadedAt: new Date(b.uploadedAt).toISOString(),
+        size: b.size,
+        robot: (prefix && robot.get(prefix)) || null,
+      });
+    }
   } catch (err) {
     console.error("[takes] list failed", err);
     return Response.json({ error: "Storage didn't answer." }, { status: 502 });

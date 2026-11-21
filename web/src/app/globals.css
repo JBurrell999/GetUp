@@ -1050,7 +1050,7 @@ a {
 }
 .vids li {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 150px auto 72px;
+  grid-template-columns: minmax(0, 1fr) 150px auto 72px 170px;
   gap: 16px;
   padding: 12px 0;
   border-top: 1px solid var(--line);
@@ -1059,6 +1059,65 @@ a {
 }
 .vids li .num {
   text-align: right;
+}
+.robot-state {
+  color: var(--text-3);
+  text-align: right;
+}
+.robot-state--busy {
+  color: var(--accent);
+}
+.robot-state--bad {
+  color: var(--danger);
+}
+.robot-watch {
+  justify-self: end;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.robot-watch:hover {
+  color: var(--accent-hi);
+}
+.robot-watch .num {
+  color: var(--text-2);
+  text-decoration: none;
+}
+.robot-player {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 10px;
+  padding-top: 6px;
+}
+.robot-player video {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: 6px;
+  background: #000;
+}
+.robot-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.robot-tabs button {
+  padding: 6px 12px;
+  border: 1px solid var(--line-2);
+  border-radius: 999px;
+  background: none;
+  color: var(--text-2);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+.robot-tabs button[aria-pressed="true"] {
+  border-color: var(--accent);
+  color: var(--text);
 }
 .vids-what {
   overflow: hidden;
@@ -1101,6 +1160,41 @@ a {
   }
   .bar-count {
     display: none;
+  }
+}
+
+/* ---------------------------------------------------------------- see it work */
+
+.demos {
+  padding-top: clamp(72px, 10vw, 140px);
+}
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.demo video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 960 / 856;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #000;
+}
+.demo-title {
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+}
+.demo-note {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+@media (max-width: 720px) {
+  .demos-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

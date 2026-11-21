@@ -150,3 +150,30 @@ takes/<judge>/<env>/<what>/<yyyymmdd-hhmmss>-<rand>.json                 details
 
 Browse or download takes with `vercel blob list` / `vercel blob get`, the store's page in the
 Vercel dashboard, or the `@vercel/blob` SDK's `list({ prefix: "takes/" })`.
+
+## Robot videos (`outputs/`)
+
+The robot's copies of each take go in the same store, under `outputs/`, at the take's own path:
+
+```
+outputs/<judge>/<env>/<what>/<stamp>/result.json        status, room, scores, placement, collisions
+outputs/<judge>/<env>/<what>/<stamp>/robot.mp4          the G1 in the room, from the filming camera
+outputs/<judge>/<env>/<what>/<stamp>/side_by_side.mp4   the person | the robot, time-synced
+outputs/<judge>/<env>/<what>/<stamp>/wide.mp4           a wider view of the room
+```
+
+- **Who writes them:** the worker in `../motion_mirror` (`./mm site_worker`), on a computer with
+  MuJoCo and the Gemini key. Vercel doesn't run Python.
+- **Room:** each take is run in the room it was filmed in (`<env>`).
+- **Status:** `result.json`'s `status` is `processing`, then `complete` or `failed`.
+- **Blob access:** the worker reaches the store through `scripts/blob.mjs`, which only writes under
+  `outputs/`.
+- **Upload paths:** the site's upload routes accept only `takes/` paths, so a browser can't write
+  here.
+- **On the page:** under "Your videos", each upload shows how far the robot has got (queued,
+  copying, or couldn't copy). Once it's done, **Watch robot** plays the side-by-side, the robot
+  alone, or the wide view, with Gemini's score.
+  - The list re-checks every 15 s while anything is still waiting.
+  - The videos stream from the private store through `GET /api/robot?take=<path>&file=...`.
+  - Like the list itself, that route trusts whoever knows the upload's path. The path includes
+    the uploader's random ID, which only their device keeps. `side_by_side.mp4` shows the person.

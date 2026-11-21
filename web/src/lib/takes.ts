@@ -106,6 +106,23 @@ export const CONTENT_TYPE: Record<VideoExt, string> = {
   webm: "video/webm",
 };
 
+// The robot's copy of a take, written by the worker in motion_mirror (site_worker.py):
+//   outputs/<judge>/<env>/<what>/<stamp>/{result.json, robot.mp4, side_by_side.mp4, wide.mp4}
+export const ROBOT_FILES = { side_by_side: "side_by_side.mp4", robot: "robot.mp4", wide: "wide.mp4" } as const;
+export type RobotFile = keyof typeof ROBOT_FILES;
+export const isRobotFile = (s: unknown): s is RobotFile => typeof s === "string" && Object.hasOwn(ROBOT_FILES, s);
+
+/** Where a take's robot results go, or null for takes that don't say which room they were filmed in. */
+export const outputPrefix = (t: TakePath) => (t.env ? `outputs/${t.judge}/${t.env}/${t.what}/${t.stamp}/` : null);
+
+export interface RobotResult {
+  status: "processing" | "complete" | "failed";
+  /** The videos that are ready, in the order to offer them. */
+  files: RobotFile[];
+  /** Gemini's 0-10 score for how closely the robot's motion matches, when complete. */
+  score: number | null;
+}
+
 /** What the list endpoint returns for each take. */
 export interface TakeSummary {
   pathname: string;
@@ -113,6 +130,8 @@ export interface TakeSummary {
   what: string;
   uploadedAt: string;
   size: number;
+  /** null until the robot worker has picked the take up. */
+  robot?: RobotResult | null;
 }
 
 export function formatBytes(b: number) {
