@@ -16,7 +16,7 @@ The video can be any short clip: no motion-capture suit, no markers, no calibrat
 
 Built in one day at the **Gemini 4 NYC hackathon**, using **Gemini 4 Hydrogen** and **Gemini 4 Carbon**.
 
-### ▶ Live demo: **[31e0-216-158-150-91.ngrok-free.app](https://31e0-216-158-150-91.ngrok-free.app)**
+### ▶ Live demo: **[suitor-county-oops.ngrok-free.dev](https://suitor-county-oops.ngrok-free.dev)**
 
 Upload your own phone video under **"Try it with your own video"** and get the robot's side-by-side back in about 2–3 minutes.
 <sub>Served from the team's laptop through ngrok, so it's only up while that laptop is running. If ngrok shows a warning page, choose **Visit Site**.</sub>
@@ -175,7 +175,7 @@ Everything a run produces goes to `runs/mirror2/<name>/`:
 
 ![The website's robot section: gallery and the try-it panel](docs/media/website.jpg)
 
-**Live:** [31e0-216-158-150-91.ngrok-free.app](https://31e0-216-158-150-91.ngrok-free.app)
+**Live:** [suitor-county-oops.ngrok-free.dev](https://suitor-county-oops.ngrok-free.dev)
 
 ```bash
 cd web
