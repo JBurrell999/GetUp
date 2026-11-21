@@ -1,8 +1,9 @@
 // GET  /api/takes?judge=<id>  the takes one person has uploaded (paths and sizes, no URLs)
-// POST /api/takes             records who uploaded a take and on what terms, next to the video
+// POST /api/takes             records who uploaded a video, where, what it shows, and on what terms, next to it
 import { head, list, put } from "@vercel/blob";
 import { blobAccess, notConfigured } from "@/lib/config";
-import { TASK_BY_ID } from "@/lib/tasks";
+import { ENV_BY_ID } from "@/lib/environments";
+import { EXAMPLES } from "@/lib/examples";
 import { codeMatches, isJudgeId, metaPathname, parseTakePath, type TakeSummary } from "@/lib/takes";
 
 export async function GET(request: Request) {
@@ -18,7 +19,7 @@ export async function GET(request: Request) {
       for (const b of page.blobs) {
         const p = parseTakePath(b.pathname);
         if (!p || p.ext === "json") continue;
-        takes.push({ pathname: b.pathname, task: p.task, uploadedAt: new Date(b.uploadedAt).toISOString(), size: b.size });
+        takes.push({ pathname: b.pathname, env: p.env, what: p.what, uploadedAt: new Date(b.uploadedAt).toISOString(), size: b.size });
       }
       cursor = page.hasMore ? page.cursor : undefined;
     } while (cursor);
@@ -36,6 +37,8 @@ interface MetaBody {
   name?: unknown;
   code?: unknown;
   consent?: unknown;
+  what?: unknown;
+  example?: unknown;
   video?: { duration?: unknown; width?: unknown; height?: unknown; size?: unknown; type?: unknown; filename?: unknown };
 }
 
@@ -47,8 +50,10 @@ export async function POST(request: Request) {
   const body = (await request.json().catch(() => ({}))) as MetaBody;
 
   const take = parseTakePath(body.pathname ?? "");
-  const task = take && TASK_BY_ID.get(take.task);
-  if (!take || take.ext === "json" || !task) return Response.json({ error: "Unknown take." }, { status: 400 });
+  if (!take || take.ext === "json") return Response.json({ error: "Unknown video." }, { status: 400 });
+  const what = str(body.what, 120)?.trim();
+  if (!what) return Response.json({ error: "Say what the video shows." }, { status: 400 });
+  const example = EXAMPLES.find((e) => e.id === body.example);
   if (!codeMatches(body.code, process.env.UPLOAD_CODE)) return Response.json({ error: "Wrong event code." }, { status: 403 });
   if (body.consent !== true) return Response.json({ error: "Consent is required." }, { status: 400 });
 
@@ -60,10 +65,14 @@ export async function POST(request: Request) {
   }
 
   const v = body.video ?? {};
+  const env = take.env ? ENV_BY_ID.get(take.env) : undefined;
   const meta = {
-    version: 1,
+    version: 3,
     judge: { id: take.judge, name: str(body.name, 80) },
-    task: { id: task.id, no: task.no, name: task.name, category: task.category, tier: task.tier, stop: task.stop, max_s: task.max_s, still_s: task.still_s },
+    // where it was filmed, and the MuJoCo scene (relative to the repo root) to copy it in
+    environment: env ? { id: env.id, name: env.name, scene: env.scene } : null,
+    // what the person said they were doing, in their words; `example` when they picked one of the site's ideas
+    activity: { description: what, slug: take.what, example: example ? { id: example.id, name: example.name } : null },
     video: {
       pathname: blob.pathname,
       size: blob.size,

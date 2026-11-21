@@ -1,10 +1,15 @@
 // Where uploads live in the Blob store, shared by the browser and the API routes.
 //
-//   takes/<judge>/<task_id>/<yyyymmdd-hhmmss>-<rand>.<ext>   the video
-//   takes/<judge>/<task_id>/<yyyymmdd-hhmmss>-<rand>.json    who, consent, file details
+//   takes/<judge>/<env>/<what>/<yyyymmdd-hhmmss>-<rand>.<ext>   the video
+//   takes/<judge>/<env>/<what>/<yyyymmdd-hhmmss>-<rand>.json    who, where, what, consent, file details
 //
 // <judge> is a slug of the person's name plus a random suffix, so two people called Sam
-// don't land in the same folder.
+// don't land in the same folder. <env> is where they filmed (see environments.ts). <what> is
+// a slug of what they said they were doing ("Move a chair" -> move_a_chair); the JSON keeps
+// their exact words. Older uploads used a task id from the old fixed task list in the <what>
+// slot, and some have no <env> level; both are still read.
+
+import { ENV_IDS, type EnvId } from "./environments";
 
 export const VIDEO_EXTS = ["mp4", "mov", "m4v", "webm"] as const;
 export type VideoExt = (typeof VIDEO_EXTS)[number];
@@ -12,24 +17,28 @@ export type VideoExt = (typeof VIDEO_EXTS)[number];
 export const MAX_BYTES = 2 * 1024 ** 3;
 
 const JUDGE = "[a-z0-9]+(?:-[a-z0-9]+)*";
-const TASK = "[a-z0-9_]+";
+const WHAT = "[a-z0-9]+(?:_[a-z0-9]+)*";
+const WHAT_MAX = 60;
 const STAMP = "\\d{8}-\\d{6}-[a-z0-9]{4}";
-const TAKE_RE = new RegExp(`^takes/(${JUDGE})/(${TASK})/(${STAMP})\\.(${VIDEO_EXTS.join("|")}|json)$`);
+const ENV = ENV_IDS.join("|");
+const TAKE_RE = new RegExp(`^takes/(${JUDGE})/(?:(${ENV})/)?(${WHAT})/(${STAMP})\\.(${VIDEO_EXTS.join("|")}|json)$`);
 const JUDGE_RE = new RegExp(`^${JUDGE}$`);
 
 export const isJudgeId = (s: string) => s.length <= 40 && JUDGE_RE.test(s);
 
 export interface TakePath {
   judge: string;
-  task: string;
+  /** null for takes uploaded before the site asked where people were filming */
+  env: EnvId | null;
+  what: string;
   stamp: string;
   ext: string;
 }
 
 export function parseTakePath(pathname: string): TakePath | null {
   const m = TAKE_RE.exec(pathname);
-  if (!m || m[1].length > 40) return null;
-  return { judge: m[1], task: m[2], stamp: m[3], ext: m[4] };
+  if (!m || m[1].length > 40 || m[3].length > WHAT_MAX) return null;
+  return { judge: m[1], env: (m[2] as EnvId | undefined) ?? null, what: m[3], stamp: m[4], ext: m[5] };
 }
 
 const rand = (n: number) =>
@@ -47,12 +56,31 @@ export function makeJudgeId(name: string) {
   return `${slug || "judge"}-${rand(4)}`;
 }
 
-export function takePathname(judge: string, task: string, ext: VideoExt, now = new Date()) {
+/** "Move a chair!" -> "move_a_chair". Falls back to "video" when nothing usable is left. */
+export function slugify(text: string) {
+  const s = text
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 48)
+    .replace(/_+$/, "");
+  return s || "video";
+}
+
+/** "move_a_chair" -> "Move a chair", for listing uploads without reading their details. */
+export const humanize = (slug: string) => {
+  const s = slug.replace(/_/g, " ");
+  return s[0].toUpperCase() + s.slice(1);
+};
+
+export function takePathname(judge: string, env: EnvId, what: string, ext: VideoExt, now = new Date()) {
   const p = (n: number) => String(n).padStart(2, "0");
   const stamp =
     `${now.getUTCFullYear()}${p(now.getUTCMonth() + 1)}${p(now.getUTCDate())}-` +
     `${p(now.getUTCHours())}${p(now.getUTCMinutes())}${p(now.getUTCSeconds())}-${rand(4)}`;
-  return `takes/${judge}/${task}/${stamp}.${ext}`;
+  return `takes/${judge}/${env}/${slugify(what)}/${stamp}.${ext}`;
 }
 
 export const metaPathname = (videoPathname: string) => videoPathname.replace(/\.[a-z0-9]+$/, ".json");
@@ -81,7 +109,8 @@ export const CONTENT_TYPE: Record<VideoExt, string> = {
 /** What the list endpoint returns for each take. */
 export interface TakeSummary {
   pathname: string;
-  task: string;
+  env: EnvId | null;
+  what: string;
   uploadedAt: string;
   size: number;
 }

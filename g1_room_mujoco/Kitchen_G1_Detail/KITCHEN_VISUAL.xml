@@ -1,0 +1,690 @@
+<mujoco model="g1_detailed_kitchen_visual">
+  <compiler angle="radian" autolimits="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <visual>
+    <headlight ambient="0.3 0.3 0.29" diffuse="0.2 0.2 0.19" specular="0.03 0.03 0.03"/>
+    <global azimuth="120" elevation="-30" offwidth="1920" offheight="1080" cameraid="0"/>
+    <quality shadowsize="4096" offsamples="8" numslices="40" numstacks="24"/>
+    <map znear="0.002" zfar="40" haze="0.12" shadowclip="1.5"/>
+    <rgba haze="0.85 0.87 0.9 1"/>
+  </visual>
+  <statistic center="0 0 1" extent="6"/>
+  <asset>
+    <texture name="kt_sky" type="skybox" builtin="gradient" rgb1="0.55 0.7 0.9" rgb2="0.9 0.93 0.96" width="512" height="3072"/>
+    <texture name="kt_floor_oak" type="2d" file="assets/floor_oak.png"/>
+    <texture name="kt_wall_paint" type="2d" file="assets/wall_paint.png"/>
+    <texture name="kt_ceiling_paint" type="2d" file="assets/ceiling_paint.png"/>
+    <texture name="kt_quartz" type="2d" file="assets/quartz.png"/>
+    <texture name="kt_subway" type="2d" file="assets/subway.png"/>
+    <texture name="kt_steel" type="2d" file="assets/steel.png"/>
+    <texture name="kt_oak" type="2d" file="assets/oak.png"/>
+    <texture name="kt_walnut" type="2d" file="assets/walnut.png"/>
+    <texture name="kt_butcher" type="2d" file="assets/butcher.png"/>
+    <texture name="kt_leather" type="2d" file="assets/leather.png"/>
+    <texture name="kt_linen" type="2d" file="assets/linen.png"/>
+    <texture name="kt_rug" type="2d" file="assets/rug.png"/>
+    <texture name="kt_backyard" type="2d" file="assets/backyard.png"/>
+    <texture name="kt_deck" type="2d" file="assets/deck.png"/>
+    <texture name="kt_terracotta_tex" type="2d" file="assets/terracotta_tex.png"/>
+    <texture name="kt_wicker" type="2d" file="assets/wicker.png"/>
+    <texture name="kt_art1" type="2d" file="assets/art1.png"/>
+    <texture name="kt_art2" type="2d" file="assets/art2.png"/>
+    <texture name="kt_art3" type="2d" file="assets/art3.png"/>
+    <texture name="kt_books" type="2d" file="assets/books.png"/>
+    <texture name="kt_calendar" type="2d" file="assets/calendar.png"/>
+    <texture name="kt_drawing" type="2d" file="assets/drawing.png"/>
+    <texture name="kt_photo" type="2d" file="assets/photo.png"/>
+    <texture name="kt_cereal_a" type="2d" file="assets/cereal_a.png"/>
+    <texture name="kt_cereal_b" type="2d" file="assets/cereal_b.png"/>
+    <texture name="kt_crackers" type="2d" file="assets/crackers.png"/>
+    <texture name="kt_pasta_box" type="2d" file="assets/pasta_box.png"/>
+    <texture name="kt_can_tomato" type="2d" file="assets/can_tomato.png"/>
+    <texture name="kt_can_beans" type="2d" file="assets/can_beans.png"/>
+    <texture name="kt_can_soup" type="2d" file="assets/can_soup.png"/>
+    <texture name="kt_display_oven" type="2d" file="assets/display_oven.png"/>
+    <texture name="kt_display_clock" type="2d" file="assets/display_clock.png"/>
+    <texture name="kt_hood_filter" type="2d" file="assets/hood_filter.png"/>
+    <texture name="kt_menu_board" type="2d" file="assets/menu_board.png"/>
+    <texture name="kt_cardboard" type="2d" file="assets/cardboard.png"/>
+    <material name="kt_chrome" rgba="0.86 0.87 0.89 1" specular="1" shininess="0.95"/>
+    <material name="kt_brass" rgba="0.76 0.6 0.32 1" specular="0.9" shininess="0.8"/>
+    <material name="kt_black_matte" rgba="0.045 0.045 0.05 1" specular="0.15" shininess="0.2"/>
+    <material name="kt_black_gloss" rgba="0.03 0.03 0.035 1" specular="0.9" shininess="0.9"/>
+    <material name="kt_rubber" rgba="0.035 0.035 0.035 1" specular="0.05" shininess="0.05"/>
+    <material name="kt_plastic_white" rgba="0.93 0.93 0.91 1" specular="0.4" shininess="0.5"/>
+    <material name="kt_plastic_grey" rgba="0.42 0.44 0.46 1" specular="0.3" shininess="0.4"/>
+    <material name="kt_glass" rgba="0.8 0.9 0.95 0.16" specular="1" shininess="1"/>
+    <material name="kt_glass_dark" rgba="0.04 0.05 0.06 0.88" specular="1" shininess="1"/>
+    <material name="kt_water" rgba="0.62 0.8 0.95 0.35" specular="1" shininess="1"/>
+    <material name="kt_leaf_dark" rgba="0.13 0.32 0.12 1" specular="0.25" shininess="0.4"/>
+    <material name="kt_leaf_light" rgba="0.3 0.52 0.2 1" specular="0.25" shininess="0.4"/>
+    <material name="kt_stem" rgba="0.3 0.42 0.18 1" specular="0.1" shininess="0.2"/>
+    <material name="kt_soil" rgba="0.22 0.15 0.1 1" specular="0.02" shininess="0.1"/>
+    <material name="kt_trunk" rgba="0.38 0.27 0.18 1" specular="0.05" shininess="0.1"/>
+    <material name="kt_ceramic_white" rgba="0.95 0.95 0.93 1" specular="0.7" shininess="0.8"/>
+    <material name="kt_paper_white" rgba="0.96 0.96 0.94 1" specular="0.05" shininess="0.1"/>
+    <material name="kt_red_paint" rgba="0.78 0.08 0.07 1" specular="0.6" shininess="0.6"/>
+    <material name="kt_bulb" rgba="1 0.93 0.78 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="kt_led_cool" rgba="0.92 0.96 1 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="kt_led_green" rgba="0.15 0.95 0.35 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="kt_led_red" rgba="1 0.12 0.08 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="kt_floor" rgba="1 1 1 1" specular="0.35" shininess="0.45" reflectance="0.05" texture="kt_floor_oak" texuniform="true" texrepeat="1 1"/>
+    <material name="kt_wall" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_wall_paint" texuniform="true" texrepeat="1.6667 1.6667"/>
+    <material name="kt_ceiling" rgba="1 1 1 1" specular="0.02" shininess="0.05" texture="kt_ceiling_paint" texuniform="true" texrepeat="1.3333 1.3333"/>
+    <material name="kt_trim" rgba="0.97 0.97 0.95 1" specular="0.35" shininess="0.5"/>
+    <material name="kt_quartz" rgba="1 1 1 1" specular="0.75" shininess="0.8" texture="kt_quartz" texuniform="true" texrepeat="1.25 1.25"/>
+    <material name="kt_subway" rgba="1 1 1 1" specular="0.8" shininess="0.85" texture="kt_subway" texuniform="true" texrepeat="3.3333 3.3333"/>
+    <material name="kt_steel" rgba="1 1 1 1" specular="0.8" shininess="0.7" texture="kt_steel" texrepeat="1 1"/>
+    <material name="kt_steel_dark" rgba="0.55 0.56 0.58 1" specular="0.7" shininess="0.6" texture="kt_steel" texrepeat="1 1"/>
+    <material name="kt_paint_white" rgba="0.94 0.93 0.9 1" specular="0.35" shininess="0.55"/>
+    <material name="kt_paint_island" rgba="0.16 0.25 0.33 1" specular="0.4" shininess="0.55"/>
+    <material name="kt_cab_interior" rgba="0.86 0.82 0.74 1" specular="0.2" shininess="0.3" texture="kt_oak" texrepeat="1 1"/>
+    <material name="kt_oak" rgba="1 1 1 1" specular="0.35" shininess="0.5" texture="kt_oak" texrepeat="1 1"/>
+    <material name="kt_walnut" rgba="1 1 1 1" specular="0.4" shininess="0.55" texture="kt_walnut" texrepeat="1 1"/>
+    <material name="kt_butcher" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="kt_butcher" texrepeat="1 1"/>
+    <material name="kt_leather" rgba="1 1 1 1" specular="0.35" shininess="0.4" texture="kt_leather" texrepeat="1 1"/>
+    <material name="kt_linen" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_linen" texrepeat="1 1"/>
+    <material name="kt_rug" rgba="1 1 1 1" specular="0.02" shininess="0.05" texture="kt_rug" texrepeat="1 1"/>
+    <material name="kt_backyard" rgba="1 1 1 1" specular="0" shininess="0" emission="0.55" texture="kt_backyard" texrepeat="2 1"/>
+    <material name="kt_deck" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_deck" texuniform="true" texrepeat="1.1111 1.1111"/>
+    <material name="kt_lawn" rgba="0.33 0.52 0.24 1" specular="0.02" shininess="0.05"/>
+    <material name="kt_terracotta" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="kt_terracotta_tex" texrepeat="1 1"/>
+    <material name="kt_wicker" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="kt_wicker" texrepeat="2 2"/>
+    <material name="kt_cooktop" rgba="0.055 0.055 0.06 1" specular="0.9" shininess="0.9"/>
+    <material name="kt_cast_iron" rgba="0.09 0.09 0.095 1" specular="0.35" shininess="0.3"/>
+    <material name="kt_burner" rgba="0.25 0.25 0.26 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_bronze" rgba="0.2 0.17 0.14 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_mirror" rgba="0.7 0.76 0.8 1" specular="1" shininess="1"/>
+    <material name="kt_led_warm" rgba="1 0.93 0.78 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="kt_display_oven" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.9" texture="kt_display_oven" texrepeat="1 1"/>
+    <material name="kt_display_clock" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.9" texture="kt_display_clock" texrepeat="1 1"/>
+    <material name="kt_hood_filter" rgba="1 1 1 1" specular="0.7" shininess="0.6" texture="kt_hood_filter" texrepeat="3 1"/>
+    <material name="kt_menu_board" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_menu_board" texrepeat="1 1"/>
+    <material name="kt_cardboard" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_cardboard" texrepeat="1 1"/>
+    <material name="kt_outlet" rgba="0.96 0.96 0.94 1" specular="0.4" shininess="0.5"/>
+    <material name="kt_art1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art1" texrepeat="1 1"/>
+    <material name="kt_art2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art2" texrepeat="1 1"/>
+    <material name="kt_art3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art3" texrepeat="1 1"/>
+    <material name="kt_books" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_books" texrepeat="1 1"/>
+    <material name="kt_calendar" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_calendar" texrepeat="1 1"/>
+    <material name="kt_drawing" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_drawing" texrepeat="1 1"/>
+    <material name="kt_photo" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_photo" texrepeat="1 1"/>
+    <material name="kt_cereal_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_cereal_a" texrepeat="1 1"/>
+    <material name="kt_cereal_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_cereal_b" texrepeat="1 1"/>
+    <material name="kt_crackers" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_crackers" texrepeat="1 1"/>
+    <material name="kt_pasta_box" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_pasta_box" texrepeat="1 1"/>
+    <material name="kt_can_tomato" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_tomato" texrepeat="1 1"/>
+    <material name="kt_can_beans" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_beans" texrepeat="1 1"/>
+    <material name="kt_can_soup" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_soup" texrepeat="1 1"/>
+    <material name="kt_coffee" rgba="0.17 0.09 0.04 1" specular="0.6" shininess="0.6"/>
+    <material name="kt_apple" rgba="0.72 0.08 0.07 1" specular="0.7" shininess="0.7"/>
+    <material name="kt_apple_green" rgba="0.55 0.75 0.25 1" specular="0.7" shininess="0.7"/>
+    <material name="kt_orange" rgba="0.95 0.5 0.06 1" specular="0.4" shininess="0.4"/>
+    <material name="kt_lemon" rgba="0.96 0.85 0.22 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_banana" rgba="0.95 0.83 0.32 1" specular="0.3" shininess="0.3"/>
+    <material name="kt_tomato" rgba="0.86 0.14 0.1 1" specular="0.7" shininess="0.7"/>
+    <material name="kt_tomato_in" rgba="0.95 0.45 0.35 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_cucumber" rgba="0.22 0.45 0.16 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_cucumber_in" rgba="0.8 0.88 0.62 1" specular="0.3" shininess="0.3"/>
+    <material name="kt_pepper_y" rgba="0.97 0.78 0.1 1" specular="0.8" shininess="0.8"/>
+    <material name="kt_onion" rgba="0.75 0.55 0.4 1" specular="0.4" shininess="0.4"/>
+    <material name="kt_bread" rgba="0.8 0.56 0.3 1" specular="0.1" shininess="0.1"/>
+    <material name="kt_potato" rgba="0.68 0.55 0.38 1" specular="0.1" shininess="0.1"/>
+    <material name="kt_pasta" rgba="0.95 0.85 0.55 1" specular="0.2" shininess="0.2"/>
+    <material name="kt_rice" rgba="0.96 0.95 0.9 1" specular="0.1" shininess="0.1"/>
+    <material name="kt_beans_red" rgba="0.45 0.12 0.1 1" specular="0.4" shininess="0.4"/>
+    <material name="kt_lentils" rgba="0.85 0.55 0.25 1" specular="0.2" shininess="0.2"/>
+    <material name="kt_oil" rgba="0.86 0.72 0.22 0.8" specular="0.9" shininess="0.9"/>
+    <material name="kt_wine" rgba="0.35 0.03 0.07 0.9" specular="0.9" shininess="0.9"/>
+    <material name="kt_bottle_green" rgba="0.12 0.3 0.16 0.75" specular="0.9" shininess="0.9"/>
+    <material name="kt_ceramic_blue" rgba="0.3 0.47 0.62 1" specular="0.7" shininess="0.7"/>
+    <material name="kt_ceramic_sage" rgba="0.62 0.7 0.6 1" specular="0.6" shininess="0.6"/>
+    <material name="kt_candle" rgba="0.96 0.94 0.88 1" specular="0.2" shininess="0.2"/>
+    <material name="kt_flame" rgba="1 0.76 0.35 1" specular="0" shininess="0" emission="1"/>
+    <material name="kt_flower_pink" rgba="0.95 0.55 0.65 1" specular="0.3" shininess="0.3"/>
+    <material name="kt_flower_white" rgba="0.97 0.96 0.92 1" specular="0.3" shininess="0.3"/>
+    <material name="kt_knife_handle" rgba="0.08 0.07 0.06 1" specular="0.5" shininess="0.5"/>
+    <material name="kt_red_appliance" rgba="0.7 0.1 0.1 1" specular="0.8" shininess="0.8"/>
+    <material name="kt_cream_appliance" rgba="0.93 0.9 0.82 1" specular="0.7" shininess="0.7"/>
+    <material name="kt_sponge" rgba="0.95 0.8 0.2 1" specular="0.1" shininess="0.1"/>
+    <material name="kt_sponge_green" rgba="0.2 0.55 0.3 1" specular="0.1" shininess="0.1"/>
+    <material name="kt_soap" rgba="0.4 0.7 0.45 0.85" specular="0.9" shininess="0.9"/>
+    <material name="kt_stool_plastic" rgba="0.92 0.92 0.9 1" specular="0.4" shininess="0.4"/>
+    <material name="kt_paper_towel" rgba="0.98 0.98 0.97 1" specular="0.05" shininess="0.05"/>
+    <material name="kt_napkin" rgba="0.8 0.3 0.25 1" specular="0.05" shininess="0.05"/>
+    <material name="kt_shade_black" rgba="0.07 0.07 0.08 1" specular="0.3" shininess="0.3"/>
+    <material name="kt_lamp_shade" rgba="0.95 0.92 0.85 1" specular="0.05" shininess="0.05" emission="0.6"/>
+    <material name="kt_bk_art1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art1"/>
+    <material name="kt_bk_art2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art2"/>
+    <material name="kt_bk_art3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_art3"/>
+    <material name="kt_bk_backyard" rgba="1 1 1 1" specular="0" shininess="0" emission="0.55" texture="kt_backyard"/>
+    <material name="kt_bk_books" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_books"/>
+    <material name="kt_bk_butcher" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="kt_butcher"/>
+    <material name="kt_bk_cab_interior" rgba="0.86 0.82 0.74 1" specular="0.2" shininess="0.3" texture="kt_oak"/>
+    <material name="kt_bk_calendar" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_calendar"/>
+    <material name="kt_bk_can_beans" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_beans"/>
+    <material name="kt_bk_can_soup" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_soup"/>
+    <material name="kt_bk_can_tomato" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_can_tomato"/>
+    <material name="kt_bk_ceiling" rgba="1 1 1 1" specular="0.02" shininess="0.05" texture="kt_ceiling_paint"/>
+    <material name="kt_bk_cereal_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_cereal_a"/>
+    <material name="kt_bk_cereal_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_cereal_b"/>
+    <material name="kt_bk_crackers" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_crackers"/>
+    <material name="kt_bk_display_clock" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.9" texture="kt_display_clock"/>
+    <material name="kt_bk_display_oven" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.9" texture="kt_display_oven"/>
+    <material name="kt_bk_drawing" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_drawing"/>
+    <material name="kt_bk_hood_filter" rgba="1 1 1 1" specular="0.7" shininess="0.6" texture="kt_hood_filter"/>
+    <material name="kt_bk_leather" rgba="1 1 1 1" specular="0.35" shininess="0.4" texture="kt_leather"/>
+    <material name="kt_bk_linen" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_linen"/>
+    <material name="kt_bk_menu_board" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="kt_menu_board"/>
+    <material name="kt_bk_oak" rgba="1 1 1 1" specular="0.35" shininess="0.5" texture="kt_oak"/>
+    <material name="kt_bk_pasta_box" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_pasta_box"/>
+    <material name="kt_bk_photo" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="kt_photo"/>
+    <material name="kt_bk_rug" rgba="1 1 1 1" specular="0.02" shininess="0.05" texture="kt_rug"/>
+    <material name="kt_bk_steel" rgba="1 1 1 1" specular="0.8" shininess="0.7" texture="kt_steel"/>
+    <material name="kt_bk_steel_dark" rgba="0.55 0.56 0.58 1" specular="0.7" shininess="0.6" texture="kt_steel"/>
+    <material name="kt_bk_subway" rgba="1 1 1 1" specular="0.8" shininess="0.85" texture="kt_subway"/>
+    <material name="kt_bk_terracotta" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="kt_terracotta_tex"/>
+    <material name="kt_bk_walnut" rgba="1 1 1 1" specular="0.4" shininess="0.55" texture="kt_walnut"/>
+    <material name="kt_bk_wicker" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="kt_wicker"/>
+    <mesh name="kt_bk_apple_g2" file="assets/baked/kt_apple_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_apple_green_g2" file="assets/baked/kt_apple_green_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_art1_g2" file="assets/baked/kt_art1_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_art2_g2" file="assets/baked/kt_art2_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_art3_g2" file="assets/baked/kt_art3_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_backyard_g2" file="assets/baked/kt_backyard_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_banana_g2" file="assets/baked/kt_banana_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_beans_red_g2" file="assets/baked/kt_beans_red_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_black_gloss_g2" file="assets/baked/kt_black_gloss_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_black_matte_g0" file="assets/baked/kt_black_matte_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_black_matte_g1" file="assets/baked/kt_black_matte_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_black_matte_g2" file="assets/baked/kt_black_matte_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_books_g2" file="assets/baked/kt_books_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_bottle_green_g2" file="assets/baked/kt_bottle_green_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_brass_g0" file="assets/baked/kt_brass_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_brass_g1" file="assets/baked/kt_brass_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_brass_g2" file="assets/baked/kt_brass_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_bronze_g2" file="assets/baked/kt_bronze_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_bulb_g1" file="assets/baked/kt_bulb_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_burner_g2" file="assets/baked/kt_burner_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_butcher_g2" file="assets/baked/kt_butcher_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cab_interior_g2" file="assets/baked/kt_cab_interior_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_calendar_g2" file="assets/baked/kt_calendar_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_can_beans_g2" file="assets/baked/kt_can_beans_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_can_soup_g2" file="assets/baked/kt_can_soup_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_can_tomato_g2" file="assets/baked/kt_can_tomato_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_candle_g1" file="assets/baked/kt_candle_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_candle_g2" file="assets/baked/kt_candle_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cast_iron_g2" file="assets/baked/kt_cast_iron_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_ceiling_g1" file="assets/baked/kt_ceiling_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_ceramic_blue_g2" file="assets/baked/kt_ceramic_blue_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_ceramic_sage_g2" file="assets/baked/kt_ceramic_sage_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_ceramic_white_g2" file="assets/baked/kt_ceramic_white_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cereal_a_g2" file="assets/baked/kt_cereal_a_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cereal_b_g2" file="assets/baked/kt_cereal_b_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_chrome_g2" file="assets/baked/kt_chrome_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_coffee_g2" file="assets/baked/kt_coffee_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_crackers_g2" file="assets/baked/kt_crackers_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cream_appliance_g2" file="assets/baked/kt_cream_appliance_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cucumber_g2" file="assets/baked/kt_cucumber_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_cucumber_in_g2" file="assets/baked/kt_cucumber_in_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_display_clock_g2" file="assets/baked/kt_display_clock_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_display_oven_g2" file="assets/baked/kt_display_oven_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_drawing_g2" file="assets/baked/kt_drawing_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_flame_g2" file="assets/baked/kt_flame_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_flower_pink_g2" file="assets/baked/kt_flower_pink_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_flower_white_g2" file="assets/baked/kt_flower_white_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_glass_g2" file="assets/baked/kt_glass_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_glass_dark_g2" file="assets/baked/kt_glass_dark_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_hood_filter_g1" file="assets/baked/kt_hood_filter_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_hood_filter_g2" file="assets/baked/kt_hood_filter_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_knife_handle_g2" file="assets/baked/kt_knife_handle_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_lamp_shade_g1" file="assets/baked/kt_lamp_shade_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_lamp_shade_g2" file="assets/baked/kt_lamp_shade_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_leaf_dark_g2" file="assets/baked/kt_leaf_dark_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_leaf_light_g2" file="assets/baked/kt_leaf_light_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_leather_g0" file="assets/baked/kt_leather_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_led_cool_g2" file="assets/baked/kt_led_cool_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_led_green_g1" file="assets/baked/kt_led_green_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_led_warm_g1" file="assets/baked/kt_led_warm_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_led_warm_g2" file="assets/baked/kt_led_warm_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_lemon_g2" file="assets/baked/kt_lemon_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_lentils_g2" file="assets/baked/kt_lentils_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_linen_g2" file="assets/baked/kt_linen_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_menu_board_g2" file="assets/baked/kt_menu_board_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_mirror_g2" file="assets/baked/kt_mirror_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_napkin_g2" file="assets/baked/kt_napkin_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_oak_g0" file="assets/baked/kt_oak_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_oak_g2" file="assets/baked/kt_oak_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_oil_g2" file="assets/baked/kt_oil_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_onion_g2" file="assets/baked/kt_onion_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_orange_g2" file="assets/baked/kt_orange_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_outlet_g2" file="assets/baked/kt_outlet_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_paint_island_g2" file="assets/baked/kt_paint_island_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_paint_white_g2" file="assets/baked/kt_paint_white_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_paper_towel_g2" file="assets/baked/kt_paper_towel_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_paper_white_g2" file="assets/baked/kt_paper_white_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_pasta_g2" file="assets/baked/kt_pasta_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_pasta_box_g2" file="assets/baked/kt_pasta_box_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_pepper_y_g2" file="assets/baked/kt_pepper_y_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_photo_g2" file="assets/baked/kt_photo_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_plastic_grey_g2" file="assets/baked/kt_plastic_grey_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_plastic_white_g1" file="assets/baked/kt_plastic_white_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_plastic_white_g2" file="assets/baked/kt_plastic_white_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_potato_g2" file="assets/baked/kt_potato_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_red_appliance_g2" file="assets/baked/kt_red_appliance_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_red_paint_g2" file="assets/baked/kt_red_paint_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_rice_g2" file="assets/baked/kt_rice_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_rubber_g2" file="assets/baked/kt_rubber_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_rug_g2" file="assets/baked/kt_rug_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_shade_black_g1" file="assets/baked/kt_shade_black_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_soap_g2" file="assets/baked/kt_soap_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_soil_g2" file="assets/baked/kt_soil_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_sponge_g2" file="assets/baked/kt_sponge_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_sponge_green_g2" file="assets/baked/kt_sponge_green_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_steel_g0" file="assets/baked/kt_steel_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_steel_g1" file="assets/baked/kt_steel_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_steel_g2" file="assets/baked/kt_steel_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_steel_dark_g2" file="assets/baked/kt_steel_dark_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_stem_g2" file="assets/baked/kt_stem_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_subway_g2" file="assets/baked/kt_subway_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_terracotta_g2" file="assets/baked/kt_terracotta_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_tomato_g2" file="assets/baked/kt_tomato_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_tomato_in_g2" file="assets/baked/kt_tomato_in_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_trim_g1" file="assets/baked/kt_trim_g1.msh" inertia="shell"/>
+    <mesh name="kt_bk_trim_g2" file="assets/baked/kt_trim_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_trunk_g2" file="assets/baked/kt_trunk_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_walnut_g0" file="assets/baked/kt_walnut_g0.msh" inertia="shell"/>
+    <mesh name="kt_bk_walnut_g2" file="assets/baked/kt_walnut_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_water_g2" file="assets/baked/kt_water_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_wicker_g2" file="assets/baked/kt_wicker_g2.msh" inertia="shell"/>
+    <mesh name="kt_bk_wine_g2" file="assets/baked/kt_wine_g2.msh" inertia="shell"/>
+  </asset>
+  <worldbody>
+    <light name="kt_sun" pos="0 0 8" dir="-0.35 -0.55 -0.76" diffuse="0.3 0.29 0.27" specular="0.05 0.05 0.05" castshadow="false" directional="true"/>
+    <light name="kt_sky_fill" pos="0 0 8" dir="0.3 0.45 -0.85" diffuse="0.2 0.2 0.22" specular="0 0 0" castshadow="false" directional="true"/>
+    <light name="kt_bounce" pos="0 0 0.1" dir="0.15 -0.2 0.97" diffuse="0.16 0.15 0.13" specular="0 0 0" castshadow="false" directional="true"/>
+    <light name="kt_key" pos="-0.5 -0.4 2.7" dir="0.05 0.1 -1" diffuse="0.42 0.39 0.34" specular="0.08 0.08 0.08" castshadow="true" cutoff="88" exponent="1"/>
+    <camera name="kt_entrance" pos="-2.3 -3.35 1.62" xyaxes="0.9131 -0.4078 0 0.0481 0.1077 0.993" fovy="68"/>
+    <camera name="kt_robot_view" pos="-1.35 -3.45 1.45" xyaxes="0.9959 -0.0905 0 0.0109 0.1194 0.9928" fovy="62"/>
+    <camera name="kt_island_closeup" pos="1.55 -0.55 1.45" xyaxes="0.5963 0.8027 0 -0.1795 0.1333 0.9747" fovy="60"/>
+    <camera name="kt_sink_and_range" pos="0.35 1.75 1.6" xyaxes="0.9983 -0.0587 0 0.018 0.3068 0.9516" fovy="72"/>
+    <camera name="kt_fridge_pantry" pos="-1.1 1.55 1.55" xyaxes="0.02 0.9998 0 -0.1579 0.0032 0.9874" fovy="72"/>
+    <camera name="kt_dining" pos="0.55 -3.25 1.65" xyaxes="0.7424 -0.67 0 0.2076 0.2301 0.9508" fovy="66"/>
+    <camera name="kt_wide_corner" pos="3.75 -3.4 2.45" xyaxes="0.7108 0.7034 0 -0.1951 0.1972 0.9607" fovy="78"/>
+    <camera name="kt_top" pos="0 0 11.5" xyaxes="1 0 0 0 1 0" fovy="8.4" projection="orthographic"/>
+    <geom name="kt_baked_apple_g2" type="mesh" mesh="kt_bk_apple_g2" material="kt_apple" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_apple_green_g2" type="mesh" mesh="kt_bk_apple_green_g2" material="kt_apple_green" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_art1_g2" type="mesh" mesh="kt_bk_art1_g2" material="kt_bk_art1" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_art2_g2" type="mesh" mesh="kt_bk_art2_g2" material="kt_bk_art2" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_art3_g2" type="mesh" mesh="kt_bk_art3_g2" material="kt_bk_art3" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_backyard_g2" type="mesh" mesh="kt_bk_backyard_g2" material="kt_bk_backyard" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_banana_g2" type="mesh" mesh="kt_bk_banana_g2" material="kt_banana" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_beans_red_g2" type="mesh" mesh="kt_bk_beans_red_g2" material="kt_beans_red" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_black_gloss_g2" type="mesh" mesh="kt_bk_black_gloss_g2" material="kt_black_gloss" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_black_matte_g0" type="mesh" mesh="kt_bk_black_matte_g0" material="kt_black_matte" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_black_matte_g1" type="mesh" mesh="kt_bk_black_matte_g1" material="kt_black_matte" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_black_matte_g2" type="mesh" mesh="kt_bk_black_matte_g2" material="kt_black_matte" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_books_g2" type="mesh" mesh="kt_bk_books_g2" material="kt_bk_books" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_bottle_green_g2" type="mesh" mesh="kt_bk_bottle_green_g2" material="kt_bottle_green" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_brass_g0" type="mesh" mesh="kt_bk_brass_g0" material="kt_brass" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_brass_g1" type="mesh" mesh="kt_bk_brass_g1" material="kt_brass" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_brass_g2" type="mesh" mesh="kt_bk_brass_g2" material="kt_brass" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_bronze_g2" type="mesh" mesh="kt_bk_bronze_g2" material="kt_bronze" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_bulb_g1" type="mesh" mesh="kt_bk_bulb_g1" material="kt_bulb" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_burner_g2" type="mesh" mesh="kt_bk_burner_g2" material="kt_burner" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_butcher_g2" type="mesh" mesh="kt_bk_butcher_g2" material="kt_bk_butcher" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cab_interior_g2" type="mesh" mesh="kt_bk_cab_interior_g2" material="kt_bk_cab_interior" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_calendar_g2" type="mesh" mesh="kt_bk_calendar_g2" material="kt_bk_calendar" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_can_beans_g2" type="mesh" mesh="kt_bk_can_beans_g2" material="kt_bk_can_beans" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_can_soup_g2" type="mesh" mesh="kt_bk_can_soup_g2" material="kt_bk_can_soup" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_can_tomato_g2" type="mesh" mesh="kt_bk_can_tomato_g2" material="kt_bk_can_tomato" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_candle_g1" type="mesh" mesh="kt_bk_candle_g1" material="kt_candle" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_candle_g2" type="mesh" mesh="kt_bk_candle_g2" material="kt_candle" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cast_iron_g2" type="mesh" mesh="kt_bk_cast_iron_g2" material="kt_cast_iron" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_ceiling_g1" type="mesh" mesh="kt_bk_ceiling_g1" material="kt_bk_ceiling" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_ceramic_blue_g2" type="mesh" mesh="kt_bk_ceramic_blue_g2" material="kt_ceramic_blue" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_ceramic_sage_g2" type="mesh" mesh="kt_bk_ceramic_sage_g2" material="kt_ceramic_sage" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_ceramic_white_g2" type="mesh" mesh="kt_bk_ceramic_white_g2" material="kt_ceramic_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cereal_a_g2" type="mesh" mesh="kt_bk_cereal_a_g2" material="kt_bk_cereal_a" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cereal_b_g2" type="mesh" mesh="kt_bk_cereal_b_g2" material="kt_bk_cereal_b" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_chrome_g2" type="mesh" mesh="kt_bk_chrome_g2" material="kt_chrome" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_coffee_g2" type="mesh" mesh="kt_bk_coffee_g2" material="kt_coffee" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_crackers_g2" type="mesh" mesh="kt_bk_crackers_g2" material="kt_bk_crackers" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cream_appliance_g2" type="mesh" mesh="kt_bk_cream_appliance_g2" material="kt_cream_appliance" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cucumber_g2" type="mesh" mesh="kt_bk_cucumber_g2" material="kt_cucumber" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_cucumber_in_g2" type="mesh" mesh="kt_bk_cucumber_in_g2" material="kt_cucumber_in" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_display_clock_g2" type="mesh" mesh="kt_bk_display_clock_g2" material="kt_bk_display_clock" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_display_oven_g2" type="mesh" mesh="kt_bk_display_oven_g2" material="kt_bk_display_oven" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_drawing_g2" type="mesh" mesh="kt_bk_drawing_g2" material="kt_bk_drawing" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_flame_g2" type="mesh" mesh="kt_bk_flame_g2" material="kt_flame" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_flower_pink_g2" type="mesh" mesh="kt_bk_flower_pink_g2" material="kt_flower_pink" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_flower_white_g2" type="mesh" mesh="kt_bk_flower_white_g2" material="kt_flower_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_glass_g2" type="mesh" mesh="kt_bk_glass_g2" material="kt_glass" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_glass_dark_g2" type="mesh" mesh="kt_bk_glass_dark_g2" material="kt_glass_dark" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_hood_filter_g1" type="mesh" mesh="kt_bk_hood_filter_g1" material="kt_bk_hood_filter" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_hood_filter_g2" type="mesh" mesh="kt_bk_hood_filter_g2" material="kt_bk_hood_filter" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_knife_handle_g2" type="mesh" mesh="kt_bk_knife_handle_g2" material="kt_knife_handle" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_lamp_shade_g1" type="mesh" mesh="kt_bk_lamp_shade_g1" material="kt_lamp_shade" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_lamp_shade_g2" type="mesh" mesh="kt_bk_lamp_shade_g2" material="kt_lamp_shade" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_leaf_dark_g2" type="mesh" mesh="kt_bk_leaf_dark_g2" material="kt_leaf_dark" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_leaf_light_g2" type="mesh" mesh="kt_bk_leaf_light_g2" material="kt_leaf_light" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_leather_g0" type="mesh" mesh="kt_bk_leather_g0" material="kt_bk_leather" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_led_cool_g2" type="mesh" mesh="kt_bk_led_cool_g2" material="kt_led_cool" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_led_green_g1" type="mesh" mesh="kt_bk_led_green_g1" material="kt_led_green" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_led_warm_g1" type="mesh" mesh="kt_bk_led_warm_g1" material="kt_led_warm" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_led_warm_g2" type="mesh" mesh="kt_bk_led_warm_g2" material="kt_led_warm" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_lemon_g2" type="mesh" mesh="kt_bk_lemon_g2" material="kt_lemon" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_lentils_g2" type="mesh" mesh="kt_bk_lentils_g2" material="kt_lentils" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_linen_g2" type="mesh" mesh="kt_bk_linen_g2" material="kt_bk_linen" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_menu_board_g2" type="mesh" mesh="kt_bk_menu_board_g2" material="kt_bk_menu_board" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_mirror_g2" type="mesh" mesh="kt_bk_mirror_g2" material="kt_mirror" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_napkin_g2" type="mesh" mesh="kt_bk_napkin_g2" material="kt_napkin" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_oak_g0" type="mesh" mesh="kt_bk_oak_g0" material="kt_bk_oak" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_oak_g2" type="mesh" mesh="kt_bk_oak_g2" material="kt_bk_oak" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_oil_g2" type="mesh" mesh="kt_bk_oil_g2" material="kt_oil" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_onion_g2" type="mesh" mesh="kt_bk_onion_g2" material="kt_onion" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_orange_g2" type="mesh" mesh="kt_bk_orange_g2" material="kt_orange" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_outlet_g2" type="mesh" mesh="kt_bk_outlet_g2" material="kt_outlet" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_paint_island_g2" type="mesh" mesh="kt_bk_paint_island_g2" material="kt_paint_island" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_paint_white_g2" type="mesh" mesh="kt_bk_paint_white_g2" material="kt_paint_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_paper_towel_g2" type="mesh" mesh="kt_bk_paper_towel_g2" material="kt_paper_towel" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_paper_white_g2" type="mesh" mesh="kt_bk_paper_white_g2" material="kt_paper_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_pasta_g2" type="mesh" mesh="kt_bk_pasta_g2" material="kt_pasta" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_pasta_box_g2" type="mesh" mesh="kt_bk_pasta_box_g2" material="kt_bk_pasta_box" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_pepper_y_g2" type="mesh" mesh="kt_bk_pepper_y_g2" material="kt_pepper_y" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_photo_g2" type="mesh" mesh="kt_bk_photo_g2" material="kt_bk_photo" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_plastic_grey_g2" type="mesh" mesh="kt_bk_plastic_grey_g2" material="kt_plastic_grey" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_plastic_white_g1" type="mesh" mesh="kt_bk_plastic_white_g1" material="kt_plastic_white" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_plastic_white_g2" type="mesh" mesh="kt_bk_plastic_white_g2" material="kt_plastic_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_potato_g2" type="mesh" mesh="kt_bk_potato_g2" material="kt_potato" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_red_appliance_g2" type="mesh" mesh="kt_bk_red_appliance_g2" material="kt_red_appliance" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_red_paint_g2" type="mesh" mesh="kt_bk_red_paint_g2" material="kt_red_paint" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_rice_g2" type="mesh" mesh="kt_bk_rice_g2" material="kt_rice" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_rubber_g2" type="mesh" mesh="kt_bk_rubber_g2" material="kt_rubber" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_rug_g2" type="mesh" mesh="kt_bk_rug_g2" material="kt_bk_rug" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_shade_black_g1" type="mesh" mesh="kt_bk_shade_black_g1" material="kt_shade_black" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_soap_g2" type="mesh" mesh="kt_bk_soap_g2" material="kt_soap" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_soil_g2" type="mesh" mesh="kt_bk_soil_g2" material="kt_soil" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_sponge_g2" type="mesh" mesh="kt_bk_sponge_g2" material="kt_sponge" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_sponge_green_g2" type="mesh" mesh="kt_bk_sponge_green_g2" material="kt_sponge_green" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_steel_g0" type="mesh" mesh="kt_bk_steel_g0" material="kt_bk_steel" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_steel_g1" type="mesh" mesh="kt_bk_steel_g1" material="kt_bk_steel" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_steel_g2" type="mesh" mesh="kt_bk_steel_g2" material="kt_bk_steel" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_steel_dark_g2" type="mesh" mesh="kt_bk_steel_dark_g2" material="kt_bk_steel_dark" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_stem_g2" type="mesh" mesh="kt_bk_stem_g2" material="kt_stem" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_subway_g2" type="mesh" mesh="kt_bk_subway_g2" material="kt_bk_subway" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_terracotta_g2" type="mesh" mesh="kt_bk_terracotta_g2" material="kt_bk_terracotta" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_tomato_g2" type="mesh" mesh="kt_bk_tomato_g2" material="kt_tomato" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_tomato_in_g2" type="mesh" mesh="kt_bk_tomato_in_g2" material="kt_tomato_in" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_trim_g1" type="mesh" mesh="kt_bk_trim_g1" material="kt_trim" group="1" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_trim_g2" type="mesh" mesh="kt_bk_trim_g2" material="kt_trim" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_trunk_g2" type="mesh" mesh="kt_bk_trunk_g2" material="kt_trunk" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_walnut_g0" type="mesh" mesh="kt_bk_walnut_g0" material="kt_bk_walnut" group="0" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_walnut_g2" type="mesh" mesh="kt_bk_walnut_g2" material="kt_bk_walnut" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_water_g2" type="mesh" mesh="kt_bk_water_g2" material="kt_water" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_wicker_g2" type="mesh" mesh="kt_bk_wicker_g2" material="kt_bk_wicker" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_baked_wine_g2" type="mesh" mesh="kt_bk_wine_g2" material="kt_wine" group="2" contype="0" conaffinity="0"/>
+    <geom name="kt_floor" type="box" pos="0 0 -0.05" size="4.15 3.75 0.05" material="kt_floor" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall" type="box" pos="-2.45 3.675 1.375" size="1.7 0.075 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_1" type="box" pos="0 3.675 0.525" size="0.75 0.075 0.525" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_2" type="box" pos="0 3.675 2.475" size="0.75 0.075 0.275" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_3" type="box" pos="2.45 3.675 1.375" size="1.7 0.075 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_4" type="box" pos="-3.45 -3.675 1.375" size="0.7 0.075 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_5" type="box" pos="-2.3 -3.675 2.425" size="0.45 0.075 0.325" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_6" type="box" pos="1.15 -3.675 1.375" size="3 0.075 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_7" type="box" pos="-4.075 -3.025 1.375" size="0.075 0.575 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_8" type="box" pos="-4.075 -2 2.425" size="0.075 0.45 0.325" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_9" type="box" pos="-4.075 1.025 1.375" size="0.075 2.575 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_10" type="box" pos="4.075 -3.15 1.375" size="0.075 0.45 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_11" type="box" pos="4.075 -1.6 2.475" size="0.075 1.1 0.275" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_12" type="box" pos="4.075 0.05 1.375" size="0.075 0.55 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_13" type="box" pos="4.075 1.3 0.5" size="0.075 0.7 0.5" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_14" type="box" pos="4.075 1.3 2.475" size="0.075 0.7 0.275" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_wall_15" type="box" pos="4.075 2.8 1.375" size="0.075 0.8 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_window_glass" type="box" pos="-0.36 3.6675 1.625" size="0.31 0.004 0.495" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_window_glass_1" type="box" pos="0.36 3.6675 1.625" size="0.31 0.004 0.495" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_window_glass_2" type="box" pos="4.0675 1.635 1.6" quat="0.707107 0 0 -0.707107" size="0.285 0.004 0.52" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_window_glass_3" type="box" pos="4.0675 0.965 1.6" quat="0.707107 0 0 -0.707107" size="0.285 0.004 0.52" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_west_door_slab" type="box" pos="-4.081 -2 1.05" size="0.019 0.45 1.05" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_hall_floor" type="box" pos="-2.3 -4.6 -0.05" size="0.9 0.85 0.05" material="kt_floor" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_hall_wall" type="box" pos="-3.275 -4.675 1.375" size="0.075 0.925 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_hall_wall_1" type="box" pos="-1.325 -4.675 1.375" size="0.075 0.925 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_hall_wall_2" type="box" pos="-2.3 -5.525 1.375" size="1.05 0.075 1.375" material="kt_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_lawn" type="box" pos="2.5 2.5 -0.425" size="17.5 17.5 0.175" material="kt_lawn" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_deck" type="box" pos="5.875 -0.7 -0.145" size="1.725 3.9 0.105" material="kt_deck" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_slider_sill" type="box" pos="4.075 -1.6 0.0125" size="0.075 1.1 0.0125" material="kt_bronze" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_slider_glass" type="box" pos="4.1 -2.105 1.105" size="0.005 0.495 0.995" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_slider_glass_1" type="box" pos="4.05 -1.08 1.105" size="0.005 0.48 0.995" material="kt_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab" type="box" pos="-3.05 3.29 0.4975" size="0.3 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick" type="box" pos="-3.05 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_1" type="box" pos="-2.45 3.29 0.4975" size="0.3 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_1" type="box" pos="-2.45 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_2" type="box" pos="-1.925 3.29 0.4975" size="0.225 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_2" type="box" pos="-1.925 3.325 0.05" size="0.225 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_3" type="box" pos="-1.4 3.29 0.4975" size="0.3 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_3" type="box" pos="-1.4 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_4" type="box" pos="-0.8 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dishwasher" type="box" pos="-0.8 3.295 0.4975" size="0.3 0.305 0.3975" material="kt_steel_dark" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_5" type="box" pos="0 3.325 0.05" size="0.5 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_cab" type="box" pos="0 3.29 0.38" size="0.5 0.31 0.28" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_cab_1" type="box" pos="-0.491 3.29 0.7775" size="0.009 0.31 0.1175" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_cab_2" type="box" pos="0.491 3.29 0.7775" size="0.009 0.31 0.1175" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_cab_3" type="box" pos="0 3.59 0.7775" size="0.5 0.01 0.1175" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_4" type="box" pos="0.8 3.29 0.4975" size="0.3 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_6" type="box" pos="0.8 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_range" type="box" pos="1.48 3.295 0.455" size="0.38 0.315 0.435" material="kt_steel_dark" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_cooktop" type="box" pos="1.48 3.2825 0.9015" size="0.375 0.3075 0.0115" material="kt_cooktop" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_5" type="box" pos="2.16 3.29 0.4975" size="0.3 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_7" type="box" pos="2.16 3.325 0.05" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_6" type="box" pos="2.73 3.29 0.4975" size="0.27 0.31 0.3975" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_8" type="box" pos="2.73 3.325 0.05" size="0.27 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab" type="box" pos="-3.0375 3.43 1.88" size="0.3125 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_1" type="box" pos="-2.716 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_2" type="box" pos="-2.109 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_3" type="box" pos="-2.4125 3.43 1.429" size="0.3125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_4" type="box" pos="-2.4125 3.43 2.331" size="0.3125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_5" type="box" pos="-2.091 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_6" type="box" pos="-1.484 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_7" type="box" pos="-1.7875 3.43 1.429" size="0.3125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_8" type="box" pos="-1.7875 3.43 2.331" size="0.3125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_9" type="box" pos="-1.1625 3.43 1.88" size="0.3125 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_10" type="box" pos="0.859 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_11" type="box" pos="1.091 3.43 1.88" size="0.009 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_12" type="box" pos="0.975 3.43 1.429" size="0.125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_13" type="box" pos="0.975 3.43 2.331" size="0.125 0.17 0.009" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_14" type="box" pos="2.145 3.43 1.88" size="0.285 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_upper_cab_15" type="box" pos="2.715 3.43 1.88" size="0.285 0.17 0.46" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_counter" type="box" pos="-1.885 3.2775 0.915" size="1.465 0.3225 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_counter_1" type="box" pos="0 3.0025 0.915" size="0.42 0.0475 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_counter_2" type="box" pos="0 3.54 0.915" size="0.42 0.06 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_counter_3" type="box" pos="0.76 3.2775 0.915" size="0.34 0.3225 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_counter_4" type="box" pos="2.43 3.2775 0.915" size="0.57 0.3225 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_end_panel" type="box" pos="3.0125 3.29 0.4475" size="0.0125 0.31 0.4475" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink" type="box" pos="0 3.265 0.695" size="0.4 0.205 0.005" material="kt_steel" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_1" type="box" pos="-0.41 3.265 0.7975" size="0.01 0.215 0.0975" material="kt_steel" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_2" type="box" pos="0.41 3.265 0.7975" size="0.01 0.215 0.0975" material="kt_steel" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_3" type="box" pos="0 3.055 0.7975" size="0.4 0.005 0.0975" material="kt_steel" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sink_4" type="box" pos="0 3.475 0.7975" size="0.4 0.005 0.0975" material="kt_steel" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_tall_end_panel" type="box" pos="-3.675 0.39 1.17" quat="0.707107 0 0 0.707107" size="0.01 0.325 1.17" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry" type="box" pos="-3.675 0.41 1.17" quat="0.707107 0 0 0.707107" size="0.01 0.325 1.17" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_1" type="box" pos="-3.675 1.14 1.17" quat="0.707107 0 0 0.707107" size="0.01 0.325 1.17" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_2" type="box" pos="-3.675 0.775 2.33" quat="0.707107 0 0 0.707107" size="0.375 0.325 0.01" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_3" type="box" pos="-3.7 0.775 0.05" quat="0.707107 0 0 0.707107" size="0.355 0.3 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf" type="box" pos="-3.6675 0.775 0.111" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf_1" type="box" pos="-3.6675 0.775 0.511" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf_2" type="box" pos="-3.6675 0.775 0.911" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf_3" type="box" pos="-3.6675 0.775 1.311" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf_4" type="box" pos="-3.6675 0.775 1.691" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_pantry_shelf_5" type="box" pos="-3.6675 0.775 2.031" quat="0.707107 0 0 0.707107" size="0.355 0.3175 0.011" material="kt_cab_interior" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_oven_tower" type="box" pos="-3.675 1.55 1.22" quat="0.707107 0 0 0.707107" size="0.4 0.325 1.12" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_9" type="box" pos="-3.71 1.55 0.05" quat="0.707107 0 0 0.707107" size="0.4 0.29 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_fridge_panel" type="box" pos="-3.64 1.9725 1.17" quat="0.707107 0 0 0.707107" size="0.0225 0.36 1.17" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_fridge_panel_1" type="box" pos="-3.64 2.9275 1.17" quat="0.707107 0 0 0.707107" size="0.0225 0.36 1.17" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_fridge" type="box" pos="-3.65 2.45 0.9" quat="0.707107 0 0 0.707107" size="0.455 0.35 0.88" material="kt_steel_dark" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_bridge_cab" type="box" pos="-3.675 2.45 2.08" quat="0.707107 0 0 0.707107" size="0.455 0.325 0.26" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_tall_pantry" type="box" pos="-3.675 3.275 1.22" quat="0.707107 0 0 0.707107" size="0.325 0.325 1.12" material="kt_paint_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_10" type="box" pos="-3.71 3.275 0.05" quat="0.707107 0 0 0.707107" size="0.325 0.29 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island" type="box" pos="0 0.725 0.4975" size="1.25 0.475 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island_1" type="box" pos="0 0.725 0.05" size="1.2 0.405 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island_top" type="box" pos="0 0.59 0.915" size="1.35 0.64 0.02" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island_waterfall" type="box" pos="-1.33 0.59 0.4475" size="0.02 0.64 0.4475" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island_waterfall_1" type="box" pos="1.33 0.59 0.4475" size="0.02 0.64 0.4475" material="kt_quartz" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_7" type="box" pos="0.95 0.89 0.4975" quat="0 0 0 1" size="0.3 0.31 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_11" type="box" pos="0.95 0.855 0.05" quat="0 0 0 1" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_8" type="box" pos="0.25 0.89 0.4975" quat="0 0 0 1" size="0.4 0.31 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_12" type="box" pos="0.25 0.855 0.05" quat="0 0 0 1" size="0.4 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_9" type="box" pos="-0.45 0.89 0.4975" quat="0 0 0 1" size="0.3 0.31 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_13" type="box" pos="-0.45 0.855 0.05" quat="0 0 0 1" size="0.3 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_10" type="box" pos="-1 0.89 0.4975" quat="0 0 0 1" size="0.25 0.31 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_14" type="box" pos="-1 0.855 0.05" quat="0 0 0 1" size="0.25 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_base_cab_11" type="box" pos="0 0.56 0.4975" size="1.25 0.31 0.3975" material="kt_paint_island" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_toe_kick_15" type="box" pos="0 0.595 0.05" size="1.25 0.275 0.05" material="kt_black_matte" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0" type="cylinder" pos="-0.85 -0.36 0.66" size="0.19 0.03" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_1" type="cylinder" pos="-0.85 -0.36 0.62" size="0.17 0.01" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_2" type="box" pos="-0.7498 -0.2226 0.775" quat="0.309816 0 0 0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_3" type="box" pos="-0.7807 -0.2048 0.775" quat="0.20846 0 0 0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_4" type="box" pos="-0.8146 -0.1937 0.775" quat="0.104807 0 0 0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_5" type="box" pos="-0.85 -0.19 0.775" quat="0 0 0 1" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_6" type="box" pos="-0.8854 -0.1937 0.775" quat="0.104807 0 0 -0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_7" type="box" pos="-0.9193 -0.2048 0.775" quat="0.20846 0 0 -0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_8" type="box" pos="-0.9502 -0.2226 0.775" quat="0.309816 0 0 -0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_9" type="cylinder" fromto="-0.7015 -0.2115 0 -0.7581 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_11" type="cylinder" fromto="-0.9985 -0.2115 0 -0.9419 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_13" type="cylinder" fromto="-0.9985 -0.5085 0 -0.9419 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_15" type="cylinder" fromto="-0.7015 -0.5085 0 -0.7581 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_17" type="cylinder" fromto="-0.7192 -0.2292 0.28 -0.9808 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_18" type="cylinder" fromto="-0.9808 -0.2292 0.28 -0.9808 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_19" type="cylinder" fromto="-0.9808 -0.4908 0.28 -0.7192 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_0_20" type="cylinder" fromto="-0.7192 -0.4908 0.28 -0.7192 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1" type="cylinder" pos="0 -0.36 0.66" size="0.19 0.03" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_1" type="cylinder" pos="0 -0.36 0.62" size="0.17 0.01" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_2" type="box" pos="0.1002 -0.2226 0.775" quat="0.309816 0 0 0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_3" type="box" pos="0.0693 -0.2048 0.775" quat="0.20846 0 0 0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_4" type="box" pos="0.0354 -0.1937 0.775" quat="0.104807 0 0 0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_5" type="box" pos="0 -0.19 0.775" quat="0 0 0 1" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_6" type="box" pos="-0.0354 -0.1937 0.775" quat="0.104807 0 0 -0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_7" type="box" pos="-0.0693 -0.2048 0.775" quat="0.20846 0 0 -0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_8" type="box" pos="-0.1002 -0.2226 0.775" quat="0.309816 0 0 -0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_9" type="cylinder" fromto="0.1485 -0.2115 0 0.0919 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_11" type="cylinder" fromto="-0.1485 -0.2115 0 -0.0919 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_13" type="cylinder" fromto="-0.1485 -0.5085 0 -0.0919 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_15" type="cylinder" fromto="0.1485 -0.5085 0 0.0919 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_17" type="cylinder" fromto="0.1308 -0.2292 0.28 -0.1308 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_18" type="cylinder" fromto="-0.1308 -0.2292 0.28 -0.1308 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_19" type="cylinder" fromto="-0.1308 -0.4908 0.28 0.1308 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_1_20" type="cylinder" fromto="0.1308 -0.4908 0.28 0.1308 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2" type="cylinder" pos="0.85 -0.36 0.66" size="0.19 0.03" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_1" type="cylinder" pos="0.85 -0.36 0.62" size="0.17 0.01" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_2" type="box" pos="0.9502 -0.2226 0.775" quat="0.309816 0 0 0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_3" type="box" pos="0.9193 -0.2048 0.775" quat="0.20846 0 0 0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_4" type="box" pos="0.8854 -0.1937 0.775" quat="0.104807 0 0 0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_5" type="box" pos="0.85 -0.19 0.775" quat="0 0 0 1" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_6" type="box" pos="0.8146 -0.1937 0.775" quat="0.104807 0 0 -0.994493" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_7" type="box" pos="0.7807 -0.2048 0.775" quat="0.20846 0 0 -0.978031" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_8" type="box" pos="0.7498 -0.2226 0.775" quat="0.309816 0 0 -0.950796" size="0.019 0.012 0.085" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_9" type="cylinder" fromto="0.9985 -0.2115 0 0.9419 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_11" type="cylinder" fromto="0.7015 -0.2115 0 0.7581 -0.2681 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_13" type="cylinder" fromto="0.7015 -0.5085 0 0.7581 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_15" type="cylinder" fromto="0.9985 -0.5085 0 0.9419 -0.4519 0.62" size="0.013" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_17" type="cylinder" fromto="0.9808 -0.2292 0.28 0.7192 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_18" type="cylinder" fromto="0.7192 -0.2292 0.28 0.7192 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_19" type="cylinder" fromto="0.7192 -0.4908 0.28 0.9808 -0.4908 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_island_stool_2_20" type="cylinder" fromto="0.9808 -0.4908 0.28 0.9808 -0.2292 0.28" size="0.009" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table" type="box" pos="2.275 -1.35 0.74" size="0.475 0.9 0.02" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_1" type="box" pos="2.275 -2.1775 0.67" size="0.415 0.0125 0.05" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_2" type="box" pos="2.275 -0.5225 0.67" size="0.415 0.0125 0.05" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_3" type="box" pos="1.8725 -1.35 0.67" size="0.0125 0.84 0.05" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_4" type="box" pos="2.6775 -1.35 0.67" size="0.0125 0.84 0.05" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_5" type="box" pos="1.9 -2.15 0.535" size="0.035 0.035 0.185" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_6" type="box" pos="1.9 -2.15 0.175" size="0.026 0.026 0.175" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_7" type="box" pos="1.9 -0.55 0.535" size="0.035 0.035 0.185" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_8" type="box" pos="1.9 -0.55 0.175" size="0.026 0.026 0.175" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_9" type="box" pos="2.65 -2.15 0.535" size="0.035 0.035 0.185" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_10" type="box" pos="2.65 -2.15 0.175" size="0.026 0.026 0.175" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_11" type="box" pos="2.65 -0.55 0.535" size="0.035 0.035 0.185" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_table_12" type="box" pos="2.65 -0.55 0.175" size="0.026 0.026 0.175" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0" type="box" pos="1.555 -1.77 0.44" quat="0.707107 0 0 0.707107" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_1" type="box" pos="1.565 -1.77 0.475" quat="0.707107 0 0 0.707107" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_2" type="box" pos="1.735 -1.96 0.21" quat="0.707107 0 0 0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_3" type="box" pos="1.735 -1.58 0.21" quat="0.707107 0 0 0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_4" type="box" pos="1.337 -1.96 0.4735" quat="0.706541 -0.028277 -0.028277 0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_5" type="box" pos="1.337 -1.58 0.4735" quat="0.706541 -0.028277 -0.028277 0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_0_6" type="box" pos="1.325 -1.77 0.87" quat="0.707107 0 0 0.707107" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1" type="box" pos="1.555 -0.93 0.44" quat="0.707107 0 0 0.707107" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_1" type="box" pos="1.565 -0.93 0.475" quat="0.707107 0 0 0.707107" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_2" type="box" pos="1.735 -1.12 0.21" quat="0.707107 0 0 0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_3" type="box" pos="1.735 -0.74 0.21" quat="0.707107 0 0 0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_4" type="box" pos="1.337 -1.12 0.4735" quat="0.706541 -0.028277 -0.028277 0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_5" type="box" pos="1.337 -0.74 0.4735" quat="0.706541 -0.028277 -0.028277 0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_1_6" type="box" pos="1.325 -0.93 0.87" quat="0.707107 0 0 0.707107" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2" type="box" pos="2.995 -1.77 0.44" quat="0.707107 0 0 -0.707107" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_1" type="box" pos="2.985 -1.77 0.475" quat="0.707107 0 0 -0.707107" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_2" type="box" pos="2.815 -1.58 0.21" quat="0.707107 0 0 -0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_3" type="box" pos="2.815 -1.96 0.21" quat="0.707107 0 0 -0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_4" type="box" pos="3.213 -1.58 0.4735" quat="0.706541 -0.028277 0.028277 -0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_5" type="box" pos="3.213 -1.96 0.4735" quat="0.706541 -0.028277 0.028277 -0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_2_6" type="box" pos="3.225 -1.77 0.87" quat="0.707107 0 0 -0.707107" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3" type="box" pos="2.995 -0.93 0.44" quat="0.707107 0 0 -0.707107" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_1" type="box" pos="2.985 -0.93 0.475" quat="0.707107 0 0 -0.707107" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_2" type="box" pos="2.815 -0.74 0.21" quat="0.707107 0 0 -0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_3" type="box" pos="2.815 -1.12 0.21" quat="0.707107 0 0 -0.707107" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_4" type="box" pos="3.213 -0.74 0.4735" quat="0.706541 -0.028277 0.028277 -0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_5" type="box" pos="3.213 -1.12 0.4735" quat="0.706541 -0.028277 0.028277 -0.706541" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_3_6" type="box" pos="3.225 -0.93 0.87" quat="0.707107 0 0 -0.707107" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4" type="box" pos="2.275 -2.55 0.44" quat="0 0 0 1" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_1" type="box" pos="2.275 -2.54 0.475" quat="0 0 0 1" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_2" type="box" pos="2.465 -2.37 0.21" quat="0 0 0 1" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_3" type="box" pos="2.085 -2.37 0.21" quat="0 0 0 1" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_4" type="box" pos="2.465 -2.768 0.4735" quat="0 0 -0.039989 0.9992" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_5" type="box" pos="2.085 -2.768 0.4735" quat="0 0 -0.039989 0.9992" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_4_6" type="box" pos="2.275 -2.78 0.87" quat="0 0 0 1" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5" type="box" pos="2.275 -0.15 0.44" size="0.22 0.21 0.02" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_1" type="box" pos="2.275 -0.16 0.475" size="0.2 0.18 0.015" material="kt_linen" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_2" type="box" pos="2.085 -0.33 0.21" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_3" type="box" pos="2.465 -0.33 0.21" size="0.018 0.018 0.21" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_4" type="box" pos="2.085 0.068 0.4735" quat="0.9992 -0.039989 0 0" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_5" type="box" pos="2.465 0.068 0.4735" quat="0.9992 -0.039989 0 0" size="0.018 0.018 0.475" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_dining_chair_5_6" type="box" pos="2.275 0.08 0.87" size="0.2 0.02 0.05" material="kt_oak" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard" type="box" pos="3 -3.375 0.49" quat="0 0 0 1" size="0.8 0.225 0.33" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard_1" type="box" pos="3 -3.37 0.835" quat="0 0 0 1" size="0.81 0.23 0.015" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard_2" type="cylinder" fromto="3.75 -3.2 0.16 3.73 -3.2 0" size="0.016" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard_3" type="cylinder" fromto="3.75 -3.55 0.16 3.73 -3.55 0" size="0.016" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard_4" type="cylinder" fromto="2.25 -3.2 0.16 2.27 -3.2 0" size="0.016" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_sideboard_5" type="cylinder" fromto="2.25 -3.55 0.16 2.27 -3.55 0" size="0.016" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="kt_cylinder_624" type="cylinder" pos="3.55 3.2 0.19" size="0.2 0.19" material="kt_terracotta" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_cylinder_628" type="cylinder" pos="1.72 -3.3 0.16" size="0.15 0.16" material="kt_terracotta" group="0" contype="1" conaffinity="1"/>
+    <geom name="kt_cylinder_631" type="cylinder" pos="-3.72 0.05 0.31" size="0.15 0.31" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <body name="kt_grocery_box" pos="-3.55 -0.55 0.1255" quat="1 0 0 0">
+      <freejoint name="kt_grocery_box_free"/>
+      <geom name="kt_box_637" type="box" pos="0 0 0" size="0.2 0.15 0.125" material="kt_cardboard" group="0" contype="1" conaffinity="1" mass="3"/>
+    </body>
+    <body name="kt_step_stool" pos="-3.6 -1.15 0.1255" quat="1 0 0 0">
+      <freejoint name="kt_step_stool_free"/>
+      <geom name="kt_box_638" type="box" pos="0 0 0.1" size="0.2 0.15 0.025" material="kt_stool_plastic" group="0" contype="1" conaffinity="1" mass="0.6"/>
+      <geom name="kt_box_639" type="box" pos="-0.17 0 -0.025" size="0.03 0.15 0.1" material="kt_stool_plastic" group="0" contype="1" conaffinity="1" mass="0.45"/>
+      <geom name="kt_box_640" type="box" pos="0.17 0 -0.025" size="0.03 0.15 0.1" material="kt_stool_plastic" group="0" contype="1" conaffinity="1" mass="0.45"/>
+      <geom name="kt_box_641" type="box" pos="0 0 0.126" size="0.17 0.12 0.002" material="kt_rubber" group="2" contype="0" conaffinity="0"/>
+    </body>
+    <body name="kt_apple" pos="0.3 0.16 0.9735" quat="1 0 0 0">
+      <freejoint name="kt_apple_free"/>
+      <geom name="kt_sphere_71" type="sphere" pos="0 0 0" size="0.038" material="kt_apple" group="0" contype="1" conaffinity="1" mass="0.18"/>
+      <geom name="kt_cylinder_662" type="cylinder" pos="0 0 0.04" size="0.003 0.008" material="kt_trunk" group="2" contype="0" conaffinity="0"/>
+    </body>
+    <body name="kt_mug" pos="-1 0.18 0.9826" quat="1 0 0 0">
+      <freejoint name="kt_mug_free"/>
+      <geom name="kt_cylinder_663" type="cylinder" pos="0 0 0" size="0.042 0.0475" material="kt_ceramic_white" group="0" contype="1" conaffinity="1" mass="0.3"/>
+      <geom name="kt_cylinder_664" type="cylinder" pos="0 0 0.034" size="0.037 0.002" material="kt_coffee" group="2" contype="0" conaffinity="0"/>
+      <geom name="kt_box_642" type="box" pos="0.055 0 0" size="0.014 0.006 0.03" material="kt_ceramic_white" group="2" contype="0" conaffinity="0"/>
+    </body>
+    <body name="kt_water_bottle" pos="-0.25 0.14 1.0455" quat="1 0 0 0">
+      <freejoint name="kt_water_bottle_free"/>
+      <geom name="kt_cylinder_665" type="cylinder" pos="0 0 0" size="0.035 0.11" material="kt_water" group="0" contype="1" conaffinity="1" mass="0.5"/>
+      <geom name="kt_cylinder_666" type="cylinder" pos="0 0 0" size="0.0355 0.04" material="kt_ceramic_blue" group="2" contype="0" conaffinity="0"/>
+      <geom name="kt_cylinder_667" type="cylinder" pos="0 0 0.12" size="0.016 0.01" material="kt_plastic_white" group="2" contype="0" conaffinity="0"/>
+    </body>
+    <body name="kt_cereal_box" pos="1 0.25 1.0855" quat="1 0 0 0">
+      <freejoint name="kt_cereal_box_free"/>
+      <geom name="kt_box_643" type="box" pos="0 0 0" size="0.095 0.035 0.15" material="kt_cereal_b" group="0" contype="1" conaffinity="1" mass="0.45"/>
+    </body>
+  </worldbody>
+</mujoco>
