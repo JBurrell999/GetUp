@@ -5,10 +5,5 @@ __pycache__/
 models/
 outputs/
 
-# --- motion-mirror (Gemini video -> G1) ---
-.env
-runs/
-*.mp4
-assets/unitree_g1/_*.xml
-benchmarks/*.mp4
-!videos/*.mp4
+# motion_mirror/ has its own .gitignore
+runs
