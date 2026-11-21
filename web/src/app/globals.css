@@ -1163,6 +1163,41 @@ a {
   }
 }
 
+/* ---------------------------------------------------------------- see it work */
+
+.demos {
+  padding-top: clamp(72px, 10vw, 140px);
+}
+.demos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.demo video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 960 / 856;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #000;
+}
+.demo-title {
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--text);
+}
+.demo-note {
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-2);
+}
+@media (max-width: 720px) {
+  .demos-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 /* ---------------------------------------------------------------- where are you filming? */
 
 .envs {
