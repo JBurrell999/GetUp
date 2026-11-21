@@ -210,8 +210,67 @@ def label(img, text, pos):
     cv2.putText(img, text, pos, cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
 
 
-def side_by_side(human, robot, out, text):
-    """Human | robot, time-synced, with timestamp and labels."""
+def subject_crop(human, pose_dir, margin=0.45):
+    """Same zoom for both halves: the region the person occupies over the whole clip (+ head + margin), with the
+    frame's aspect ratio. None if the person already fills most of the frame."""
+    try:
+        from .posematch import human_pose
+        h2 = human_pose(human, pose_dir)
+    except Exception:  # noqa: BLE001
+        return None
+    W, H, _ = video_info(human)
+    pts = h2[:, :, :2][h2[:, :, 2] > 0.5]
+    if len(pts) < 20:
+        return None
+    (x0, y0), (x1, y1) = np.percentile(pts, 2, axis=0), np.percentile(pts, 98, axis=0)
+    y0 -= 0.3 * (y1 - y0)                                   # landmarks start at the shoulders: room for the head
+    cx, cy = (x0 + x1) / 2 * W, (y0 + y1) / 2 * H
+    w, h = (x1 - x0) * W * (1 + margin), (y1 - y0) * H * (1 + margin)
+    ar = W / H
+    w, h = (h * ar, h) if w / h < ar else (w, w / ar)
+    if w >= 0.85 * W or h >= 0.85 * H:
+        return None
+    x = int(np.clip(cx - w / 2, 0, W - w))
+    y = int(np.clip(cy - h / 2, 0, H - h))
+    return x, y, int(w), int(h)
+
+
+def robot_crop(robot, like, margin=0.2):
+    """Box around the robot in its render (light grey on the dark scene), same aspect as `like`=(w, h)."""
+    c = cv2.VideoCapture(str(robot))
+    n = int(c.get(7))
+    W, H = int(c.get(3)), int(c.get(4))
+    pts = []
+    for i in np.linspace(0, max(n - 1, 0), 12).astype(int):
+        c.set(1, i)
+        ok, im = c.read()
+        if not ok:
+            continue
+        hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
+        m = ((hsv[:, :, 2] > 120) & (hsv[:, :, 1] < 50)).astype(np.uint8)
+        m = cv2.morphologyEx(m, cv2.MORPH_OPEN, np.ones((7, 7), np.uint8))   # drop the floor's thin grid lines
+        ys, xs = np.nonzero(m)
+        if len(xs) > 200:
+            pts.append([np.percentile(xs, 2), np.percentile(ys, 2), np.percentile(xs, 98), np.percentile(ys, 98)])
+    if not pts:
+        return None
+    P = np.array(pts)
+    x0, y0, x1, y1 = P[:, 0].min(), P[:, 1].min(), P[:, 2].max(), P[:, 3].max()
+    cx, cy = (x0 + x1) / 2, (y0 + y1) / 2
+    w, h = (x1 - x0) * (1 + margin), (y1 - y0) * (1 + margin)
+    ar = like[0] / like[1]
+    w, h = (h * ar, h) if w / h < ar else (w, w / ar)
+    if w > W:
+        w, h = W, W / ar
+    if h > H:
+        w, h = H * ar, H
+    if w * h > 0.8 * W * H:
+        return None
+    return int(np.clip(cx - w / 2, 0, W - w)), int(np.clip(cy - h / 2, 0, H - h)), int(w), int(h)
+
+
+def side_by_side(human, robot, out, text, crop=None, robot_crop_box=None):
+    """Human | robot, time-synced, with timestamp and labels. crop=(x, y, w, h) zooms both halves identically."""
     import imageio
     a, b = cv2.VideoCapture(str(human)), cv2.VideoCapture(str(robot))
     fps = video_info(human)[2]
@@ -221,7 +280,17 @@ def side_by_side(human, robot, out, text):
         ok2, f2 = b.read()
         if not (ok1 and ok2):
             break
-        f2 = cv2.resize(f2, (f1.shape[1], f1.shape[0]))
+        size = (f1.shape[1], f1.shape[0])
+        if robot_crop_box:                              # each half framed on its own subject (display)
+            x, y, w, h = robot_crop_box
+            f2 = cv2.resize(f2[y:y + h, x:x + w], size, interpolation=cv2.INTER_CUBIC)
+        else:
+            f2 = cv2.resize(f2, size)
+        if crop:
+            x, y, w, h = crop
+            f1 = cv2.resize(f1[y:y + h, x:x + w], size, interpolation=cv2.INTER_CUBIC)
+            if not robot_crop_box:
+                f2 = cv2.resize(f2[y:y + h, x:x + w], size, interpolation=cv2.INTER_CUBIC)
         stack = f1.shape[1] > f1.shape[0]          # landscape clips: person on top, robot below (fits a page/phone)
         f = np.vstack([f1, f2]) if stack else np.hstack([f1, f2])
         label(f, f"t={len(frames) / fps:.1f}s  {text}", (12, 30))
@@ -467,7 +536,7 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None
             pass
         tel_short["samples"] = tel.get("samples", [])[::2]
         (d / "telemetry.json").write_text(json.dumps(tel, indent=1, default=float))
-        side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}")
+        side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}", crop=subject_crop(video, out))
         t_rep = time.time() - t1
         t1 = time.time()
         j = gj.ask([vpart(d / "side_by_side.mp4", fps=3.0),

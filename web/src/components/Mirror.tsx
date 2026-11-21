@@ -7,6 +7,7 @@ import { useCapture } from "./CaptureProvider";
 // person's body is tracked from the video, and a Unitree H2 replays it in MuJoCo from the same camera viewpoint.
 const GALLERY = [
   { src: "/mirror/chair.mp4", title: "Moving a chair", note: "Walk over, bend, lift it by the backrest, carry it, set it down." },
+  { src: "/mirror/cup.mp4", title: "Fetching a cup", note: "Walk to the table, pick up a cup with the left hand, walk back holding it." },
   { src: "/mirror/bottle.mp4", title: "Drinking from a bottle", note: "Seated: reach across with the right hand, drink, put it back." },
 ];
 
