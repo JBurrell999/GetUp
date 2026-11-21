@@ -4,3 +4,7 @@ runs/
 *.mp4
 !videos/*.mp4
 assets/unitree_g1/_*.xml
+videos/web_uploads/
+* 2.*
+* 2
+assets/*/_*.xml

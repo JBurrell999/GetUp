@@ -81,3 +81,29 @@ DR = dict(
 
 # Per-observation Gaussian noise (std), in obs units.
 OBS_NOISE = dict(gyro=0.15, gravity=0.05, q=0.01, dq=1.5)
+
+# Render inside the known room model (g1_room_mujoco)? Off: plain floor + the surfaces Gemini recreates.
+USE_ROOM = False
+
+# Gemini describes the scene in human-scale meters; the G1 is ~1.32 m vs ~1.70 m. Scale the recreated scene so the
+# robot relates to it like the person did (sitting at the table, reaching, putting down). 1.0 = real sizes.
+WORLD_SCALE = 1.0          # (1.32 / 1.70 = robot-scale scene; off: the hand-driven surfaces handle the size difference)
+
+# Stage-1 layers (on/off), so the simplest configuration that looks best can be chosen.
+USE_VIDEO_POSE = True        # body posture per frame from the video (MediaPipe), Gemini fills occluded limbs
+PERSPECTIVE_CAMERA = True    # static camera placed from the person's pose relative to the phone (else Gemini's camera)
+VIDEO_ROOT = True            # heading + movement from the video through that camera (else Gemini's pelvis path)
+OBJECT_FROM_HANDS = True     # object start / end from where the hands are at grasp / release (else Gemini's)
+MOVE_SURFACES = True         # move the supporting surface under those spots
+
+# Which robot the stage-1 replay uses. "h2": Unitree H2, human-sized (~1.7 m), 7-DoF arms, no fingers (palm grasp).
+# "g1": Unitree G1 (1.32 m) with Dex3 3-finger hands. (Stage 2 / RL code still targets the G1.)
+ROBOT = "h2"
+ROBOTS = {
+    "g1": dict(scene=ROOT / "assets" / "unitree_g1" / "scene_with_hands.xml", include="g1_with_hands.xml",
+               feet=("left_ankle_roll_link", "right_ankle_roll_link"), hands=True, height=1.32,
+               desc="Unitree G1 (1.3 m tall) with 3-finger hands"),
+    "h2": dict(scene=ROOT / "assets" / "unitree_h2" / "scene.xml", include="h2_mujoco.xml",
+               feet=("left_ankle_pitch_link", "right_ankle_pitch_link"), hands=False, height=1.70,
+               desc="Unitree H2 humanoid (about human size, 1.7 m) with simple hands (no fingers)"),
+}

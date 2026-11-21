@@ -1579,3 +1579,75 @@ a {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---- From a phone video to the robot (motion_mirror results + live runs) ---- */
+.mirror {
+  padding: 72px 0 56px;
+  border-top: 1px solid var(--line);
+}
+.mirror-grid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 28px;
+}
+.mirror-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+}
+.mirror-card video {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  border-radius: 8px;
+  background: #000;
+  display: block;
+}
+.mirror-card-title {
+  margin-top: 10px;
+  font-weight: 600;
+}
+.mirror-card-note {
+  color: var(--text-2);
+  font-size: 14px;
+}
+.mirror-run {
+  margin-top: 40px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 20px;
+}
+.mirror-try {
+  display: grid;
+  gap: 14px;
+  margin-top: 12px;
+}
+.mirror-pick,
+.mirror-meta {
+  color: var(--text-2);
+}
+.mirror-stage {
+  font-weight: 600;
+}
+.mirror-understood {
+  color: var(--text);
+  font-size: 15px;
+}
+.mirror-understood span {
+  display: block;
+  color: var(--accent);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 2px;
+}
+.mirror-result {
+  width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+  background: #000;
+}

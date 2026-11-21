@@ -379,7 +379,7 @@ class EnvReplay(Replay):
             if self.m.light_type[i] != mujoco.mjtLightType.mjLIGHT_DIRECTIONAL:
                 self.m.light_castshadow[i] = 1
 
-    def _camera(self):
+    def _camera(self, t=0.0):   # same signature as Replay._camera (the replay may pass the time)
         cam = super()._camera()
         if self.view == "match":
             cam.distance = self.place["match_distance"]
