@@ -1,0 +1,95 @@
+{
+  "scene": "Detailed distribution warehouse (procedural, not a scan)",
+  "geoms": 7494,
+  "by_role": {
+    "struct": 154,
+    "deco": 5188,
+    "ceiling": 912,
+    "solid": 1228,
+    "dyn": 12
+  },
+  "nav_proxies": 45,
+  "dynamic_bodies": [
+    "wh_carton_0",
+    "wh_carton_1",
+    "wh_carton_2",
+    "wh_carton_3",
+    "wh_floor_carton_0",
+    "wh_floor_carton_1",
+    "wh_tote_324",
+    "wh_tote_item"
+  ],
+  "materials": 120,
+  "textures": 53,
+  "lights": 4,
+  "cameras": [
+    "wh_entrance",
+    "wh_robot_view",
+    "wh_rack_aisle",
+    "wh_docks",
+    "wh_forklift_closeup",
+    "wh_packing",
+    "wh_office_break",
+    "wh_overview",
+    "wh_top"
+  ],
+  "spawn": {
+    "x": 0.0,
+    "y": -5.65,
+    "yaw_deg": 90.0
+  },
+  "clear_floor_area": {
+    "main_aisle_x": [
+      -2,
+      2
+    ],
+    "main_aisle_y": [
+      -11.5,
+      15.5
+    ],
+    "test_zone": {
+      "x": [
+        -1.5,
+        1.5
+      ],
+      "y": [
+        -7.2,
+        -4.1
+      ]
+    }
+  },
+  "web_walk_loop": "web/scripts/sim/walk.py's oval (|x|<=1.4, y -5.9..2.6) is inside the clear main aisle: verified IK converges with zero robot-room contacts. web/scripts/sim/export.py reads primitives only, so export from a --no-bake build.",
+  "task_props": {
+    "chairs": "pack stools x4, office chair, 4 break chairs, lift-station stool (real collision in both files)",
+    "tables": "pack benches 0.9 m, lift table 0.9 m, break table 0.75 m",
+    "liftable": [
+      "carton_0..3 on the lift pallet (2.5-8 kg)",
+      "floor_carton_0..1 (5-10 kg)",
+      "tote + tote_item"
+    ]
+  },
+  "baked": {
+    "meshes": 130,
+    "vertices": 298734,
+    "triangles": 277112,
+    "geoms_baked": 7328
+  },
+  "visual_check": {
+    "ngeom": 1524,
+    "nbody": 9,
+    "ncam": 9,
+    "nlight": 4,
+    "nq": 56,
+    "contacts_after_settle": 48,
+    "max_prop_drift_m": 0.0007
+  },
+  "nav_check": {
+    "ngeom": 342,
+    "nbody": 9,
+    "ncam": 9,
+    "nlight": 4,
+    "nq": 56,
+    "contacts_after_settle": 48,
+    "max_prop_drift_m": 0.0007
+  }
+}

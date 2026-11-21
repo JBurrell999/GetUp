@@ -1,0 +1,1049 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mujoco model="unitree_g1_detailed_warehouse">
+  <visual>
+    <headlight ambient="0.32 0.32 0.32" diffuse="0.2 0.2 0.2" specular="0.03 0.03 0.03"/>
+    <global azimuth="120" elevation="-30" offwidth="1920" offheight="1080" cameraid="0"/>
+    <quality shadowsize="4096" offsamples="8" numslices="40" numstacks="24"/>
+    <map znear="0.002" zfar="40" haze="0.12" shadowclip="1.5"/>
+    <rgba haze="0.85 0.87 0.9 1"/>
+  </visual>
+  <statistic center="0.0000 -5.6500 0.9" extent="20"/>
+  <compiler angle="radian" meshdir="assets/g1" autolimits="true"/>
+
+  <option integrator="implicitfast" timestep="0.002"/>
+
+  <default>
+    <default class="g1">
+      <site rgba="1 0 0 1" size="0.01" group="5"/>
+      <joint armature="0.01" frictionloss="0.3"/>
+      <position kp="500" dampratio="1" inheritrange="1"/>
+      <default class="visual">
+        <geom group="2" type="mesh" contype="0" conaffinity="0" density="0" material="metal"/>
+      </default>
+      <default class="collision">
+        <geom group="3" type="mesh"/>
+        <default class="foot">
+          <geom type="sphere" size="0.005" priority="1" friction="0.6" condim="3"/>
+        </default>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <material name="metal" rgba="0.7 0.7 0.7 1"/>
+
+    <mesh file="pelvis.STL"/>
+    <mesh file="pelvis_contour_link.STL"/>
+    <mesh file="left_hip_pitch_link.STL"/>
+    <mesh file="left_hip_roll_link.STL"/>
+    <mesh file="left_hip_yaw_link.STL"/>
+    <mesh file="left_knee_link.STL"/>
+    <mesh file="left_ankle_pitch_link.STL"/>
+    <mesh file="left_ankle_roll_link.STL"/>
+    <mesh file="right_hip_pitch_link.STL"/>
+    <mesh file="right_hip_roll_link.STL"/>
+    <mesh file="right_hip_yaw_link.STL"/>
+    <mesh file="right_knee_link.STL"/>
+    <mesh file="right_ankle_pitch_link.STL"/>
+    <mesh file="right_ankle_roll_link.STL"/>
+    <mesh name="waist_yaw_link" file="waist_yaw_link_rev_1_0.STL"/>
+    <mesh name="waist_roll_link" file="waist_roll_link_rev_1_0.STL"/>
+    <mesh name="torso_link" file="torso_link_rev_1_0.STL"/>
+    <mesh file="logo_link.STL"/>
+    <mesh file="head_link.STL"/>
+    <mesh file="left_shoulder_pitch_link.STL"/>
+    <mesh file="left_shoulder_roll_link.STL"/>
+    <mesh file="left_shoulder_yaw_link.STL"/>
+    <mesh file="left_elbow_link.STL"/>
+    <mesh file="left_wrist_roll_link.STL"/>
+    <mesh file="left_wrist_pitch_link.STL"/>
+    <mesh file="left_wrist_yaw_link.STL"/>
+    <mesh file="left_rubber_hand.STL"/>
+    <mesh file="right_shoulder_pitch_link.STL"/>
+    <mesh file="right_shoulder_roll_link.STL"/>
+    <mesh file="right_shoulder_yaw_link.STL"/>
+    <mesh file="right_elbow_link.STL"/>
+    <mesh file="right_wrist_roll_link.STL"/>
+    <mesh file="right_wrist_pitch_link.STL"/>
+    <mesh file="right_wrist_yaw_link.STL"/>
+    <mesh file="right_rubber_hand.STL"/>
+  <texture name="wh_sky" type="skybox" builtin="gradient" rgb1="0.55 0.68 0.86" rgb2="0.88 0.91 0.95" width="512" height="3072"/>
+    <texture name="wh_floor_concrete" type="2d" file="assets/floor_concrete.png"/>
+    <texture name="wh_wall_panel" type="2d" file="assets/wall_panel.png"/>
+    <texture name="wh_precast" type="2d" file="assets/precast.png"/>
+    <texture name="wh_roof_deck" type="2d" file="assets/roof_deck.png"/>
+    <texture name="wh_upright" type="2d" file="assets/upright.png"/>
+    <texture name="wh_pallet_top" type="2d" file="assets/pallet_top.png"/>
+    <texture name="wh_pallet_wood" type="2d" file="assets/pallet_wood.png"/>
+    <texture name="wh_carton_a" type="2d" file="assets/carton_a.png"/>
+    <texture name="wh_carton_b" type="2d" file="assets/carton_b.png"/>
+    <texture name="wh_carton_c" type="2d" file="assets/carton_c.png"/>
+    <texture name="wh_carton_stack_a" type="2d" file="assets/carton_stack_a.png"/>
+    <texture name="wh_carton_stack_b" type="2d" file="assets/carton_stack_b.png"/>
+    <texture name="wh_hazard" type="2d" file="assets/hazard.png"/>
+    <texture name="wh_diamond_plate" type="2d" file="assets/diamond_plate.png"/>
+    <texture name="wh_dock_door" type="2d" file="assets/dock_door.png"/>
+    <texture name="wh_wire_deck" type="2d" file="assets/wire_deck.png"/>
+    <texture name="wh_butcher" type="2d" file="assets/butcher.png"/>
+    <texture name="wh_plywood" type="2d" file="assets/plywood.png"/>
+    <texture name="wh_rubber_mat" type="2d" file="assets/rubber_mat.png"/>
+    <texture name="wh_screen_a" type="2d" file="assets/screen_a.png"/>
+    <texture name="wh_screen_b" type="2d" file="assets/screen_b.png"/>
+    <texture name="wh_vending" type="2d" file="assets/vending.png"/>
+    <texture name="wh_bin_blue" type="2d" file="assets/bin_blue.png"/>
+    <texture name="wh_bin_red" type="2d" file="assets/bin_red.png"/>
+    <texture name="wh_bin_yellow" type="2d" file="assets/bin_yellow.png"/>
+    <texture name="wh_cork" type="2d" file="assets/cork.png"/>
+    <texture name="wh_test_zone" type="2d" file="assets/test_zone.png"/>
+    <texture name="wh_whiteboard" type="2d" file="assets/whiteboard.png"/>
+    <texture name="wh_banner" type="2d" file="assets/banner.png"/>
+    <texture name="wh_sign_exit" type="2d" file="assets/sign_exit.png"/>
+    <texture name="wh_sign_forklift" type="2d" file="assets/sign_forklift.png"/>
+    <texture name="wh_sign_speed" type="2d" file="assets/sign_speed.png"/>
+    <texture name="wh_sign_ppe" type="2d" file="assets/sign_ppe.png"/>
+    <texture name="wh_sign_fire" type="2d" file="assets/sign_fire.png"/>
+    <texture name="wh_sign_incident" type="2d" file="assets/sign_incident.png"/>
+    <texture name="wh_sign_aisle_02" type="2d" file="assets/sign_aisle_02.png"/>
+    <texture name="wh_sign_aisle_03" type="2d" file="assets/sign_aisle_03.png"/>
+    <texture name="wh_sign_aisle_01" type="2d" file="assets/sign_aisle_01.png"/>
+    <texture name="wh_sign_pack" type="2d" file="assets/sign_pack.png"/>
+    <texture name="wh_sign_pick" type="2d" file="assets/sign_pick.png"/>
+    <texture name="wh_dock_1" type="2d" file="assets/dock_1.png"/>
+    <texture name="wh_dock_2" type="2d" file="assets/dock_2.png"/>
+    <texture name="wh_dock_3" type="2d" file="assets/dock_3.png"/>
+    <texture name="wh_dock_4" type="2d" file="assets/dock_4.png"/>
+    <texture name="wh_labels_0" type="2d" file="assets/labels_0.png"/>
+    <texture name="wh_labels_1" type="2d" file="assets/labels_1.png"/>
+    <texture name="wh_labels_2" type="2d" file="assets/labels_2.png"/>
+    <texture name="wh_labels_3" type="2d" file="assets/labels_3.png"/>
+    <texture name="wh_placard_0" type="2d" file="assets/placard_0.png"/>
+    <texture name="wh_placard_1" type="2d" file="assets/placard_1.png"/>
+    <texture name="wh_placard_2" type="2d" file="assets/placard_2.png"/>
+    <texture name="wh_placard_3" type="2d" file="assets/placard_3.png"/>
+    <texture name="wh_placard_4" type="2d" file="assets/placard_4.png"/>
+    <material name="wh_chrome" rgba="0.86 0.87 0.89 1" specular="1" shininess="0.95"/>
+    <material name="wh_brass" rgba="0.76 0.6 0.32 1" specular="0.9" shininess="0.8"/>
+    <material name="wh_black_matte" rgba="0.045 0.045 0.05 1" specular="0.15" shininess="0.2"/>
+    <material name="wh_black_gloss" rgba="0.03 0.03 0.035 1" specular="0.9" shininess="0.9"/>
+    <material name="wh_rubber" rgba="0.035 0.035 0.035 1" specular="0.05" shininess="0.05"/>
+    <material name="wh_plastic_white" rgba="0.93 0.93 0.91 1" specular="0.4" shininess="0.5"/>
+    <material name="wh_plastic_grey" rgba="0.42 0.44 0.46 1" specular="0.3" shininess="0.4"/>
+    <material name="wh_glass" rgba="0.8 0.9 0.95 0.16" specular="1" shininess="1"/>
+    <material name="wh_glass_dark" rgba="0.04 0.05 0.06 0.88" specular="1" shininess="1"/>
+    <material name="wh_water" rgba="0.62 0.8 0.95 0.35" specular="1" shininess="1"/>
+    <material name="wh_leaf_dark" rgba="0.13 0.32 0.12 1" specular="0.25" shininess="0.4"/>
+    <material name="wh_leaf_light" rgba="0.3 0.52 0.2 1" specular="0.25" shininess="0.4"/>
+    <material name="wh_stem" rgba="0.3 0.42 0.18 1" specular="0.1" shininess="0.2"/>
+    <material name="wh_soil" rgba="0.22 0.15 0.1 1" specular="0.02" shininess="0.1"/>
+    <material name="wh_trunk" rgba="0.38 0.27 0.18 1" specular="0.05" shininess="0.1"/>
+    <material name="wh_ceramic_white" rgba="0.95 0.95 0.93 1" specular="0.7" shininess="0.8"/>
+    <material name="wh_paper_white" rgba="0.96 0.96 0.94 1" specular="0.05" shininess="0.1"/>
+    <material name="wh_red_paint" rgba="0.78 0.08 0.07 1" specular="0.6" shininess="0.6"/>
+    <material name="wh_bulb" rgba="1 0.93 0.78 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_led_cool" rgba="0.92 0.96 1 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_led_green" rgba="0.15 0.95 0.35 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_led_red" rgba="1 0.12 0.08 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_floor" rgba="1 1 1 1" specular="0.35" shininess="0.5" texture="wh_floor_concrete" texuniform="true" texrepeat="0.3333 0.3333"/>
+    <material name="wh_wall_panel" rgba="1 1 1 1" specular="0.3" shininess="0.4" texture="wh_wall_panel" texuniform="true" texrepeat="1.3333 1.3333"/>
+    <material name="wh_precast" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_precast" texuniform="true" texrepeat="0.6667 0.6667"/>
+    <material name="wh_roof_deck" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_roof_deck" texuniform="true" texrepeat="1.6667 1.6667"/>
+    <material name="wh_upright" rgba="1 1 1 1" specular="0.5" shininess="0.5" texture="wh_upright" texuniform="true" texrepeat="16.6667 16.6667"/>
+    <material name="wh_beam_orange" rgba="0.9 0.4 0.1 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_pallet_top" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_pallet_top" texrepeat="1 1"/>
+    <material name="wh_pallet_wood" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_pallet_wood" texrepeat="1 1"/>
+    <material name="wh_wire_deck" rgba="1 1 1 1" specular="0.4" shininess="0.4" texture="wh_wire_deck" texrepeat="6 3"/>
+    <material name="wh_wrap" rgba="0.92 0.94 0.97 0.38" specular="1" shininess="0.9"/>
+    <material name="wh_hazard" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_hazard" texrepeat="1 1"/>
+    <material name="wh_hazard_tile" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_hazard" texuniform="true" texrepeat="2.5 10"/>
+    <material name="wh_diamond_plate" rgba="1 1 1 1" specular="0.6" shininess="0.5" texture="wh_diamond_plate" texuniform="true" texrepeat="3.3333 3.3333"/>
+    <material name="wh_dock_door" rgba="1 1 1 1" specular="0.4" shininess="0.4" texture="wh_dock_door" texrepeat="1 1"/>
+    <material name="wh_butcher" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_butcher" texrepeat="1 1"/>
+    <material name="wh_plywood" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="wh_plywood" texuniform="true" texrepeat="1.6667 1.6667"/>
+    <material name="wh_rubber_mat" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_rubber_mat" texuniform="true" texrepeat="8 8"/>
+    <material name="wh_test_zone" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_test_zone" texrepeat="1 1"/>
+    <material name="wh_cork" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_cork" texrepeat="1 1"/>
+    <material name="wh_carton_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_a" texrepeat="1 1"/>
+    <material name="wh_carton_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_b" texrepeat="1 1"/>
+    <material name="wh_carton_c" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_c" texrepeat="1 1"/>
+    <material name="wh_carton_stack_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_stack_a" texrepeat="1 1"/>
+    <material name="wh_carton_stack_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_stack_b" texrepeat="1 1"/>
+    <material name="wh_vending" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_vending" texrepeat="1 1"/>
+    <material name="wh_bin_blue" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_blue" texrepeat="1 1"/>
+    <material name="wh_bin_red" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_red" texrepeat="1 1"/>
+    <material name="wh_bin_yellow" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_yellow" texrepeat="1 1"/>
+    <material name="wh_whiteboard" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_whiteboard" texrepeat="1 1"/>
+    <material name="wh_banner" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_banner" texrepeat="1 1"/>
+    <material name="wh_sign_forklift" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_forklift" texrepeat="1 1"/>
+    <material name="wh_sign_speed" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_speed" texrepeat="1 1"/>
+    <material name="wh_sign_ppe" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_ppe" texrepeat="1 1"/>
+    <material name="wh_sign_fire" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_fire" texrepeat="1 1"/>
+    <material name="wh_sign_incident" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_incident" texrepeat="1 1"/>
+    <material name="wh_sign_aisle_01" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_01" texrepeat="1 1"/>
+    <material name="wh_sign_aisle_02" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_02" texrepeat="1 1"/>
+    <material name="wh_sign_aisle_03" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_03" texrepeat="1 1"/>
+    <material name="wh_sign_pack" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_pack" texrepeat="1 1"/>
+    <material name="wh_sign_pick" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_pick" texrepeat="1 1"/>
+    <material name="wh_dock_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_1" texrepeat="1 1"/>
+    <material name="wh_dock_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_2" texrepeat="1 1"/>
+    <material name="wh_dock_3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_3" texrepeat="1 1"/>
+    <material name="wh_dock_4" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_4" texrepeat="1 1"/>
+    <material name="wh_labels_0" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_0" texrepeat="1 1"/>
+    <material name="wh_labels_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_1" texrepeat="1 1"/>
+    <material name="wh_labels_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_2" texrepeat="1 1"/>
+    <material name="wh_labels_3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_3" texrepeat="1 1"/>
+    <material name="wh_placard_0" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_0" texrepeat="1 1"/>
+    <material name="wh_placard_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_1" texrepeat="1 1"/>
+    <material name="wh_placard_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_2" texrepeat="1 1"/>
+    <material name="wh_placard_3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_3" texrepeat="1 1"/>
+    <material name="wh_placard_4" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_4" texrepeat="1 1"/>
+    <material name="wh_sign_exit" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.8" texture="wh_sign_exit" texrepeat="1 1"/>
+    <material name="wh_screen_a" rgba="1 1 1 1" specular="0.2" shininess="0.3" emission="0.7" texture="wh_screen_a" texrepeat="1 1"/>
+    <material name="wh_screen_b" rgba="1 1 1 1" specular="0.2" shininess="0.3" emission="0.7" texture="wh_screen_b" texrepeat="1 1"/>
+    <material name="wh_steel" rgba="0.62 0.64 0.67 1" specular="0.6" shininess="0.6"/>
+    <material name="wh_steel_dark" rgba="0.3 0.32 0.35 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_galvanized" rgba="0.72 0.74 0.76 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_column" rgba="0.58 0.6 0.63 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_safety_yellow" rgba="0.97 0.76 0.06 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_safety_orange" rgba="0.95 0.42 0.08 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_paint_yellow" rgba="0.98 0.8 0.1 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_paint_white" rgba="0.95 0.95 0.93 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_paint_green" rgba="0.2 0.58 0.32 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_paint_blue" rgba="0.12 0.3 0.62 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_paint_red" rgba="0.8 0.12 0.1 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_forklift_yellow" rgba="0.96 0.7 0.05 1" specular="0.7" shininess="0.7"/>
+    <material name="wh_counterweight" rgba="0.16 0.16 0.17 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_seat_black" rgba="0.08 0.08 0.09 1" specular="0.3" shininess="0.3"/>
+    <material name="wh_tire" rgba="0.05 0.05 0.05 1" specular="0.1" shininess="0.1"/>
+    <material name="wh_drum_blue" rgba="0.1 0.3 0.65 1" specular="0.6" shininess="0.6"/>
+    <material name="wh_sack" rgba="0.88 0.84 0.74 1" specular="0.05" shininess="0.05"/>
+    <material name="wh_tote_grey" rgba="0.56 0.59 0.63 1" specular="0.3" shininess="0.3"/>
+    <material name="wh_tote_blue" rgba="0.18 0.38 0.7 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_bench_grey" rgba="0.5 0.53 0.56 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_dark_glass" rgba="0.08 0.1 0.12 0.85" specular="0.9" shininess="0.9"/>
+    <material name="wh_office_glass" rgba="0.75 0.85 0.9 0.18" specular="1" shininess="1"/>
+    <material name="wh_aluminum" rgba="0.78 0.79 0.8 1" specular="0.7" shininess="0.7"/>
+    <material name="wh_ceiling_tile" rgba="0.93 0.93 0.91 1" specular="0.05" shininess="0.05"/>
+    <material name="wh_carpet" rgba="0.28 0.3 0.33 1" specular="0.02" shininess="0.02"/>
+    <material name="wh_desk_top" rgba="0.78 0.7 0.58 1" specular="0.3" shininess="0.3"/>
+    <material name="wh_chair_fabric" rgba="0.15 0.17 0.2 1" specular="0.1" shininess="0.1"/>
+    <material name="wh_water_jug" rgba="0.45 0.7 0.95 0.55" specular="0.9" shininess="0.9"/>
+    <material name="wh_duct" rgba="0.8 0.81 0.83 1" specular="0.7" shininess="0.7"/>
+    <material name="wh_sprinkler_red" rgba="0.75 0.1 0.08 1" specular="0.5" shininess="0.5"/>
+    <material name="wh_asphalt" rgba="0.22 0.22 0.23 1" specular="0.05" shininess="0.05"/>
+    <material name="wh_trailer_wall" rgba="0.86 0.87 0.88 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_strap" rgba="0.15 0.15 0.15 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_coffee" rgba="0.17 0.09 0.04 1" specular="0.6" shininess="0.6"/>
+    <material name="wh_terracotta" rgba="0.72 0.4 0.26 1" specular="0.1" shininess="0.1"/>
+    <material name="wh_charger_grey" rgba="0.7 0.72 0.74 1" specular="0.4" shininess="0.4"/>
+    <material name="wh_cable" rgba="0.08 0.08 0.08 1" specular="0.2" shininess="0.2"/>
+    <material name="wh_led_panel" rgba="1 0.98 0.94 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_skylight" rgba="0.92 0.96 1 1" specular="0" shininess="0.3" emission="0.9"/>
+    <material name="wh_clerestory" rgba="0.85 0.92 0.98 1" specular="0.5" shininess="0.3" emission="0.55"/>
+    <material name="wh_amber_light" rgba="1 0.65 0.1 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_blue_light" rgba="0.2 0.45 1 1" specular="0" shininess="0.3" emission="1"/>
+    <material name="wh_bk_banner" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_banner"/>
+    <material name="wh_bk_bin_blue" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_blue"/>
+    <material name="wh_bk_bin_red" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_red"/>
+    <material name="wh_bk_bin_yellow" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_bin_yellow"/>
+    <material name="wh_bk_butcher" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_butcher"/>
+    <material name="wh_bk_carton_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_a"/>
+    <material name="wh_bk_carton_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_b"/>
+    <material name="wh_bk_carton_c" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_c"/>
+    <material name="wh_bk_carton_stack_a" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_stack_a"/>
+    <material name="wh_bk_carton_stack_b" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_carton_stack_b"/>
+    <material name="wh_bk_cork" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_cork"/>
+    <material name="wh_bk_diamond_plate" rgba="1 1 1 1" specular="0.6" shininess="0.5" texture="wh_diamond_plate"/>
+    <material name="wh_bk_dock_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_1"/>
+    <material name="wh_bk_dock_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_2"/>
+    <material name="wh_bk_dock_3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_3"/>
+    <material name="wh_bk_dock_4" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_dock_4"/>
+    <material name="wh_bk_dock_door" rgba="1 1 1 1" specular="0.4" shininess="0.4" texture="wh_dock_door"/>
+    <material name="wh_bk_hazard_tile" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_hazard"/>
+    <material name="wh_bk_labels_0" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_0"/>
+    <material name="wh_bk_labels_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_1"/>
+    <material name="wh_bk_labels_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_2"/>
+    <material name="wh_bk_labels_3" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_labels_3"/>
+    <material name="wh_bk_pallet_top" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_pallet_top"/>
+    <material name="wh_bk_pallet_wood" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_pallet_wood"/>
+    <material name="wh_bk_placard_0" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_0"/>
+    <material name="wh_bk_placard_1" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_1"/>
+    <material name="wh_bk_placard_2" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_placard_2"/>
+    <material name="wh_bk_plywood" rgba="1 1 1 1" specular="0.1" shininess="0.2" texture="wh_plywood"/>
+    <material name="wh_bk_precast" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_precast"/>
+    <material name="wh_bk_roof_deck" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_roof_deck"/>
+    <material name="wh_bk_rubber_mat" rgba="1 1 1 1" specular="0.05" shininess="0.1" texture="wh_rubber_mat"/>
+    <material name="wh_bk_screen_a" rgba="1 1 1 1" specular="0.2" shininess="0.3" emission="0.7" texture="wh_screen_a"/>
+    <material name="wh_bk_screen_b" rgba="1 1 1 1" specular="0.2" shininess="0.3" emission="0.7" texture="wh_screen_b"/>
+    <material name="wh_bk_sign_aisle_01" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_01"/>
+    <material name="wh_bk_sign_aisle_02" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_02"/>
+    <material name="wh_bk_sign_aisle_03" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_aisle_03"/>
+    <material name="wh_bk_sign_exit" rgba="1 1 1 1" specular="0" shininess="0.3" emission="0.8" texture="wh_sign_exit"/>
+    <material name="wh_bk_sign_fire" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_fire"/>
+    <material name="wh_bk_sign_forklift" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_forklift"/>
+    <material name="wh_bk_sign_incident" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_incident"/>
+    <material name="wh_bk_sign_pack" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_pack"/>
+    <material name="wh_bk_sign_pick" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_pick"/>
+    <material name="wh_bk_sign_ppe" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_ppe"/>
+    <material name="wh_bk_sign_speed" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_sign_speed"/>
+    <material name="wh_bk_test_zone" rgba="1 1 1 1" specular="0.2" shininess="0.3" texture="wh_test_zone"/>
+    <material name="wh_bk_upright" rgba="1 1 1 1" specular="0.5" shininess="0.5" texture="wh_upright"/>
+    <material name="wh_bk_vending" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_vending"/>
+    <material name="wh_bk_whiteboard" rgba="1 1 1 1" specular="0.15" shininess="0.2" texture="wh_whiteboard"/>
+    <material name="wh_bk_wire_deck" rgba="1 1 1 1" specular="0.4" shininess="0.4" texture="wh_wire_deck"/>
+    <mesh name="wh_bk_aluminum_g1" file="../baked/wh_aluminum_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_aluminum_g2" file="../baked/wh_aluminum_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_amber_light_g2" file="../baked/wh_amber_light_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_banner_g2" file="../baked/wh_banner_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_beam_orange_g2" file="../baked/wh_beam_orange_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_bench_grey_g0" file="../baked/wh_bench_grey_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_bench_grey_g2" file="../baked/wh_bench_grey_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_bin_blue_g2" file="../baked/wh_bin_blue_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_bin_red_g2" file="../baked/wh_bin_red_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_bin_yellow_g2" file="../baked/wh_bin_yellow_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_black_matte_g0" file="../baked/wh_black_matte_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_black_matte_g1" file="../baked/wh_black_matte_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_black_matte_g2" file="../baked/wh_black_matte_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_blue_light_g2" file="../baked/wh_blue_light_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_brass_g1" file="../baked/wh_brass_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_bulb_g2" file="../baked/wh_bulb_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_butcher_g0" file="../baked/wh_butcher_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_cable_g2" file="../baked/wh_cable_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carpet_g2" file="../baked/wh_carpet_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_a_g0" file="../baked/wh_carton_a_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_a_g2" file="../baked/wh_carton_a_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_b_g0" file="../baked/wh_carton_b_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_b_g2" file="../baked/wh_carton_b_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_c_g0" file="../baked/wh_carton_c_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_c_g2" file="../baked/wh_carton_c_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_stack_a_g0" file="../baked/wh_carton_stack_a_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_stack_a_g2" file="../baked/wh_carton_stack_a_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_stack_b_g0" file="../baked/wh_carton_stack_b_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_carton_stack_b_g2" file="../baked/wh_carton_stack_b_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_ceiling_tile_g1" file="../baked/wh_ceiling_tile_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_ceramic_white_g2" file="../baked/wh_ceramic_white_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_charger_grey_g0" file="../baked/wh_charger_grey_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_charger_grey_g2" file="../baked/wh_charger_grey_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_chrome_g2" file="../baked/wh_chrome_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_clerestory_g2" file="../baked/wh_clerestory_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_coffee_g2" file="../baked/wh_coffee_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_column_g1" file="../baked/wh_column_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_cork_g2" file="../baked/wh_cork_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_counterweight_g0" file="../baked/wh_counterweight_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_dark_glass_g2" file="../baked/wh_dark_glass_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_desk_top_g0" file="../baked/wh_desk_top_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_diamond_plate_g2" file="../baked/wh_diamond_plate_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_dock_1_g2" file="../baked/wh_dock_1_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_dock_2_g2" file="../baked/wh_dock_2_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_dock_3_g2" file="../baked/wh_dock_3_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_dock_4_g2" file="../baked/wh_dock_4_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_dock_door_g1" file="../baked/wh_dock_door_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_drum_blue_g0" file="../baked/wh_drum_blue_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_drum_blue_g2" file="../baked/wh_drum_blue_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_duct_g1" file="../baked/wh_duct_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_forklift_yellow_g0" file="../baked/wh_forklift_yellow_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_forklift_yellow_g2" file="../baked/wh_forklift_yellow_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_galvanized_g0" file="../baked/wh_galvanized_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_galvanized_g1" file="../baked/wh_galvanized_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_galvanized_g2" file="../baked/wh_galvanized_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_hazard_tile_g2" file="../baked/wh_hazard_tile_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_labels_0_g2" file="../baked/wh_labels_0_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_labels_1_g2" file="../baked/wh_labels_1_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_labels_2_g2" file="../baked/wh_labels_2_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_labels_3_g2" file="../baked/wh_labels_3_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_leaf_dark_g2" file="../baked/wh_leaf_dark_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_leaf_light_g2" file="../baked/wh_leaf_light_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_led_green_g2" file="../baked/wh_led_green_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_led_panel_g1" file="../baked/wh_led_panel_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_led_panel_g2" file="../baked/wh_led_panel_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_led_red_g2" file="../baked/wh_led_red_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_blue_g0" file="../baked/wh_paint_blue_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_blue_g2" file="../baked/wh_paint_blue_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_green_g2" file="../baked/wh_paint_green_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_red_g2" file="../baked/wh_paint_red_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_white_g2" file="../baked/wh_paint_white_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paint_yellow_g2" file="../baked/wh_paint_yellow_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_pallet_top_g0" file="../baked/wh_pallet_top_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_pallet_top_g2" file="../baked/wh_pallet_top_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_pallet_wood_g0" file="../baked/wh_pallet_wood_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_pallet_wood_g2" file="../baked/wh_pallet_wood_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_paper_white_g2" file="../baked/wh_paper_white_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_placard_0_g2" file="../baked/wh_placard_0_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_placard_1_g2" file="../baked/wh_placard_1_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_placard_2_g2" file="../baked/wh_placard_2_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_plastic_grey_g2" file="../baked/wh_plastic_grey_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_plastic_white_g0" file="../baked/wh_plastic_white_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_plastic_white_g2" file="../baked/wh_plastic_white_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_plywood_g2" file="../baked/wh_plywood_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_precast_g2" file="../baked/wh_precast_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_red_paint_g2" file="../baked/wh_red_paint_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_roof_deck_g1" file="../baked/wh_roof_deck_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_rubber_g2" file="../baked/wh_rubber_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_rubber_mat_g2" file="../baked/wh_rubber_mat_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sack_g0" file="../baked/wh_sack_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_sack_g2" file="../baked/wh_sack_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_safety_orange_g0" file="../baked/wh_safety_orange_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_safety_yellow_g0" file="../baked/wh_safety_yellow_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_safety_yellow_g2" file="../baked/wh_safety_yellow_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_screen_a_g2" file="../baked/wh_screen_a_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_screen_b_g2" file="../baked/wh_screen_b_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_seat_black_g2" file="../baked/wh_seat_black_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_aisle_01_g2" file="../baked/wh_sign_aisle_01_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_aisle_02_g2" file="../baked/wh_sign_aisle_02_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_aisle_03_g2" file="../baked/wh_sign_aisle_03_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_exit_g2" file="../baked/wh_sign_exit_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_fire_g2" file="../baked/wh_sign_fire_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_forklift_g2" file="../baked/wh_sign_forklift_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_incident_g2" file="../baked/wh_sign_incident_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_pack_g2" file="../baked/wh_sign_pack_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_pick_g2" file="../baked/wh_sign_pick_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_ppe_g2" file="../baked/wh_sign_ppe_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sign_speed_g2" file="../baked/wh_sign_speed_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_skylight_g1" file="../baked/wh_skylight_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_soil_g2" file="../baked/wh_soil_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_sprinkler_red_g1" file="../baked/wh_sprinkler_red_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_steel_g1" file="../baked/wh_steel_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_steel_dark_g0" file="../baked/wh_steel_dark_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_steel_dark_g1" file="../baked/wh_steel_dark_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_steel_dark_g2" file="../baked/wh_steel_dark_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_strap_g2" file="../baked/wh_strap_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_test_zone_g2" file="../baked/wh_test_zone_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_tire_g0" file="../baked/wh_tire_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_tire_g2" file="../baked/wh_tire_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_tote_blue_g2" file="../baked/wh_tote_blue_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_tote_grey_g0" file="../baked/wh_tote_grey_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_tote_grey_g2" file="../baked/wh_tote_grey_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_upright_g0" file="../baked/wh_upright_g0.msh" inertia="shell"/>
+    <mesh name="wh_bk_upright_g2" file="../baked/wh_upright_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_vending_g2" file="../baked/wh_vending_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_water_jug_g2" file="../baked/wh_water_jug_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_whiteboard_g2" file="../baked/wh_whiteboard_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_wire_deck_g1" file="../baked/wh_wire_deck_g1.msh" inertia="shell"/>
+    <mesh name="wh_bk_wire_deck_g2" file="../baked/wh_wire_deck_g2.msh" inertia="shell"/>
+    <mesh name="wh_bk_wrap_g2" file="../baked/wh_wrap_g2.msh" inertia="shell"/>
+  </asset>
+
+  <worldbody>
+    <body name="pelvis" pos="0.0000 -5.6500 0.793" childclass="g1" quat="0.7071067812 0 0 0.7071067812">
+      <inertial pos="0 0 -0.07605" quat="1 0 -0.000399148 0" mass="3.813" diaginertia="0.010549 0.0093089 0.0079184"/>
+      <freejoint name="floating_base_joint"/>
+      <geom class="visual" material="black" mesh="pelvis"/>
+      <geom class="visual" mesh="pelvis_contour_link"/>
+      <geom class="collision" mesh="pelvis_contour_link"/>
+      <site name="imu_in_pelvis" pos="0.04525 0 -0.08339" size="0.01"/>
+      <body name="left_hip_pitch_link" pos="0 0.064452 -0.1027">
+        <inertial pos="0.002741 0.047791 -0.02606" quat="0.954862 0.293964 0.0302556 0.030122" mass="1.35" diaginertia="0.00181517 0.00153422 0.00116212"/>
+        <joint name="left_hip_pitch_joint" axis="0 1 0" range="-2.5307 2.8798"/>
+        <geom class="visual" material="black" mesh="left_hip_pitch_link"/>
+        <geom class="collision" material="black" mesh="left_hip_pitch_link"/>
+        <body name="left_hip_roll_link" pos="0 0.052 -0.030465" quat="0.996179 0 -0.0873386 0">
+          <inertial pos="0.029812 -0.001045 -0.087934" quat="0.977808 -1.97119e-05 0.205576 -0.0403793" mass="1.52" diaginertia="0.00254986 0.00241169 0.00148755"/>
+          <joint name="left_hip_roll_joint" axis="1 0 0" range="-0.5236 2.9671"/>
+          <geom class="visual" mesh="left_hip_roll_link"/>
+          <geom class="collision" mesh="left_hip_roll_link"/>
+          <body name="left_hip_yaw_link" pos="0.025001 0 -0.12412">
+            <inertial pos="-0.057709 -0.010981 -0.15078" quat="0.600598 0.15832 0.223482 0.751181" mass="1.702" diaginertia="0.00776166 0.00717575 0.00160139"/>
+            <joint name="left_hip_yaw_joint" axis="0 0 1" range="-2.7576 2.7576"/>
+            <geom class="visual" mesh="left_hip_yaw_link"/>
+            <geom class="collision" mesh="left_hip_yaw_link"/>
+            <body name="left_knee_link" pos="-0.078273 0.0021489 -0.17734" quat="0.996179 0 0.0873386 0">
+              <inertial pos="0.005457 0.003964 -0.12074" quat="0.923418 -0.0327699 0.0158246 0.382067" mass="1.932" diaginertia="0.0113804 0.0112778 0.00146458"/>
+              <joint name="left_knee_joint" axis="0 1 0" range="-0.087267 2.8798"/>
+              <geom class="visual" mesh="left_knee_link"/>
+              <geom class="collision" mesh="left_knee_link"/>
+              <body name="left_ankle_pitch_link" pos="0 -9.4445e-05 -0.30001">
+                <inertial pos="-0.007269 0 0.011137" quat="0.603053 0.369225 0.369225 0.603053" mass="0.074" diaginertia="1.89e-05 1.40805e-05 6.9195e-06"/>
+                <joint name="left_ankle_pitch_joint" axis="0 1 0" range="-0.87267 0.5236"/>
+                <geom class="visual" mesh="left_ankle_pitch_link"/>
+                <geom class="collision" mesh="left_ankle_pitch_link"/>
+                <body name="left_ankle_roll_link" pos="0 0 -0.017558">
+                  <inertial pos="0.026505 0 -0.016425" quat="-0.000481092 0.728482 -0.000618967 0.685065" mass="0.608" diaginertia="0.00167218 0.0016161 0.000217621"/>
+                  <joint name="left_ankle_roll_joint" axis="1 0 0" range="-0.2618 0.2618"/>
+                  <geom class="visual" material="black" mesh="left_ankle_roll_link"/>
+                  <geom class="foot" pos="-0.05 0.025 -0.03"/>
+                  <geom class="foot" pos="-0.05 -0.025 -0.03"/>
+                  <geom class="foot" pos="0.12 0.03 -0.03"/>
+                  <geom class="foot" pos="0.12 -0.03 -0.03"/>
+                  <site name="left_foot"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_pitch_link" pos="0 -0.064452 -0.1027">
+        <inertial pos="0.002741 -0.047791 -0.02606" quat="0.954862 -0.293964 0.0302556 -0.030122" mass="1.35" diaginertia="0.00181517 0.00153422 0.00116212"/>
+        <joint name="right_hip_pitch_joint" axis="0 1 0" range="-2.5307 2.8798"/>
+        <geom class="visual" material="black" mesh="right_hip_pitch_link"/>
+        <geom class="collision" material="black" mesh="right_hip_pitch_link"/>
+        <body name="right_hip_roll_link" pos="0 -0.052 -0.030465" quat="0.996179 0 -0.0873386 0">
+          <inertial pos="0.029812 0.001045 -0.087934" quat="0.977808 1.97119e-05 0.205576 0.0403793" mass="1.52" diaginertia="0.00254986 0.00241169 0.00148755"/>
+          <joint name="right_hip_roll_joint" axis="1 0 0" range="-2.9671 0.5236"/>
+          <geom class="visual" mesh="right_hip_roll_link"/>
+          <geom class="collision" mesh="right_hip_roll_link"/>
+          <body name="right_hip_yaw_link" pos="0.025001 0 -0.12412">
+            <inertial pos="-0.057709 0.010981 -0.15078" quat="0.751181 0.223482 0.15832 0.600598" mass="1.702" diaginertia="0.00776166 0.00717575 0.00160139"/>
+            <joint name="right_hip_yaw_joint" axis="0 0 1" range="-2.7576 2.7576"/>
+            <geom class="visual" mesh="right_hip_yaw_link"/>
+            <geom class="collision" mesh="right_hip_yaw_link"/>
+            <body name="right_knee_link" pos="-0.078273 -0.0021489 -0.17734" quat="0.996179 0 0.0873386 0">
+              <inertial pos="0.005457 -0.003964 -0.12074" quat="0.923439 0.0345276 0.0116333 -0.382012" mass="1.932" diaginertia="0.011374 0.0112843 0.00146452"/>
+              <joint name="right_knee_joint" axis="0 1 0" range="-0.087267 2.8798"/>
+              <geom class="visual" mesh="right_knee_link"/>
+              <geom class="collision" mesh="right_knee_link"/>
+              <body name="right_ankle_pitch_link" pos="0 9.4445e-05 -0.30001">
+                <inertial pos="-0.007269 0 0.011137" quat="0.603053 0.369225 0.369225 0.603053" mass="0.074" diaginertia="1.89e-05 1.40805e-05 6.9195e-06"/>
+                <joint name="right_ankle_pitch_joint" axis="0 1 0" range="-0.87267 0.5236"/>
+                <geom class="visual" mesh="right_ankle_pitch_link"/>
+                <geom class="collision" mesh="right_ankle_pitch_link"/>
+                <body name="right_ankle_roll_link" pos="0 0 -0.017558">
+                  <inertial pos="0.026505 0 -0.016425" quat="0.000481092 0.728482 0.000618967 0.685065" mass="0.608" diaginertia="0.00167218 0.0016161 0.000217621"/>
+                  <joint name="right_ankle_roll_joint" axis="1 0 0" range="-0.2618 0.2618"/>
+                  <geom class="visual" material="black" mesh="right_ankle_roll_link"/>
+                  <geom class="foot" pos="-0.05 0.025 -0.03"/>
+                  <geom class="foot" pos="-0.05 -0.025 -0.03"/>
+                  <geom class="foot" pos="0.12 0.03 -0.03"/>
+                  <geom class="foot" pos="0.12 -0.03 -0.03"/>
+                  <site name="right_foot"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="waist_yaw_link">
+        <inertial pos="0.003494 0.000233 0.018034" quat="0.289697 0.591001 -0.337795 0.672821" mass="0.214" diaginertia="0.000163531 0.000107714 0.000102205"/>
+        <joint name="waist_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+        <geom class="visual" mesh="waist_yaw_link"/>
+        <body name="waist_roll_link" pos="-0.0039635 0 0.044">
+          <inertial pos="0 2.3e-05 0" quat="0.5 0.5 -0.5 0.5" mass="0.086" diaginertia="8.245e-06 7.079e-06 6.339e-06"/>
+          <joint name="waist_roll_joint" axis="1 0 0" range="-0.52 0.52"/>
+          <geom class="visual" mesh="waist_roll_link"/>
+          <body name="torso_link">
+            <inertial pos="0.00203158 0.000339683 0.184568" quat="0.999803 -6.03319e-05 0.0198256 0.00131986" mass="7.818" diaginertia="0.121847 0.109825 0.0273735"/>
+            <joint name="waist_pitch_joint" axis="0 1 0" range="-0.52 0.52"/>
+            <geom class="visual" mesh="torso_link"/>
+            <geom class="collision" mesh="torso_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="visual" material="black" mesh="logo_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="collision" material="black" mesh="logo_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="visual" material="black" mesh="head_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="collision" material="black" mesh="head_link"/>
+            <site name="imu_in_torso" pos="-0.03959 -0.00224 0.14792" size="0.01"/>
+            <body name="left_shoulder_pitch_link" pos="0.0039563 0.10022 0.24778" quat="0.990264 0.139201 1.38722e-05 -9.86868e-05">
+              <inertial pos="0 0.035892 -0.011628" quat="0.654152 0.0130458 -0.326267 0.68225" mass="0.718" diaginertia="0.000465864 0.000432842 0.000406394"/>
+              <joint name="left_shoulder_pitch_joint" axis="0 1 0" range="-3.0892 2.6704"/>
+              <geom class="visual" mesh="left_shoulder_pitch_link"/>
+              <geom size="0.03 0.025" pos="0 0.04 -0.01" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+              <body name="left_shoulder_roll_link" pos="0 0.038 -0.013831" quat="0.990268 -0.139172 0 0">
+                <inertial pos="-0.000227 0.00727 -0.063243" quat="0.701256 -0.0196223 -0.00710317 0.712604" mass="0.643" diaginertia="0.000691311 0.000618011 0.000388977"/>
+                <joint name="left_shoulder_roll_joint" axis="1 0 0" range="-1.5882 2.2515"/>
+                <geom class="visual" mesh="left_shoulder_roll_link"/>
+                <geom size="0.03 0.015" pos="-0.004 0.006 -0.053" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+                <body name="left_shoulder_yaw_link" pos="0 0.00624 -0.1032">
+                  <inertial pos="0.010773 -0.002949 -0.072009" quat="0.716879 -0.0964829 -0.0679942 0.687134" mass="0.734" diaginertia="0.00106187 0.00103217 0.000400661"/>
+                  <joint name="left_shoulder_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+                  <geom class="visual" mesh="left_shoulder_yaw_link"/>
+                  <geom class="collision" mesh="left_shoulder_yaw_link"/>
+                  <body name="left_elbow_link" pos="0.015783 0 -0.080518">
+                    <inertial pos="0.064956 0.004454 -0.010062" quat="0.541765 0.636132 0.388821 0.388129" mass="0.6" diaginertia="0.000443035 0.000421612 0.000259353"/>
+                    <joint name="left_elbow_joint" axis="0 1 0" range="-1.0472 2.0944"/>
+                    <geom class="visual" mesh="left_elbow_link"/>
+                    <geom class="collision" mesh="left_elbow_link"/>
+                    <body name="left_wrist_roll_link" pos="0.1 0.00188791 -0.01">
+                      <inertial pos="0.0171394 0.000537591 4.8864e-07" quat="0.575338 0.411667 -0.574906 0.411094" mass="0.085445" diaginertia="5.48211e-05 4.96646e-05 3.57798e-05"/>
+                      <joint name="left_wrist_roll_joint" axis="1 0 0" range="-1.97222 1.97222"/>
+                      <geom class="visual" mesh="left_wrist_roll_link"/>
+                      <geom class="collision" mesh="left_wrist_roll_link"/>
+                      <body name="left_wrist_pitch_link" pos="0.038 0 0">
+                        <inertial pos="0.0229999 -0.00111685 -0.00111658" quat="0.249998 0.661363 0.293036 0.643608" mass="0.48405" diaginertia="0.000430353 0.000429873 0.000164648"/>
+                        <joint name="left_wrist_pitch_joint" axis="0 1 0" range="-1.61443 1.61443"/>
+                        <geom class="visual" mesh="left_wrist_pitch_link"/>
+                        <geom class="collision" mesh="left_wrist_pitch_link"/>
+                        <body name="left_wrist_yaw_link" pos="0.046 0 0">
+                          <inertial pos="0.0708244 0.000191745 0.00161742" quat="0.510571 0.526295 0.468078 0.493188" mass="0.254576" diaginertia="0.000646113 0.000559993 0.000147566"/>
+                          <joint name="left_wrist_yaw_joint" axis="0 0 1" range="-1.61443 1.61443"/>
+                          <geom class="visual" mesh="left_wrist_yaw_link"/>
+                          <geom class="collision" mesh="left_wrist_yaw_link"/>
+                          <geom pos="0.0415 0.003 0" quat="1 0 0 0" class="visual" mesh="left_rubber_hand"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+            <body name="right_shoulder_pitch_link" pos="0.0039563 -0.10021 0.24778" quat="0.990264 -0.139201 1.38722e-05 9.86868e-05">
+              <inertial pos="0 -0.035892 -0.011628" quat="0.68225 -0.326267 0.0130458 0.654152" mass="0.718" diaginertia="0.000465864 0.000432842 0.000406394"/>
+              <joint name="right_shoulder_pitch_joint" axis="0 1 0" range="-3.0892 2.6704"/>
+              <geom class="visual" mesh="right_shoulder_pitch_link"/>
+              <geom size="0.03 0.025" pos="0 -0.04 -0.01" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+              <body name="right_shoulder_roll_link" pos="0 -0.038 -0.013831" quat="0.990268 0.139172 0 0">
+                <inertial pos="-0.000227 -0.00727 -0.063243" quat="0.712604 -0.00710317 -0.0196223 0.701256" mass="0.643" diaginertia="0.000691311 0.000618011 0.000388977"/>
+                <joint name="right_shoulder_roll_joint" axis="1 0 0" range="-2.2515 1.5882"/>
+                <geom class="visual" mesh="right_shoulder_roll_link"/>
+                <geom size="0.03 0.015" pos="-0.004 -0.006 -0.053" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+                <body name="right_shoulder_yaw_link" pos="0 -0.00624 -0.1032">
+                  <inertial pos="0.010773 0.002949 -0.072009" quat="0.687134 -0.0679942 -0.0964829 0.716879" mass="0.734" diaginertia="0.00106187 0.00103217 0.000400661"/>
+                  <joint name="right_shoulder_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+                  <geom class="visual" mesh="right_shoulder_yaw_link"/>
+                  <geom class="collision" mesh="right_shoulder_yaw_link"/>
+                  <body name="right_elbow_link" pos="0.015783 0 -0.080518">
+                    <inertial pos="0.064956 -0.004454 -0.010062" quat="0.388129 0.388821 0.636132 0.541765" mass="0.6" diaginertia="0.000443035 0.000421612 0.000259353"/>
+                    <joint name="right_elbow_joint" axis="0 1 0" range="-1.0472 2.0944"/>
+                    <geom class="visual" mesh="right_elbow_link"/>
+                    <geom class="collision" mesh="right_elbow_link"/>
+                    <body name="right_wrist_roll_link" pos="0.1 -0.00188791 -0.01">
+                      <inertial pos="0.0171394 -0.000537591 4.8864e-07" quat="0.411667 0.575338 -0.411094 0.574906" mass="0.085445" diaginertia="5.48211e-05 4.96646e-05 3.57798e-05"/>
+                      <joint name="right_wrist_roll_joint" axis="1 0 0" range="-1.97222 1.97222"/>
+                      <geom class="visual" mesh="right_wrist_roll_link"/>
+                      <geom class="collision" mesh="right_wrist_roll_link"/>
+                      <body name="right_wrist_pitch_link" pos="0.038 0 0">
+                        <inertial pos="0.0229999 0.00111685 -0.00111658" quat="0.643608 0.293036 0.661363 0.249998" mass="0.48405" diaginertia="0.000430353 0.000429873 0.000164648"/>
+                        <joint name="right_wrist_pitch_joint" axis="0 1 0" range="-1.61443 1.61443"/>
+                        <geom class="visual" mesh="right_wrist_pitch_link"/>
+                        <geom class="collision" mesh="right_wrist_pitch_link"/>
+                        <body name="right_wrist_yaw_link" pos="0.046 0 0">
+                          <inertial pos="0.0708244 -0.000191745 0.00161742" quat="0.493188 0.468078 0.526295 0.510571" mass="0.254576" diaginertia="0.000646113 0.000559993 0.000147566"/>
+                          <joint name="right_wrist_yaw_joint" axis="0 0 1" range="-1.61443 1.61443"/>
+                          <geom class="visual" mesh="right_wrist_yaw_link"/>
+                          <geom class="collision" mesh="right_wrist_yaw_link"/>
+                          <geom pos="0.0415 -0.003 0" quat="1 0 0 0" class="visual" mesh="right_rubber_hand"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  <light name="wh_skylight" pos="0 0 20" dir="-0.25 -0.3 -0.92" diffuse="0.36 0.36 0.35" specular="0.05 0.05 0.05" castshadow="false" directional="true"/>
+    <light name="wh_fill" pos="0 0 20" dir="0.35 0.4 -0.85" diffuse="0.22 0.22 0.23" specular="0 0 0" castshadow="false" directional="true"/>
+    <light name="wh_bounce" pos="0 0 0.1" dir="0.1 0.15 0.98" diffuse="0.14 0.14 0.13" specular="0 0 0" castshadow="false" directional="true"/>
+    <light name="wh_test_zone_key" pos="0.4 -5.2 7.8" dir="0 0 -1" diffuse="0.4 0.4 0.38" specular="0.05 0.05 0.05" castshadow="true" cutoff="70" exponent="1"/>
+    <camera name="wh_entrance" pos="0 -11.3 2.3" xyaxes="1 0 0 0 0.0807 0.9967" fovy="62"/>
+    <camera name="wh_robot_view" pos="0 -8.6 1.6" xyaxes="1 0 0 0 0.0869 0.9962" fovy="62"/>
+    <camera name="wh_rack_aisle" pos="7 -5.2 1.7" xyaxes="1 0 0 0 -0.0468 0.9989" fovy="66"/>
+    <camera name="wh_docks" pos="1.2 -5 3.2" xyaxes="-0.6055 0.7958 0 -0.1357 -0.1032 0.9854" fovy="72"/>
+    <camera name="wh_forklift_closeup" pos="-2.6 -4.4 1.7" xyaxes="-0.5665 0.824 0 -0.1663 -0.1143 0.9794" fovy="62"/>
+    <camera name="wh_packing" pos="-4.2 -3.4 2.1" xyaxes="0.6366 0.7712 0 -0.1121 0.0925 0.9894" fovy="70"/>
+    <camera name="wh_office_break" pos="-4 9.5 2.4" xyaxes="0.5889 0.8082 0 -0.129 0.094 0.9872" fovy="70"/>
+    <camera name="wh_overview" pos="13.8 -11.3 7" xyaxes="0.661 0.7504 0 -0.2239 0.1973 0.9544" fovy="74"/>
+    <camera name="wh_top" pos="0 2 42" xyaxes="1 0 0 0 1 0" fovy="30.5" projection="orthographic"/>
+    <geom name="wh_baked_aluminum_g1" type="mesh" mesh="wh_bk_aluminum_g1" material="wh_aluminum" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_aluminum_g2" type="mesh" mesh="wh_bk_aluminum_g2" material="wh_aluminum" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_amber_light_g2" type="mesh" mesh="wh_bk_amber_light_g2" material="wh_amber_light" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_banner_g2" type="mesh" mesh="wh_bk_banner_g2" material="wh_bk_banner" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_beam_orange_g2" type="mesh" mesh="wh_bk_beam_orange_g2" material="wh_beam_orange" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bench_grey_g0" type="mesh" mesh="wh_bk_bench_grey_g0" material="wh_bench_grey" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bench_grey_g2" type="mesh" mesh="wh_bk_bench_grey_g2" material="wh_bench_grey" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bin_blue_g2" type="mesh" mesh="wh_bk_bin_blue_g2" material="wh_bk_bin_blue" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bin_red_g2" type="mesh" mesh="wh_bk_bin_red_g2" material="wh_bk_bin_red" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bin_yellow_g2" type="mesh" mesh="wh_bk_bin_yellow_g2" material="wh_bk_bin_yellow" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_black_matte_g0" type="mesh" mesh="wh_bk_black_matte_g0" material="wh_black_matte" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_black_matte_g1" type="mesh" mesh="wh_bk_black_matte_g1" material="wh_black_matte" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_black_matte_g2" type="mesh" mesh="wh_bk_black_matte_g2" material="wh_black_matte" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_blue_light_g2" type="mesh" mesh="wh_bk_blue_light_g2" material="wh_blue_light" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_brass_g1" type="mesh" mesh="wh_bk_brass_g1" material="wh_brass" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_bulb_g2" type="mesh" mesh="wh_bk_bulb_g2" material="wh_bulb" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_butcher_g0" type="mesh" mesh="wh_bk_butcher_g0" material="wh_bk_butcher" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_cable_g2" type="mesh" mesh="wh_bk_cable_g2" material="wh_cable" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carpet_g2" type="mesh" mesh="wh_bk_carpet_g2" material="wh_carpet" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_a_g0" type="mesh" mesh="wh_bk_carton_a_g0" material="wh_bk_carton_a" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_a_g2" type="mesh" mesh="wh_bk_carton_a_g2" material="wh_bk_carton_a" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_b_g0" type="mesh" mesh="wh_bk_carton_b_g0" material="wh_bk_carton_b" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_b_g2" type="mesh" mesh="wh_bk_carton_b_g2" material="wh_bk_carton_b" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_c_g0" type="mesh" mesh="wh_bk_carton_c_g0" material="wh_bk_carton_c" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_c_g2" type="mesh" mesh="wh_bk_carton_c_g2" material="wh_bk_carton_c" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_stack_a_g0" type="mesh" mesh="wh_bk_carton_stack_a_g0" material="wh_bk_carton_stack_a" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_stack_a_g2" type="mesh" mesh="wh_bk_carton_stack_a_g2" material="wh_bk_carton_stack_a" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_stack_b_g0" type="mesh" mesh="wh_bk_carton_stack_b_g0" material="wh_bk_carton_stack_b" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_carton_stack_b_g2" type="mesh" mesh="wh_bk_carton_stack_b_g2" material="wh_bk_carton_stack_b" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_ceiling_tile_g1" type="mesh" mesh="wh_bk_ceiling_tile_g1" material="wh_ceiling_tile" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_ceramic_white_g2" type="mesh" mesh="wh_bk_ceramic_white_g2" material="wh_ceramic_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_charger_grey_g0" type="mesh" mesh="wh_bk_charger_grey_g0" material="wh_charger_grey" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_charger_grey_g2" type="mesh" mesh="wh_bk_charger_grey_g2" material="wh_charger_grey" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_chrome_g2" type="mesh" mesh="wh_bk_chrome_g2" material="wh_chrome" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_clerestory_g2" type="mesh" mesh="wh_bk_clerestory_g2" material="wh_clerestory" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_coffee_g2" type="mesh" mesh="wh_bk_coffee_g2" material="wh_coffee" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_column_g1" type="mesh" mesh="wh_bk_column_g1" material="wh_column" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_cork_g2" type="mesh" mesh="wh_bk_cork_g2" material="wh_bk_cork" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_counterweight_g0" type="mesh" mesh="wh_bk_counterweight_g0" material="wh_counterweight" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dark_glass_g2" type="mesh" mesh="wh_bk_dark_glass_g2" material="wh_dark_glass" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_desk_top_g0" type="mesh" mesh="wh_bk_desk_top_g0" material="wh_desk_top" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_diamond_plate_g2" type="mesh" mesh="wh_bk_diamond_plate_g2" material="wh_bk_diamond_plate" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dock_1_g2" type="mesh" mesh="wh_bk_dock_1_g2" material="wh_bk_dock_1" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dock_2_g2" type="mesh" mesh="wh_bk_dock_2_g2" material="wh_bk_dock_2" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dock_3_g2" type="mesh" mesh="wh_bk_dock_3_g2" material="wh_bk_dock_3" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dock_4_g2" type="mesh" mesh="wh_bk_dock_4_g2" material="wh_bk_dock_4" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_dock_door_g1" type="mesh" mesh="wh_bk_dock_door_g1" material="wh_bk_dock_door" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_drum_blue_g0" type="mesh" mesh="wh_bk_drum_blue_g0" material="wh_drum_blue" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_drum_blue_g2" type="mesh" mesh="wh_bk_drum_blue_g2" material="wh_drum_blue" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_duct_g1" type="mesh" mesh="wh_bk_duct_g1" material="wh_duct" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_forklift_yellow_g0" type="mesh" mesh="wh_bk_forklift_yellow_g0" material="wh_forklift_yellow" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_forklift_yellow_g2" type="mesh" mesh="wh_bk_forklift_yellow_g2" material="wh_forklift_yellow" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_galvanized_g0" type="mesh" mesh="wh_bk_galvanized_g0" material="wh_galvanized" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_galvanized_g1" type="mesh" mesh="wh_bk_galvanized_g1" material="wh_galvanized" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_galvanized_g2" type="mesh" mesh="wh_bk_galvanized_g2" material="wh_galvanized" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_hazard_tile_g2" type="mesh" mesh="wh_bk_hazard_tile_g2" material="wh_bk_hazard_tile" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_labels_0_g2" type="mesh" mesh="wh_bk_labels_0_g2" material="wh_bk_labels_0" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_labels_1_g2" type="mesh" mesh="wh_bk_labels_1_g2" material="wh_bk_labels_1" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_labels_2_g2" type="mesh" mesh="wh_bk_labels_2_g2" material="wh_bk_labels_2" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_labels_3_g2" type="mesh" mesh="wh_bk_labels_3_g2" material="wh_bk_labels_3" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_leaf_dark_g2" type="mesh" mesh="wh_bk_leaf_dark_g2" material="wh_leaf_dark" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_leaf_light_g2" type="mesh" mesh="wh_bk_leaf_light_g2" material="wh_leaf_light" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_led_green_g2" type="mesh" mesh="wh_bk_led_green_g2" material="wh_led_green" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_led_panel_g1" type="mesh" mesh="wh_bk_led_panel_g1" material="wh_led_panel" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_led_panel_g2" type="mesh" mesh="wh_bk_led_panel_g2" material="wh_led_panel" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_led_red_g2" type="mesh" mesh="wh_bk_led_red_g2" material="wh_led_red" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_blue_g0" type="mesh" mesh="wh_bk_paint_blue_g0" material="wh_paint_blue" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_blue_g2" type="mesh" mesh="wh_bk_paint_blue_g2" material="wh_paint_blue" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_green_g2" type="mesh" mesh="wh_bk_paint_green_g2" material="wh_paint_green" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_red_g2" type="mesh" mesh="wh_bk_paint_red_g2" material="wh_paint_red" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_white_g2" type="mesh" mesh="wh_bk_paint_white_g2" material="wh_paint_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paint_yellow_g2" type="mesh" mesh="wh_bk_paint_yellow_g2" material="wh_paint_yellow" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_pallet_top_g0" type="mesh" mesh="wh_bk_pallet_top_g0" material="wh_bk_pallet_top" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_pallet_top_g2" type="mesh" mesh="wh_bk_pallet_top_g2" material="wh_bk_pallet_top" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_pallet_wood_g0" type="mesh" mesh="wh_bk_pallet_wood_g0" material="wh_bk_pallet_wood" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_pallet_wood_g2" type="mesh" mesh="wh_bk_pallet_wood_g2" material="wh_bk_pallet_wood" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_paper_white_g2" type="mesh" mesh="wh_bk_paper_white_g2" material="wh_paper_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_placard_0_g2" type="mesh" mesh="wh_bk_placard_0_g2" material="wh_bk_placard_0" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_placard_1_g2" type="mesh" mesh="wh_bk_placard_1_g2" material="wh_bk_placard_1" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_placard_2_g2" type="mesh" mesh="wh_bk_placard_2_g2" material="wh_bk_placard_2" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_plastic_grey_g2" type="mesh" mesh="wh_bk_plastic_grey_g2" material="wh_plastic_grey" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_plastic_white_g0" type="mesh" mesh="wh_bk_plastic_white_g0" material="wh_plastic_white" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_plastic_white_g2" type="mesh" mesh="wh_bk_plastic_white_g2" material="wh_plastic_white" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_plywood_g2" type="mesh" mesh="wh_bk_plywood_g2" material="wh_bk_plywood" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_precast_g2" type="mesh" mesh="wh_bk_precast_g2" material="wh_bk_precast" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_red_paint_g2" type="mesh" mesh="wh_bk_red_paint_g2" material="wh_red_paint" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_roof_deck_g1" type="mesh" mesh="wh_bk_roof_deck_g1" material="wh_bk_roof_deck" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_rubber_g2" type="mesh" mesh="wh_bk_rubber_g2" material="wh_rubber" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_rubber_mat_g2" type="mesh" mesh="wh_bk_rubber_mat_g2" material="wh_bk_rubber_mat" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sack_g0" type="mesh" mesh="wh_bk_sack_g0" material="wh_sack" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sack_g2" type="mesh" mesh="wh_bk_sack_g2" material="wh_sack" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_safety_orange_g0" type="mesh" mesh="wh_bk_safety_orange_g0" material="wh_safety_orange" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_safety_yellow_g0" type="mesh" mesh="wh_bk_safety_yellow_g0" material="wh_safety_yellow" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_safety_yellow_g2" type="mesh" mesh="wh_bk_safety_yellow_g2" material="wh_safety_yellow" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_screen_a_g2" type="mesh" mesh="wh_bk_screen_a_g2" material="wh_bk_screen_a" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_screen_b_g2" type="mesh" mesh="wh_bk_screen_b_g2" material="wh_bk_screen_b" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_seat_black_g2" type="mesh" mesh="wh_bk_seat_black_g2" material="wh_seat_black" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_aisle_01_g2" type="mesh" mesh="wh_bk_sign_aisle_01_g2" material="wh_bk_sign_aisle_01" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_aisle_02_g2" type="mesh" mesh="wh_bk_sign_aisle_02_g2" material="wh_bk_sign_aisle_02" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_aisle_03_g2" type="mesh" mesh="wh_bk_sign_aisle_03_g2" material="wh_bk_sign_aisle_03" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_exit_g2" type="mesh" mesh="wh_bk_sign_exit_g2" material="wh_bk_sign_exit" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_fire_g2" type="mesh" mesh="wh_bk_sign_fire_g2" material="wh_bk_sign_fire" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_forklift_g2" type="mesh" mesh="wh_bk_sign_forklift_g2" material="wh_bk_sign_forklift" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_incident_g2" type="mesh" mesh="wh_bk_sign_incident_g2" material="wh_bk_sign_incident" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_pack_g2" type="mesh" mesh="wh_bk_sign_pack_g2" material="wh_bk_sign_pack" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_pick_g2" type="mesh" mesh="wh_bk_sign_pick_g2" material="wh_bk_sign_pick" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_ppe_g2" type="mesh" mesh="wh_bk_sign_ppe_g2" material="wh_bk_sign_ppe" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sign_speed_g2" type="mesh" mesh="wh_bk_sign_speed_g2" material="wh_bk_sign_speed" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_skylight_g1" type="mesh" mesh="wh_bk_skylight_g1" material="wh_skylight" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_soil_g2" type="mesh" mesh="wh_bk_soil_g2" material="wh_soil" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_sprinkler_red_g1" type="mesh" mesh="wh_bk_sprinkler_red_g1" material="wh_sprinkler_red" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_steel_g1" type="mesh" mesh="wh_bk_steel_g1" material="wh_steel" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_steel_dark_g0" type="mesh" mesh="wh_bk_steel_dark_g0" material="wh_steel_dark" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_steel_dark_g1" type="mesh" mesh="wh_bk_steel_dark_g1" material="wh_steel_dark" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_steel_dark_g2" type="mesh" mesh="wh_bk_steel_dark_g2" material="wh_steel_dark" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_strap_g2" type="mesh" mesh="wh_bk_strap_g2" material="wh_strap" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_test_zone_g2" type="mesh" mesh="wh_bk_test_zone_g2" material="wh_bk_test_zone" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_tire_g0" type="mesh" mesh="wh_bk_tire_g0" material="wh_tire" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_tire_g2" type="mesh" mesh="wh_bk_tire_g2" material="wh_tire" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_tote_blue_g2" type="mesh" mesh="wh_bk_tote_blue_g2" material="wh_tote_blue" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_tote_grey_g0" type="mesh" mesh="wh_bk_tote_grey_g0" material="wh_tote_grey" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_tote_grey_g2" type="mesh" mesh="wh_bk_tote_grey_g2" material="wh_tote_grey" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_upright_g0" type="mesh" mesh="wh_bk_upright_g0" material="wh_bk_upright" group="0" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_upright_g2" type="mesh" mesh="wh_bk_upright_g2" material="wh_bk_upright" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_vending_g2" type="mesh" mesh="wh_bk_vending_g2" material="wh_bk_vending" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_water_jug_g2" type="mesh" mesh="wh_bk_water_jug_g2" material="wh_water_jug" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_whiteboard_g2" type="mesh" mesh="wh_bk_whiteboard_g2" material="wh_bk_whiteboard" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_wire_deck_g1" type="mesh" mesh="wh_bk_wire_deck_g1" material="wh_bk_wire_deck" group="1" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_wire_deck_g2" type="mesh" mesh="wh_bk_wire_deck_g2" material="wh_bk_wire_deck" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_baked_wrap_g2" type="mesh" mesh="wh_bk_wrap_g2" material="wh_wrap" group="2" contype="0" conaffinity="0"/>
+    <geom name="wh_floor" type="box" pos="0 2 -0.1" size="15.25 14.25 0.1" material="wh_floor" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall" type="box" pos="-13.8125 -12.125 4.5" size="1.4375 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_1" type="box" pos="-11 -12.125 6.025" size="1.375 0.125 2.975" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_2" type="box" pos="-9 -12.125 4.5" size="0.625 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_3" type="box" pos="-7 -12.125 6.025" size="1.375 0.125 2.975" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_4" type="box" pos="-5.15 -12.125 4.5" size="0.475 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_5" type="box" pos="-4.2 -12.125 5.575" size="0.475 0.125 3.425" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_6" type="box" pos="-2.7625 -12.125 4.5" size="0.9625 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_7" type="box" pos="0 -12.125 6.65" size="1.8 0.125 2.35" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_8" type="box" pos="2.7625 -12.125 4.5" size="0.9625 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_9" type="box" pos="4.2 -12.125 5.575" size="0.475 0.125 3.425" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_10" type="box" pos="5.15 -12.125 4.5" size="0.475 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_11" type="box" pos="7 -12.125 6.025" size="1.375 0.125 2.975" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_12" type="box" pos="9 -12.125 4.5" size="0.625 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_13" type="box" pos="11 -12.125 6.025" size="1.375 0.125 2.975" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_14" type="box" pos="13.8125 -12.125 4.5" size="1.4375 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_15" type="box" pos="0 16.125 4.5" size="15.25 0.125 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_16" type="box" pos="-15.125 2 4.5" size="0.125 14 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_wall_17" type="box" pos="15.125 2 4.5" size="0.125 14 4.5" material="wh_wall_panel" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column" type="box" pos="-9.75 -6.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_1" type="box" pos="-9.75 -5.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_2" type="box" pos="-9.75 -6 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard" type="box" pos="-9.75 -6 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_3" type="box" pos="-9.75 3.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_4" type="box" pos="-9.75 4.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_5" type="box" pos="-9.75 4 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_6" type="box" pos="-9.75 13.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_7" type="box" pos="-9.75 14.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_8" type="box" pos="-9.75 14 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_9" type="box" pos="-2.5 -6.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_10" type="box" pos="-2.5 -5.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_11" type="box" pos="-2.5 -6 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_1" type="box" pos="-2.5 -6 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_12" type="box" pos="-2.5 3.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_13" type="box" pos="-2.5 4.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_14" type="box" pos="-2.5 4 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_2" type="box" pos="-2.5 4 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_15" type="box" pos="-2.5 13.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_16" type="box" pos="-2.5 14.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_17" type="box" pos="-2.5 14 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_3" type="box" pos="-2.5 14 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_18" type="box" pos="2.5 -6.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_19" type="box" pos="2.5 -5.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_20" type="box" pos="2.5 -6 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_4" type="box" pos="2.5 -6 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_21" type="box" pos="2.5 3.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_22" type="box" pos="2.5 4.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_23" type="box" pos="2.5 4 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_5" type="box" pos="2.5 4 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_24" type="box" pos="2.5 13.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_25" type="box" pos="2.5 14.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_26" type="box" pos="2.5 14 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_6" type="box" pos="2.5 14 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_27" type="box" pos="9.75 -6.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_28" type="box" pos="9.75 -5.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_29" type="box" pos="9.75 -6 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_guard_7" type="box" pos="9.75 -6 0.55" size="0.22 0.22 0.55" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_30" type="box" pos="9.75 3.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_31" type="box" pos="9.75 4.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_32" type="box" pos="9.75 4 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_33" type="box" pos="9.75 13.857 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_34" type="box" pos="9.75 14.143 4.45" size="0.15 0.007 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_column_35" type="box" pos="9.75 14 4.45" size="0.008 0.15 4.45" material="wh_column" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_row_end_guard" type="box" pos="4.25 -3.225 0.25" size="1.25 0.075 0.25" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_row_end_guard_1" type="box" pos="9.75 -3.225 0.25" size="1.25 0.075 0.25" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_row_end_guard_2" type="box" pos="14.4 -3.225 0.25" size="0.55 0.075 0.25" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_dock_door" type="box" pos="-11 -12.085 1.525" size="1.375 0.035 1.525" material="wh_dock_door" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_leveler_lip" type="box" pos="-7 -12.21 -0.0035" size="1 0.21 0.0065" material="wh_diamond_plate" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_dock_door_1" type="box" pos="7 -12.085 1.525" size="1.375 0.035 1.525" material="wh_dock_door" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_dock_door_2" type="box" pos="11 -12.085 1.525" size="1.375 0.035 1.525" material="wh_dock_door" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_trailer_floor" type="box" pos="-7 -19.26 -0.025" size="1.3 6.99 0.025" material="wh_plywood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_trailer_wall" type="box" pos="-8.325 -19.26 1.375" size="0.025 6.99 1.375" material="wh_trailer_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_trailer_wall_1" type="box" pos="-5.675 -19.26 1.375" size="0.025 6.99 1.375" material="wh_trailer_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_trailer_wall_2" type="box" pos="-7 -26.275 1.375" size="1.35 0.025 1.375" material="wh_trailer_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_trailer_roof" type="box" pos="-7 -19.26 2.775" size="1.35 6.99 0.025" material="wh_trailer_wall" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_apron" type="box" pos="0 -36.125 -1.25" size="40 23.875 0.05" material="wh_asphalt" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_drive_in_door" type="box" pos="0 -12.085 2.15" size="1.8 0.035 2.15" material="wh_dock_door" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_door_bollard" type="box" pos="-1.85 -11.85 0.6" size="0.05 0.15 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_door_bollard_1" type="box" pos="1.85 -11.85 0.6" size="0.05 0.15 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_personnel_door" type="box" pos="-4.2 -12.075 1.075" size="0.475 0.025 1.075" material="wh_steel_dark" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_personnel_door_1" type="box" pos="4.2 -12.075 1.075" size="0.475 0.025 1.075" material="wh_steel_dark" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard" type="cylinder" pos="-10 11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard_4" type="cylinder" pos="-9 11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard_8" type="cylinder" pos="-4.9 -11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard_12" type="cylinder" pos="-3.5 -11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard_16" type="cylinder" pos="3.5 -11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_bollard_20" type="cylinder" pos="4.9 -11.6 0.6" size="0.08 0.6" material="wh_safety_yellow" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_seat" type="cylinder" pos="-11.9 -0.8 0.64" size="0.19 0.03" material="wh_seat_black" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_post" type="cylinder" pos="-11.9 -0.8 0.35" size="0.025 0.28" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_seat_1" type="cylinder" pos="-9.4 -0.8 0.64" size="0.19 0.03" material="wh_seat_black" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_post_1" type="cylinder" pos="-9.4 -0.8 0.35" size="0.025 0.28" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_seat_2" type="cylinder" pos="-6.9 -0.8 0.64" size="0.19 0.03" material="wh_seat_black" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_post_2" type="cylinder" pos="-6.9 -0.8 0.35" size="0.025 0.28" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_seat_3" type="cylinder" pos="-4.4 -0.8 0.64" size="0.19 0.03" material="wh_seat_black" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_stool_post_3" type="cylinder" pos="-4.4 -0.8 0.35" size="0.025 0.28" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion" type="box" pos="-15 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_1" type="box" pos="-14.12 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_2" type="box" pos="-13.24 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_3" type="box" pos="-12.36 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_4" type="box" pos="-11.48 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_5" type="box" pos="-10.6 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_kick" type="box" pos="-12.8 12.2 0.075" size="2.24 0.04 0.075" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_head" type="box" pos="-12.8 12.2 2.95" size="2.24 0.04 0.05" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_glass" type="box" pos="-12.8 12.2 1.525" size="2.22 0.02 1.375" material="wh_office_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_6" type="box" pos="-10.6 12.2 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_7" type="box" pos="-10.6 13.15 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_8" type="box" pos="-10.6 14.1 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_9" type="box" pos="-10.6 15.05 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_mullion_10" type="box" pos="-10.6 16 1.5" size="0.04 0.04 1.5" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_kick_1" type="box" pos="-10.6 14.1 0.075" size="0.04 1.94 0.075" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_head_1" type="box" pos="-10.6 14.1 2.95" size="0.04 1.94 0.05" material="wh_aluminum" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_office_glass_1" type="box" pos="-10.6 14.1 1.525" size="0.02 1.92 1.375" material="wh_office_glass" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_chair_post" type="cylinder" pos="-13.4 14.1 0.28" size="0.03 0.18" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_chair_seat" type="box" pos="-13.4 14.1 0.485" size="0.25 0.24 0.035" material="wh_chair_fabric" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_chair_back" type="box" pos="-13.4 13.81 0.85" size="0.23 0.03 0.25" material="wh_chair_fabric" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_cylinder_878" type="cylinder" pos="-10.95 15.6 0.175" size="0.18 0.175" material="wh_ceramic_white" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_cylinder_881" type="cylinder" pos="-12 15.6 0.2" size="0.14 0.2" rgba="0.9 0.5 0.1 0.4" group="3" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair" type="box" pos="-6.1909 14.8091 0.445" quat="0.382683 0 0 0.92388" size="0.21 0.2 0.015" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_1" type="box" pos="-6.3217 14.6783 0.655" quat="0.382683 0 0 0.92388" size="0.2 0.015 0.195" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_2" type="cylinder" fromto="-5.9434 14.802 0 -5.9434 14.802 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_3" type="cylinder" fromto="-6.1838 14.5616 0 -6.1838 14.5616 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_4" type="cylinder" fromto="-6.198 15.0566 0 -6.198 15.0566 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_5" type="cylinder" fromto="-6.4384 14.8162 0 -6.4384 14.8162 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_6" type="box" pos="-7.2091 14.8091 0.445" quat="0.382683 0 0 -0.92388" size="0.21 0.2 0.015" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_7" type="box" pos="-7.0783 14.6783 0.655" quat="0.382683 0 0 -0.92388" size="0.2 0.015 0.195" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_8" type="cylinder" fromto="-7.202 15.0566 0 -7.202 15.0566 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_9" type="cylinder" fromto="-6.9616 14.8162 0 -6.9616 14.8162 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_10" type="cylinder" fromto="-7.4566 14.802 0 -7.4566 14.802 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_11" type="cylinder" fromto="-7.2162 14.5616 0 -7.2162 14.5616 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_12" type="box" pos="-7.2091 13.7909 0.445" quat="0.92388 0 0 -0.382683" size="0.21 0.2 0.015" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_13" type="box" pos="-7.0783 13.9217 0.655" quat="0.92388 0 0 -0.382683" size="0.2 0.015 0.195" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_14" type="cylinder" fromto="-7.4566 13.798 0 -7.4566 13.798 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_15" type="cylinder" fromto="-7.2162 14.0384 0 -7.2162 14.0384 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_16" type="cylinder" fromto="-7.202 13.5434 0 -7.202 13.5434 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_17" type="cylinder" fromto="-6.9616 13.7838 0 -6.9616 13.7838 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_18" type="box" pos="-6.1909 13.7909 0.445" quat="0.92388 0 0 0.382683" size="0.21 0.2 0.015" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_19" type="box" pos="-6.3217 13.9217 0.655" quat="0.92388 0 0 0.382683" size="0.2 0.015 0.195" material="wh_tote_blue" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_20" type="cylinder" fromto="-6.198 13.5434 0 -6.198 13.5434 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_21" type="cylinder" fromto="-6.4384 13.7838 0 -6.4384 13.7838 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_22" type="cylinder" fromto="-5.9434 13.798 0 -5.9434 13.798 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_break_chair_23" type="cylinder" fromto="-6.1838 14.0384 0 -6.1838 14.0384 0.43" size="0.012" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1706" type="box" pos="3.75 -6.9 0.133" size="0.5 0.6 0.011" material="wh_pallet_top" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1707" type="box" pos="3.29 -6.9 0.072" size="0.04 0.6 0.05" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1708" type="box" pos="3.75 -6.9 0.072" size="0.04 0.6 0.05" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1709" type="box" pos="4.21 -6.9 0.072" size="0.04 0.6 0.05" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1710" type="box" pos="3.75 -7.45 0.011" size="0.5 0.05 0.011" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1711" type="box" pos="3.75 -6.9 0.011" size="0.5 0.05 0.011" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_pallet_1712" type="box" pos="3.75 -6.35 0.011" size="0.5 0.05 0.011" material="wh_pallet_wood" group="0" contype="1" conaffinity="1"/>
+    <body name="wh_carton_0" pos="3.53 -7.2 0.2945" quat="1 0 0 0">
+      <freejoint name="wh_carton_0_free"/>
+      <geom name="wh_box_473" type="box" pos="0 0 0" size="0.2 0.15 0.15" material="wh_carton_a" group="0" contype="1" conaffinity="1" mass="4"/>
+    </body>
+    <body name="wh_carton_1" pos="3.99 -7.2 0.2695" quat="1 0 0 0">
+      <freejoint name="wh_carton_1_free"/>
+      <geom name="wh_box_474" type="box" pos="0 0 0" size="0.2 0.15 0.125" material="wh_carton_b" group="0" contype="1" conaffinity="1" mass="3"/>
+    </body>
+    <body name="wh_carton_2" pos="3.55 -6.62 0.3195" quat="1 0 0 0">
+      <freejoint name="wh_carton_2_free"/>
+      <geom name="wh_box_475" type="box" pos="0 0 0" size="0.25 0.2 0.175" material="wh_carton_c" group="0" contype="1" conaffinity="1" mass="8"/>
+    </body>
+    <body name="wh_carton_3" pos="4 -6.6 0.2945" quat="1 0 0 0">
+      <freejoint name="wh_carton_3_free"/>
+      <geom name="wh_box_476" type="box" pos="0 0 0" size="0.15 0.15 0.15" material="wh_carton_a" group="0" contype="1" conaffinity="1" mass="2.5"/>
+    </body>
+    <body name="wh_floor_carton_0" pos="5.2 -7.3 0.2005" quat="1 0 0 0">
+      <freejoint name="wh_floor_carton_0_free"/>
+      <geom name="wh_box_477" type="box" pos="0 0 0" size="0.3 0.2 0.2" material="wh_carton_c" group="0" contype="1" conaffinity="1" mass="10"/>
+    </body>
+    <body name="wh_floor_carton_1" pos="5.25 -6.5 0.1505" quat="1 0 0 0">
+      <freejoint name="wh_floor_carton_1_free"/>
+      <geom name="wh_box_478" type="box" pos="0 0 0" size="0.2 0.2 0.15" material="wh_carton_b" group="0" contype="1" conaffinity="1" mass="5"/>
+    </body>
+    <geom name="wh_lift_table_top" type="box" pos="3.95 -5.025 0.88" size="0.75 0.375 0.02" material="wh_butcher" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_lift_table_leg" type="box" pos="3.25 -5.35 0.43" size="0.025 0.025 0.43" material="wh_bench_grey" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_lift_table_leg_1" type="box" pos="3.25 -4.7 0.43" size="0.025 0.025 0.43" material="wh_bench_grey" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_lift_table_leg_2" type="box" pos="4.65 -5.35 0.43" size="0.025 0.025 0.43" material="wh_bench_grey" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_lift_table_leg_3" type="box" pos="4.65 -4.7 0.43" size="0.025 0.025 0.43" material="wh_bench_grey" group="0" contype="1" conaffinity="1"/>
+    <body name="wh_tote_324" pos="3.6 -5.02 1.0505" quat="1 0 0 0">
+      <freejoint name="wh_tote_324_free"/>
+      <geom name="wh_box_479" type="box" pos="0 0 -0.14" size="0.28 0.19 0.01" material="wh_tote_grey" group="0" contype="1" conaffinity="1" mass="0.5"/>
+      <geom name="wh_box_480" type="box" pos="-0.27 0 0" size="0.01 0.19 0.15" material="wh_tote_grey" group="0" contype="1" conaffinity="1" mass="0.25"/>
+      <geom name="wh_box_481" type="box" pos="0 -0.18 0" size="0.26 0.01 0.15" material="wh_tote_grey" group="0" contype="1" conaffinity="1" mass="0.25"/>
+      <geom name="wh_box_482" type="box" pos="0.27 0 0" size="0.01 0.19 0.15" material="wh_tote_grey" group="0" contype="1" conaffinity="1" mass="0.25"/>
+      <geom name="wh_box_483" type="box" pos="0 0.18 0" size="0.26 0.01 0.15" material="wh_tote_grey" group="0" contype="1" conaffinity="1" mass="0.25"/>
+    </body>
+    <body name="wh_tote_item" pos="3.6 -5.02 0.9805" quat="1 0 0 0">
+      <freejoint name="wh_tote_item_free"/>
+      <geom name="wh_box_484" type="box" pos="0 0 0" size="0.1 0.07 0.06" material="wh_carton_a" group="0" contype="1" conaffinity="1" mass="0.6"/>
+    </body>
+    <geom name="wh_lift_stool" type="cylinder" pos="5.35 -5 0.64" size="0.19 0.03" material="wh_seat_black" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_lift_stool_1" type="cylinder" pos="5.35 -5 0.35" size="0.025 0.28" material="wh_chrome" group="0" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_rack_run_0" type="box" pos="3.545 5.55 3.95" size="0.605 8.62 3.95" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_rack_run_1" type="box" pos="4.955 5.55 3.95" size="0.605 8.62 3.95" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_rack_run_2" type="box" pos="9.045 5.55 3.95" size="0.605 8.62 3.95" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_rack_run_3" type="box" pos="10.455 5.55 3.95" size="0.605 8.62 3.95" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_rack_run_4" type="box" pos="14.395 5.55 3.95" size="0.605 8.62 3.95" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet" type="box" pos="-11.6 -10.6 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_1" type="box" pos="-10.4 -10.6 0.1545" size="0.5 0.6 0.1545" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_2" type="box" pos="-11.6 -9.2 0.219" size="0.5 0.6 0.219" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_3" type="box" pos="-10.4 -9.2 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_4" type="box" pos="-6.4 -10.6 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_5" type="box" pos="-7.6 -9.2 0.7331" size="0.5 0.6 0.7331" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_6" type="box" pos="-6.4 -9.2 0.512" size="0.5 0.6 0.512" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_7" type="box" pos="6.4 -10.6 0.5314" size="0.5 0.6 0.5314" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_8" type="box" pos="7.6 -10.6 0.512" size="0.5 0.6 0.512" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_9" type="box" pos="6.4 -9.2 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_10" type="box" pos="7.6 -9.2 0.6956" size="0.5 0.6 0.6956" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_11" type="box" pos="10.4 -10.6 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_12" type="box" pos="11.6 -10.6 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_13" type="box" pos="10.4 -9.2 0.7878" size="0.5 0.6 0.7878" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_staged_pallet_14" type="box" pos="11.6 -9.2 0.281" size="0.5 0.6 0.281" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pallet_stack" type="box" pos="-13.7 -9 0.792" size="0.5 0.6 0.792" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pallet_stack_1" type="box" pos="13.9 -9 0.576" size="0.5 0.6 0.576" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pallet_stack_2" type="box" pos="13.9 -6.6 0.936" size="0.5 0.6 0.936" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_bales" type="box" pos="-14.1 -10.8 1.19" size="0.6 0.95 1.19" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_forklift" type="box" pos="-6.39 -6.15 1.15" size="2.02 0.59 1.15" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pallet_jack" type="box" pos="5.083 -9.7299 0.14" size="0.5317 0.7692 0.11" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_stretch_wrapper" type="box" pos="-11.3 -6.1 1.3" size="1.15 0.85 1.3" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_flammables_cabinet" type="box" pos="-14.725 -9 0.825" size="0.275 0.6 0.825" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_charger_0" type="box" pos="-14.775 -6.6 0.65" size="0.225 0.3 0.65" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_charger_1" type="box" pos="-14.775 -5.4 0.65" size="0.225 0.3 0.65" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pallet_jack_1" type="box" pos="-13.55 -5.6 0.44" size="0.7 0.34 0.41" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pack_station_0" type="box" pos="-12.5 0 1" size="1 0.4 1" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pack_station_1" type="box" pos="-10 0 1" size="1 0.4 1" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pack_station_2" type="box" pos="-7.5 0 1" size="1 0.4 1" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_pack_station_3" type="box" pos="-5 0 1" size="1 0.4 1" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_conveyor" type="box" pos="-8.95 1.35 0.44" size="5.35 0.31 0.44" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_shelving_0" type="box" pos="-9.7 5.6 1.075" size="4.52 0.3 1.075" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_shelving_1" type="box" pos="-9.7 8.2 1.075" size="4.52 0.3 1.075" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_shelving_2" type="box" pos="-9.7 10.8 1.075" size="4.52 0.3 1.075" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_office_desk" type="box" pos="-13.4 15 0.375" size="1.2 0.4 0.375" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_filing_cabinet" type="box" pos="-14.7 12.7 0.665" size="0.25 0.3 0.665" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_vending" type="box" pos="-9 15.575 0.925" size="0.45 0.425 0.925" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_water_cooler" type="box" pos="-7.9 15.75 0.5" size="0.16 0.16 0.5" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_break_counter" type="box" pos="-5 15.69 0.47" size="0.92 0.31 0.47" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+    <geom name="wh_proxy_break_table" type="box" pos="-6.7 14.3 0.3775" size="0.45 0.45 0.3775" rgba="1 0.15 0.1 0.3" group="4" contype="1" conaffinity="1"/>
+  </worldbody>
+
+  <actuator>
+    <position class="g1" name="left_hip_pitch_joint" joint="left_hip_pitch_joint" forcerange="-88 88"/>
+    <position class="g1" name="left_hip_roll_joint" joint="left_hip_roll_joint" forcerange="-139 139"/>
+    <position class="g1" name="left_hip_yaw_joint" joint="left_hip_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="left_knee_joint" joint="left_knee_joint" forcerange="-139 139"/>
+    <position class="g1" name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" forcerange="-50 50"/>
+    <position class="g1" name="left_ankle_roll_joint" joint="left_ankle_roll_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="right_hip_pitch_joint" joint="right_hip_pitch_joint" forcerange="-88 88"/>
+    <position class="g1" name="right_hip_roll_joint" joint="right_hip_roll_joint" forcerange="-139 139"/>
+    <position class="g1" name="right_hip_yaw_joint" joint="right_hip_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="right_knee_joint" joint="right_knee_joint" forcerange="-139 139"/>
+    <position class="g1" name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" forcerange="-50 50"/>
+    <position class="g1" name="right_ankle_roll_joint" joint="right_ankle_roll_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="waist_yaw_joint" joint="waist_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="waist_roll_joint" joint="waist_roll_joint" forcerange="-50 50"/>
+    <position class="g1" name="waist_pitch_joint" joint="waist_pitch_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="left_shoulder_pitch_joint" joint="left_shoulder_pitch_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_shoulder_roll_joint" joint="left_shoulder_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_shoulder_yaw_joint" joint="left_shoulder_yaw_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_elbow_joint" joint="left_elbow_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_wrist_roll_joint" joint="left_wrist_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_wrist_pitch_joint" joint="left_wrist_pitch_joint" forcerange="-5 5"/>
+    <position class="g1" name="left_wrist_yaw_joint" joint="left_wrist_yaw_joint" forcerange="-5 5"/>
+
+    <position class="g1" name="right_shoulder_pitch_joint" joint="right_shoulder_pitch_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_shoulder_roll_joint" joint="right_shoulder_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_shoulder_yaw_joint" joint="right_shoulder_yaw_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_elbow_joint" joint="right_elbow_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_wrist_roll_joint" joint="right_wrist_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_wrist_pitch_joint" joint="right_wrist_pitch_joint" forcerange="-5 5"/>
+    <position class="g1" name="right_wrist_yaw_joint" joint="right_wrist_yaw_joint" forcerange="-5 5"/>
+  </actuator>
+
+  <sensor>
+    <gyro site="imu_in_torso" name="imu-torso-angular-velocity" cutoff="34.9" noise="0.0005"/>
+    <accelerometer site="imu_in_torso" name="imu-torso-linear-acceleration" cutoff="157" noise="0.01"/>
+    <gyro site="imu_in_pelvis" name="imu-pelvis-angular-velocity" cutoff="34.9" noise="0.0005"/>
+    <accelerometer site="imu_in_pelvis" name="imu-pelvis-linear-acceleration" cutoff="157" noise="0.01"/>
+  </sensor>
+
+  <keyframe>
+    <key name="stand" qpos="0.0000 -5.6500 0.793 0.7071067812 0 0 0.7071067812 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0.2 0 1.28 0 0 0 0.2 -0.2 0 1.28 0 0 0 3.53 -7.2 0.2945 1 0 0 0 3.99 -7.2 0.2695 1 0 0 0 3.55 -6.62 0.3195 1 0 0 0 4 -6.6 0.2945 1 0 0 0 5.2 -7.3 0.2005 1 0 0 0 5.25 -6.5 0.1505 1 0 0 0 3.6 -5.02 1.0505 1 0 0 0 3.6 -5.02 0.9805 1 0 0 0" ctrl="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0.2 0 1.28 0 0 0 0.2 -0.2 0 1.28 0 0 0"/>
+  </keyframe>
+</mujoco>

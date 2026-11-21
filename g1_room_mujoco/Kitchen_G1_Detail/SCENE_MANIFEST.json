@@ -1,0 +1,84 @@
+{
+  "scene": "Detailed residential kitchen (procedural, not a scan)",
+  "geoms": 1942,
+  "by_role": {
+    "struct": 159,
+    "ceiling": 104,
+    "deco": 1600,
+    "solid": 71,
+    "dyn": 8
+  },
+  "nav_proxies": 5,
+  "dynamic_bodies": [
+    "kt_grocery_box",
+    "kt_step_stool",
+    "kt_apple",
+    "kt_mug",
+    "kt_water_bottle",
+    "kt_cereal_box"
+  ],
+  "materials": 108,
+  "textures": 35,
+  "lights": 4,
+  "cameras": [
+    "kt_entrance",
+    "kt_robot_view",
+    "kt_island_closeup",
+    "kt_sink_and_range",
+    "kt_fridge_pantry",
+    "kt_dining",
+    "kt_wide_corner",
+    "kt_top"
+  ],
+  "spawn": {
+    "x": -1.35,
+    "y": -2.2,
+    "yaw_deg": 90.0
+  },
+  "clear_floor_area": {
+    "x": [
+      -3.3,
+      0.6
+    ],
+    "y": [
+      -3.3,
+      -0.8
+    ]
+  },
+  "task_props": {
+    "chairs": "6 dining chairs (real collision in both files), 3 island stools",
+    "tables": "island top 0.935 m, dining table 0.76 m",
+    "liftable": [
+      "grocery_box 3 kg",
+      "step_stool 1.5 kg",
+      "apple",
+      "mug",
+      "water_bottle",
+      "cereal_box"
+    ]
+  },
+  "baked": {
+    "meshes": 112,
+    "vertices": 88372,
+    "triangles": 97542,
+    "geoms_baked": 1769
+  },
+  "visual_check": {
+    "ngeom": 356,
+    "nbody": 7,
+    "ncam": 8,
+    "nlight": 4,
+    "nq": 42,
+    "contacts_after_settle": 25,
+    "max_prop_drift_m": 0.0009
+  },
+  "nav_check": {
+    "ngeom": 291,
+    "nbody": 7,
+    "ncam": 8,
+    "nlight": 4,
+    "nq": 42,
+    "contacts_after_settle": 25,
+    "max_prop_drift_m": 0.0009
+  }
+}
