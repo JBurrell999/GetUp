@@ -215,9 +215,111 @@ class Replay:
         surfs = (interp.get("environment", {}) or {}).get("surfaces", []) or []
         self.env_names = {mujoco.mj_name2id(m, mujoco.mjtObj.mjOBJ_GEOM, f"surface{i}"): (sf.get("name") or "table")
                           for i, sf in enumerate(surfs)}
+        self.self_ok = self._self_contact_whitelist()
         for g in range(m.ngeom):   # unnamed world geoms (table legs) count as "table"
             if m.geom_bodyid[g] == 0 and g not in self.env_names and m.geom(g).name != "floor":
                 self.env_names[g] = "table leg"
+
+    def _resolve_collisions(self, traj, t, grasps, fps, iters=12, rounds=2):
+        """Kinematic clean-up: push penetrating arm parts out of each other / the torso / the table / the floor along
+        the contact normal (Jacobian step on the arm joints), smoothed over time. No physics, a few ms per frame."""
+        m, d = self.m, self.d
+        ARMS = {"left": list(range(15, 22)), "right": list(range(22, 29))}
+        jp = np.zeros((3, m.nv))
+        robot_bodies = set(range(1, m.nbody)) - {self.obj_body}
+        fixed_frames = 0
+        for _ in range(rounds):
+            corr = np.zeros((len(t), C.NJ))
+            for f in range(len(t)):
+                q, yaw, pitch, roll, xy = _split(traj[f])
+                root = (yaw, pitch, roll, xy)
+                busy = {h for gr in grasps if gr["g"] - 3 <= f < gr["r"] for h in gr["hands"]}
+                arm = [j for side, js in ARMS.items() if side not in busy for j in js]   # never move a holding arm
+                if not arm:
+                    continue
+                dofs = self.jv[arm]
+                q0 = q.copy()
+                for _i in range(iters):
+                    self._set(q, *root)
+                    mujoco.mj_collision(m, d)
+                    dq = np.zeros(len(arm))
+                    hit = False
+                    for k in range(d.ncon):
+                        c = d.contact[k]
+                        if c.dist > -0.004:
+                            continue
+                        b1, b2 = m.geom_bodyid[c.geom1], m.geom_bodyid[c.geom2]
+                        if c.geom1 in self.obj_geoms or c.geom2 in self.obj_geoms:
+                            continue
+                        if b1 in robot_bodies and b2 in robot_bodies and (min(b1, b2), max(b1, b2)) in self.self_ok:
+                            continue
+                        if (b1 == 0 or b2 == 0) and any(b in self.feet for b in (b1, b2)):
+                            continue
+                        n = c.frame[:3]                                     # normal from geom1 to geom2
+                        for b, sgn in ((b1, -1.0), (b2, 1.0)):
+                            if b not in robot_bodies:
+                                continue
+                            mujoco.mj_comPos(m, d)
+                            mujoco.mj_jac(m, d, jp, None, c.pos, b)
+                            J = jp[:, dofs]
+                            if not J.any():
+                                continue
+                            dq += J.T @ (sgn * n * (-c.dist + 0.005)) / (np.sum(J * J) + 1e-3) * 1.5
+                            hit = True
+                    if not hit:
+                        break
+                    q[arm] = np.clip(q[arm] + np.clip(dq, -0.1, 0.1), self.lo[arm], self.hi[arm])
+                corr[f] = q - q0
+                if np.abs(corr[f]).max() > 1e-4:
+                    fixed_frames += 1
+            if not np.abs(corr).any():
+                break
+            traj[:, :C.NJ] += _gauss_smooth(corr, 0.05 * fps) * 1.2
+        if not fixed_frames:
+            return traj, None
+        return traj, [f"arm/hand collisions with the body, the other arm, the table or the floor were pushed apart "
+                      f"automatically in {fixed_frames} frames (kinematics)"]
+
+    def _arm_in_body(self):
+        m, d = self.m, self.d
+        mujoco.mj_collision(m, d)
+        for k in range(d.ncon):
+            c = d.contact[k]
+            if c.dist > -0.005:
+                continue
+            p1, p2 = self._part(m.geom_bodyid[c.geom1]), self._part(m.geom_bodyid[c.geom2])
+            if {"torso", "pelvis"} & {p1, p2} and any(x in p1 + p2 for x in ("hand", "forearm")):
+                return True
+        return False
+
+    def _self_contact_whitelist(self):
+        m = self.m
+        def chain(b):
+            out = [b]
+            while b > 0:
+                b = m.body_parentid[b]
+                out.append(b)
+            return out
+        ok = set()
+        robot = [b for b in range(1, m.nbody) if b != self.obj_body]
+        ch = {b: chain(b) for b in robot}
+        for i, a in enumerate(robot):
+            for b in robot[i + 1:]:
+                ca, cb = ch[a], ch[b]
+                common = next(x for x in ca if x in cb)
+                if ca.index(common) + cb.index(common) <= 3:          # close relatives in the kinematic tree
+                    ok.add((min(a, b), max(a, b)))
+        d = mujoco.MjData(m)                                         # pairs already touching when standing neutrally
+        d.qpos[3], d.qpos[2] = 1.0, 0.8
+        d.qpos[self.jq] = C.DEFAULT_Q
+        mujoco.mj_kinematics(m, d)
+        mujoco.mj_collision(m, d)
+        for i in range(d.ncon):
+            c = d.contact[i]
+            a, b = m.geom_bodyid[c.geom1], m.geom_bodyid[c.geom2]
+            if a > 0 and b > 0:
+                ok.add((min(a, b), max(a, b)))
+        return ok
 
     # ---- posing ----
     def _set(self, q, yaw, pitch, roll, xy):
@@ -418,6 +520,9 @@ class Replay:
                 if end and r < T:
                     self._place(obj, end, sz, hands, q, root, obj_pos, obj_quat, closed, traj, t, r, blend_in, blend_out, tel)
         traj = _gauss_smooth(traj, smooth_s * fps)
+        traj, fixed = self._resolve_collisions(traj, t, grasps, fps)
+        if fixed:
+            tel["auto_fixed"] = fixed
 
         # ---- pass 2: pose, fingers, carry (closed chain for two hands), render ----
         renderer = None
@@ -476,10 +581,16 @@ class Replay:
                         mujoco.mju_axisAngle2Quat(qz, np.array([0, 0, 1.0]), dy)
                         mujoco.mju_mulQuat(obj_quat, qz, rel["quat0"])
                         obj_pos[2] = max(obj_pos[2], self._support_height(obj_pos))
-                        self._set_obj(obj_pos, obj_quat)
-                        specs = self._grip_specs(obj, obj_pos, obj_quat, sz, hands, yaw)
-                        for h in hands:
-                            q, _, _ = self._ik6(q, root, h, *specs[h], iters=25)
+                        fwd = np.array([np.cos(yaw), np.sin(yaw), 0.0])
+                        for _k in range(8):        # carried object pressed into the body? hold it further out
+                            self._set_obj(obj_pos, obj_quat)
+                            specs = self._grip_specs(obj, obj_pos, obj_quat, sz, hands, yaw)
+                            for h in hands:
+                                q, _, _ = self._ik6(q, root, h, *specs[h], iters=25)
+                            if not self._arm_in_body():
+                                break
+                            obj_pos = obj_pos + 0.02 * fwd
+                            rel["mid_off"] = rel["mid_off"] + 0.02 * fwd
                     if len(hands) == 1:
                         obj_pos = obj_pos.copy()
                 self._set_obj(obj_pos, obj_quat)
@@ -555,7 +666,8 @@ class Replay:
                                                      note="arm cannot reach the place target: move closer/lean" if max(errs) > 0.03 else "ok"))
 
     def _collisions(self, f, held, near_grasp):
-        """Interpenetrations this frame (robot/object vs table/floor, robot vs object)."""
+        """Interpenetrations this frame: robot vs table/floor, robot vs object, object vs table/floor,
+        and robot self-collisions (arms through each other / the torso / the legs)."""
         m, d = self.m, self.d
         mujoco.mj_collision(m, d)
         out = []
@@ -574,8 +686,13 @@ class Replay:
                     names.append(self._part(b))
             a, b_ = sorted(names)
             env = {"floor"} | set(self.env_names.values())
-            if (a in env and b_ in env) or (a not in env and b_ not in env and "object" not in (a, b_)):
-                continue                                              # env-env, robot self-contact
+            if a in env and b_ in env:
+                continue                                              # env-env
+            ba, bb = m.geom_bodyid[c.geom1], m.geom_bodyid[c.geom2]
+            if a not in env and b_ not in env and "object" not in (a, b_):
+                # robot self-collision (arm through arm / torso / leg ...), minus pairs that always touch
+                if (min(ba, bb), max(ba, bb)) in self.self_ok or a == b_:
+                    continue
             if "foot" in a + b_ and "floor" in (a, b_):
                 continue                                              # standing on the floor
             if "object" in (a, b_):

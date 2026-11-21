@@ -1,0 +1,459 @@
+{
+ "summary": "A person stands near a black-draped table, walks forward to a reddish-brown chair, bends down to grasp the top of its backrest with both hands, lifts the chair, turns around, and places it next to another black-draped table.",
+ "environment": {
+  "description": "An indoor hall with a light-colored floor, white structural columns, brown curtains, and black-draped tables.",
+  "surfaces": [
+   {
+    "name": "table_front",
+    "kind": "table",
+    "forward_m": 1.7,
+    "left_m": 0.2,
+    "depth_m": 0.9,
+    "width_m": 1.8,
+    "height_m": 0.75
+   },
+   {
+    "name": "table_side",
+    "kind": "table",
+    "forward_m": -0.8,
+    "left_m": -1.5,
+    "depth_m": 0.9,
+    "width_m": 1.5,
+    "height_m": 0.75
+   }
+  ]
+ },
+ "object": {
+  "type": "chair",
+  "description": "Reddish-brown chair with thin metal sled legs",
+  "color_rgb": [
+   0.65,
+   0.3,
+   0.25
+  ],
+  "grasp_style": "top",
+  "size_m": [
+   0.5,
+   0.5,
+   0.8
+  ],
+  "seat_height_m": 0.45,
+  "grasp_height_frac": 0.95,
+  "start": {
+   "forward_m": 0.9,
+   "left_m": -0.2,
+   "on_surface_height_m": 0.0,
+   "yaw_deg": 20.0
+  },
+  "end": {
+   "forward_m": -0.4,
+   "left_m": -1.1,
+   "on_surface_height_m": 0.0,
+   "yaw_deg": -110.0
+  }
+ },
+ "camera": {
+  "horizontal_distance_m": 2.8,
+  "height_m": 1.25,
+  "azimuth_deg": 55.0,
+  "vertical_fov_deg": 65.0,
+  "look_at_forward_m": 0.4,
+  "look_at_left_m": 0.0,
+  "look_at_height_m": 0.85
+ },
+ "duration_s": 8.0,
+ "contacts": [
+  {
+   "t_grasp": 2.0,
+   "t_release": 7.2,
+   "hand": "both"
+  }
+ ],
+ "keyframes": [
+  {
+   "t": 0.0,
+   "pelvis": {
+    "forward_m": 0.0,
+    "left_m": 0.0,
+    "facing_left_deg": 0.0
+   },
+   "trunk": {
+    "lean_forward_deg": 2.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 3.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 3.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 5.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 10.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 8.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 15.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 0.8,
+   "pelvis": {
+    "forward_m": 0.0,
+    "left_m": 0.0,
+    "facing_left_deg": 0.0
+   },
+   "trunk": {
+    "lean_forward_deg": 3.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 3.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 3.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 5.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 10.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 8.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 15.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 1.4,
+   "pelvis": {
+    "forward_m": 0.45,
+    "left_m": -0.1,
+    "facing_left_deg": -10.0
+   },
+   "trunk": {
+    "lean_forward_deg": 15.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 15.0,
+    "knee_flexion_deg": 15.0,
+    "hip_abduction_deg": 5.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": -10.0,
+    "knee_flexion_deg": 10.0,
+    "hip_abduction_deg": 5.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 35.0,
+    "shoulder_abduction_deg": 10.0,
+    "elbow_flexion_deg": 25.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 35.0,
+    "shoulder_abduction_deg": 10.0,
+    "elbow_flexion_deg": 25.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 2.0,
+   "pelvis": {
+    "forward_m": 0.55,
+    "left_m": -0.15,
+    "facing_left_deg": -10.0
+   },
+   "trunk": {
+    "lean_forward_deg": 45.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 15.0,
+    "knee_flexion_deg": 25.0,
+    "hip_abduction_deg": 6.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 15.0,
+    "knee_flexion_deg": 25.0,
+    "hip_abduction_deg": 6.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 60.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 30.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 60.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 30.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 2.8,
+   "pelvis": {
+    "forward_m": 0.5,
+    "left_m": -0.1,
+    "facing_left_deg": 25.0
+   },
+   "trunk": {
+    "lean_forward_deg": 10.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 5.0,
+    "knee_flexion_deg": 10.0,
+    "hip_abduction_deg": 5.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 5.0,
+    "hip_abduction_deg": 5.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 45.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 50.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 45.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 50.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 3.6,
+   "pelvis": {
+    "forward_m": 0.45,
+    "left_m": -0.1,
+    "facing_left_deg": 45.0
+   },
+   "trunk": {
+    "lean_forward_deg": 5.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 5.0,
+    "hip_abduction_deg": 4.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 5.0,
+    "hip_abduction_deg": 4.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 40.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 60.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 40.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 60.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 4.8,
+   "pelvis": {
+    "forward_m": 0.45,
+    "left_m": -0.1,
+    "facing_left_deg": 45.0
+   },
+   "trunk": {
+    "lean_forward_deg": 5.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 5.0,
+    "hip_abduction_deg": 4.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 5.0,
+    "hip_abduction_deg": 4.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 40.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 60.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 40.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 60.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 5.6,
+   "pelvis": {
+    "forward_m": 0.2,
+    "left_m": -0.45,
+    "facing_left_deg": -100.0
+   },
+   "trunk": {
+    "lean_forward_deg": 12.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 15.0,
+    "knee_flexion_deg": 15.0,
+    "hip_abduction_deg": 5.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": -10.0,
+    "knee_flexion_deg": 10.0,
+    "hip_abduction_deg": 5.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 45.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 45.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 45.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 45.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 6.4,
+   "pelvis": {
+    "forward_m": -0.1,
+    "left_m": -0.75,
+    "facing_left_deg": -125.0
+   },
+   "trunk": {
+    "lean_forward_deg": 28.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 10.0,
+    "knee_flexion_deg": 20.0,
+    "hip_abduction_deg": 6.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 10.0,
+    "knee_flexion_deg": 20.0,
+    "hip_abduction_deg": 6.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 55.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 35.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 55.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 35.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 7.2,
+   "pelvis": {
+    "forward_m": -0.15,
+    "left_m": -0.8,
+    "facing_left_deg": -125.0
+   },
+   "trunk": {
+    "lean_forward_deg": 30.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 10.0,
+    "knee_flexion_deg": 20.0,
+    "hip_abduction_deg": 6.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 10.0,
+    "knee_flexion_deg": 20.0,
+    "hip_abduction_deg": 6.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 55.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 30.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 55.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 30.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 8.0,
+   "pelvis": {
+    "forward_m": -0.15,
+    "left_m": -0.75,
+    "facing_left_deg": -120.0
+   },
+   "trunk": {
+    "lean_forward_deg": 2.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 4.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 0.0,
+    "knee_flexion_deg": 0.0,
+    "hip_abduction_deg": 4.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 5.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 12.0,
+    "shoulder_external_rotation_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 5.0,
+    "shoulder_abduction_deg": 8.0,
+    "elbow_flexion_deg": 12.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  }
+ ]
+}
