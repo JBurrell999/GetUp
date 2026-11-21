@@ -1,0 +1,48 @@
+# Hackathon room for MuJoCo 4.x
+
+This package fixes the previous `assets/stage_screen.png` error and includes two
+versions of the room: detailed visuals and G1-friendly collision/navigation.
+
+## FASTEST: drag one file into MuJoCo
+
+1. Unzip the archive.
+2. Drag `OPEN_ME_standalone.xml` into the MuJoCo window.
+   - It has no external images or mesh dependencies.
+   - It contains the hackathon room with laptops, cups, snacks, notebooks, cables,
+     backpacks, stage lights, worktables and refreshments, but NO G1 yet.
+3. For collision-simplified navigation, use
+   `OPEN_ME_robot_navigation_standalone.xml` instead.
+
+The standalone screen has decorative pseudo-QR imagery (not scannable), because
+actual slide words and QR images cannot be embedded in a portable XML without assets.
+
+## Photo-derived stage screen texture
+
+For the slide graphic from the original scene, drag `room_hackathon_detailed.xml`
+(or `room_hackathon_nav.xml`) from INSIDE this unzipped folder into MuJoCo.
+**Keep `assets/stage_screen.png` next to the XML inside the `assets/` folder.**
+Do not drag the XML alone to another directory, since its texture path is relative.
+
+## Add actual Unitree G1
+
+The ZIP does not bundle Unitree G1 model STLs; the official G1 model must exist on
+your machine first. The builder assembles and copies official G1 assets to a
+self-contained generated folder.
+
+Example if your terminal is in the folder containing both `GetUp/` and `models/`:
+
+    python -m pip install mujoco lxml
+    python build_g1_scene_hackathon.py \
+      --g1-xml /ABSOLUTE/PATH/TO/mujoco_menagerie/unitree_g1/g1.xml \
+      --room-xml room_hackathon_nav.xml
+
+The script creates `generated/g1_hackathon_room.xml` and `generated/assets/`.
+Drag the generated XML from Finder into MuJoCo and preserve its assets folder.
+If unsure where the G1 file is, search your workspace for `g1.xml`.
+
+Notes:
+- Geometry is an **approximate** reconstruction from photos, not a measured scan.
+- Visual microprops have no collision; simplified blockers in the navigation room
+  approximate tables and seating for robot collision tests.
+- The robot may fall when you press Run without a balancing/locomotion controller.
+- Official G1 STLs are not included; this is a room visual upgrade + G1 builder.

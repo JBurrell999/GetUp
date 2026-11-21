@@ -1,0 +1,7 @@
+{
+  "visual_geoms": 881,
+  "nav_geoms": 895,
+  "assets": 20,
+  "cameras": 9,
+  "validation": "Well-formed XML, references resolved, route geometry evaluated. No MuJoCo numerical compilation available here; builder compiles on user machine."
+}

@@ -1,0 +1,1530 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<mujoco model="unitree_g1_hyper_detailed_hackathon">
+  <visual>
+    <headlight ambient=".32 .31 .29" diffuse=".80 .80 .76" specular=".10 .10 .10"/>
+    <global azimuth="145" elevation="-22" offwidth="1600" offheight="1000"/>
+  </visual>
+  <compiler angle="radian" meshdir="assets/g1" autolimits="true"/>
+
+  <option integrator="implicitfast" timestep="0.002"/>
+
+  <default>
+    <default class="g1">
+      <site rgba="1 0 0 1" size="0.01" group="5"/>
+      <joint armature="0.01" frictionloss="0.3"/>
+      <position kp="500" dampratio="1" inheritrange="1"/>
+      <default class="visual">
+        <geom group="2" type="mesh" contype="0" conaffinity="0" density="0" material="metal"/>
+      </default>
+      <default class="collision">
+        <geom group="3" type="mesh"/>
+        <default class="foot">
+          <geom type="sphere" size="0.005" priority="1" friction="0.6" condim="3"/>
+        </default>
+      </default>
+    </default>
+  </default>
+
+  <asset>
+    <material name="black" rgba="0.2 0.2 0.2 1"/>
+    <material name="metal" rgba="0.7 0.7 0.7 1"/>
+
+    <mesh file="pelvis.STL"/>
+    <mesh file="pelvis_contour_link.STL"/>
+    <mesh file="left_hip_pitch_link.STL"/>
+    <mesh file="left_hip_roll_link.STL"/>
+    <mesh file="left_hip_yaw_link.STL"/>
+    <mesh file="left_knee_link.STL"/>
+    <mesh file="left_ankle_pitch_link.STL"/>
+    <mesh file="left_ankle_roll_link.STL"/>
+    <mesh file="right_hip_pitch_link.STL"/>
+    <mesh file="right_hip_roll_link.STL"/>
+    <mesh file="right_hip_yaw_link.STL"/>
+    <mesh file="right_knee_link.STL"/>
+    <mesh file="right_ankle_pitch_link.STL"/>
+    <mesh file="right_ankle_roll_link.STL"/>
+    <mesh name="waist_yaw_link" file="waist_yaw_link_rev_1_0.STL"/>
+    <mesh name="waist_roll_link" file="waist_roll_link_rev_1_0.STL"/>
+    <mesh name="torso_link" file="torso_link_rev_1_0.STL"/>
+    <mesh file="logo_link.STL"/>
+    <mesh file="head_link.STL"/>
+    <mesh file="left_shoulder_pitch_link.STL"/>
+    <mesh file="left_shoulder_roll_link.STL"/>
+    <mesh file="left_shoulder_yaw_link.STL"/>
+    <mesh file="left_elbow_link.STL"/>
+    <mesh file="left_wrist_roll_link.STL"/>
+    <mesh file="left_wrist_pitch_link.STL"/>
+    <mesh file="left_wrist_yaw_link.STL"/>
+    <mesh file="left_rubber_hand.STL"/>
+    <mesh file="right_shoulder_pitch_link.STL"/>
+    <mesh file="right_shoulder_roll_link.STL"/>
+    <mesh file="right_shoulder_yaw_link.STL"/>
+    <mesh file="right_elbow_link.STL"/>
+    <mesh file="right_wrist_roll_link.STL"/>
+    <mesh file="right_wrist_pitch_link.STL"/>
+    <mesh file="right_wrist_yaw_link.STL"/>
+    <mesh file="right_rubber_hand.STL"/>
+  <texture name="room_sky" type="skybox" builtin="gradient" rgb1=".27 .34 .49" rgb2=".07 .08 .12" width="512" height="3072"/>
+    <texture name="room_stage_screen_texture" type="2d" file="assets/stage_resources.png"/>
+    <material name="room_floor" rgba=".71 .69 .65 1" reflectance="0.10"/>
+    <material name="room_annex_floor" rgba=".67 .62 .57 1" reflectance="0.04"/>
+    <material name="room_wall" rgba=".84 .82 .78 1" reflectance="0.10"/>
+    <material name="room_column" rgba=".92 .89 .82 1" reflectance="0.08"/>
+    <material name="room_wood" rgba=".28 .20 .16 1" reflectance="0.16"/>
+    <material name="room_darkwood" rgba=".18 .115 .09 1" reflectance="0.18"/>
+    <material name="room_stage" rgba=".38 .24 .22 1" reflectance="0.12"/>
+    <material name="room_table" rgba=".065 .068 .073 1" reflectance="0.08"/>
+    <material name="room_frame" rgba=".20 .20 .22 1" reflectance="0.25"/>
+    <material name="room_chair" rgba=".55 .23 .25 1" reflectance="0.12"/>
+    <material name="room_black" rgba=".035 .040 .06 1" reflectance="0.05"/>
+    <material name="room_screen" rgba=".10 .15 .31 1" reflectance="0.07"/>
+    <material name="room_blue" rgba=".03 .20 .85 1" reflectance="0.15"/>
+    <material name="room_glow" rgba=".86 .80 .66 1" reflectance="0.08"/>
+    <material name="room_marker" rgba=".05 .72 .74 .65" reflectance="0.0"/>
+    <material name="room_screen_textured" texture="room_stage_screen_texture" texrepeat="1 1" specular=".05" shininess=".05"/>
+    <texture name="v2_floor_tex" type="2d" file="assets/warm_stone_floor.png"/>
+    <texture name="v2_wood_tex" type="2d" file="assets/mahogany_wall.png"/>
+    <texture name="v2_espresso_tex" type="2d" file="assets/espresso_wood.png"/>
+    <texture name="v2_trim_tex" type="2d" file="assets/wood_ceiling_trim.png"/>
+    <texture name="v2_table_tex" type="2d" file="assets/tablecloth.png"/>
+    <texture name="v2_red_tex" type="2d" file="assets/chair_fabric.png"/>
+    <texture name="v2_marble_tex" type="2d" file="assets/dark_marble_counter.png"/>
+    <texture name="v2_curtain_tex" type="2d" file="assets/curtain.png"/>
+    <texture name="v2_pillar_tex" type="2d" file="assets/cream_pillar.png"/>
+    <texture name="v2_keyboard_tex" type="2d" file="assets/keyboard.png"/>
+    <texture name="v2_paper_tex" type="2d" file="assets/notebook_page.png"/>
+    <texture name="v2_notebook_cover_tex" type="2d" file="assets/notebook_cover.png"/>
+    <texture name="v2_poster_tex" type="2d" file="assets/poster.png"/>
+    <texture name="v2_badge_tex" type="2d" file="assets/badge.png"/>
+    <texture name="v2_laptop_tex_0" type="2d" file="assets/laptop_screen_0.png"/>
+    <texture name="v2_laptop_tex_1" type="2d" file="assets/laptop_screen_1.png"/>
+    <texture name="v2_laptop_tex_2" type="2d" file="assets/laptop_screen_2.png"/>
+    <texture name="v2_laptop_tex_3" type="2d" file="assets/laptop_screen_3.png"/>
+    <texture name="v2_laptop_tex_4" type="2d" file="assets/laptop_screen_4.png"/>
+    <material name="v2_floor" rgba="1 1 1 1" reflectance=".05" specular=".09" shininess=".18" texture="v2_floor_tex" texrepeat="8 8"/>
+    <material name="v2_annex_floor" rgba="0.96 0.97 0.98 1" reflectance=".04" specular=".12" shininess=".18" texture="v2_floor_tex" texrepeat="4 5"/>
+    <material name="v2_wood" rgba="1 1 1 1" reflectance=".08" specular=".12" shininess=".18" texture="v2_wood_tex" texrepeat="3 3"/>
+    <material name="v2_darkwood" rgba=".85 .9 .88 1" reflectance=".07" specular=".12" shininess=".18" texture="v2_espresso_tex" texrepeat="2 2"/>
+    <material name="v2_trim" rgba="1 1 1 1" reflectance=".04" specular=".12" shininess=".18" texture="v2_trim_tex" texrepeat="3 2"/>
+    <material name="v2_table" rgba="1 1 1 1" reflectance=".01" specular=".04" shininess=".18" texture="v2_table_tex" texrepeat="3 4"/>
+    <material name="v2_chair" rgba="1 1 1 1" reflectance=".03" specular=".12" shininess=".18" texture="v2_red_tex" texrepeat="1 1"/>
+    <material name="v2_marble" rgba="1 1 1 1" reflectance=".13" specular=".29" shininess=".18" texture="v2_marble_tex" texrepeat="2 3"/>
+    <material name="v2_curtain" rgba="1 1 1 1" reflectance=".02" specular=".12" shininess=".18" texture="v2_curtain_tex" texrepeat="2 4"/>
+    <material name="v2_pillar" rgba="1 1 1 1" reflectance=".02" specular=".12" shininess=".18" texture="v2_pillar_tex" texrepeat="1 2"/>
+    <material name="v2_keyboard" rgba="1 1 1 1" reflectance=".03" specular=".12" shininess=".18" texture="v2_keyboard_tex" texrepeat="1 1"/>
+    <material name="v2_notebook_paper" rgba="1 1 1 1" reflectance=".01" specular=".12" shininess=".18" texture="v2_paper_tex" texrepeat="1 1"/>
+    <material name="v2_notebook_cover" rgba="1 1 1 1" reflectance="0.02" specular=".12" shininess=".18" texture="v2_notebook_cover_tex" texrepeat="1 1"/>
+    <material name="v2_poster" rgba="1 1 1 1" reflectance="0.02" specular=".12" shininess=".18" texture="v2_poster_tex" texrepeat="1 1"/>
+    <material name="v2_badge" rgba="1 1 1 1" reflectance="0.02" specular=".12" shininess=".18" texture="v2_badge_tex" texrepeat="1 1"/>
+    <material name="v2_screen_0" rgba="1 1 1 1" reflectance=".005" specular=".05" shininess=".18" texture="v2_laptop_tex_0" texrepeat="1 1"/>
+    <material name="v2_screen_1" rgba="1 1 1 1" reflectance=".005" specular=".05" shininess=".18" texture="v2_laptop_tex_1" texrepeat="1 1"/>
+    <material name="v2_screen_2" rgba="1 1 1 1" reflectance=".005" specular=".05" shininess=".18" texture="v2_laptop_tex_2" texrepeat="1 1"/>
+    <material name="v2_screen_3" rgba="1 1 1 1" reflectance=".005" specular=".05" shininess=".18" texture="v2_laptop_tex_3" texrepeat="1 1"/>
+    <material name="v2_screen_4" rgba="1 1 1 1" reflectance=".005" specular=".05" shininess=".18" texture="v2_laptop_tex_4" texrepeat="1 1"/>
+    <material name="v2_laptop_metal" rgba=".17 .19 .23 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_laptop_edge" rgba=".32 .35 .38 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_laptop_bezel" rgba=".035 .042 .057 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_laptop_trackpad" rgba=".22 .24 .27 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_paper_cup" rgba=".93 .89 .81 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_coffee_sleeve" rgba=".47 .31 .20 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_coffee_lid" rgba=".15 .15 .16 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_coffee_drink" rgba=".32 .19 .11 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_soda_red" rgba=".62 .055 .09 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_energy_blue" rgba=".07 .19 .53 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_soda_silver" rgba=".75 .75 .78 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_can_rim" rgba=".67 .70 .74 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_plastic_clear" rgba=".72 .82 .90 .55" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_water_blue" rgba=".25 .63 .87 .65" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_snack_gold" rgba=".93 .68 .19 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_snack_blue" rgba=".16 .36 .72 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_snack_red" rgba=".73 .17 .18 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_paper_white" rgba=".94 .94 .91 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_ink_black" rgba=".11 .14 .21 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_bag_black" rgba=".12 .12 .15 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_bag_gray" rgba=".43 .46 .50 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_cord" rgba=".06 .06 .07 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_metal_dark" rgba=".23 .25 .28 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_steel" rgba=".65 .67 .71 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_frame_black" rgba=".075 .075 .075 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_warm_glass" rgba=".93 .83 .64 .86" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_blue_glow" rgba=".11 .35 .91 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_teal_glow" rgba=".10 .68 .69 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_green_snack" rgba=".28 .49 .23 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_orange_fruit" rgba=".90 .47 .09 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_paper_brown" rgba=".59 .44 .27 1" reflectance=".015" specular=".12" shininess=".18"/>
+    <material name="v2_wood_brown" rgba=".31 .20 .15 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_acoustic_panel" rgba=".37 .29 .27 1" reflectance=".07" specular=".12" shininess=".18"/>
+    <material name="v2_poster_frame" rgba=".12 .12 .13 1" reflectance=".07" specular=".12" shininess=".18"/>
+  </asset>
+
+  <worldbody>
+    <body name="pelvis" pos="0 -5.65 0.793" childclass="g1" quat=".7071067812 0 0 .7071067812">
+      <inertial pos="0 0 -0.07605" quat="1 0 -0.000399148 0" mass="3.813" diaginertia="0.010549 0.0093089 0.0079184"/>
+      <freejoint name="floating_base_joint"/>
+      <geom class="visual" material="black" mesh="pelvis"/>
+      <geom class="visual" mesh="pelvis_contour_link"/>
+      <geom class="collision" mesh="pelvis_contour_link"/>
+      <site name="imu_in_pelvis" pos="0.04525 0 -0.08339" size="0.01"/>
+      <body name="left_hip_pitch_link" pos="0 0.064452 -0.1027">
+        <inertial pos="0.002741 0.047791 -0.02606" quat="0.954862 0.293964 0.0302556 0.030122" mass="1.35" diaginertia="0.00181517 0.00153422 0.00116212"/>
+        <joint name="left_hip_pitch_joint" axis="0 1 0" range="-2.5307 2.8798"/>
+        <geom class="visual" material="black" mesh="left_hip_pitch_link"/>
+        <geom class="collision" material="black" mesh="left_hip_pitch_link"/>
+        <body name="left_hip_roll_link" pos="0 0.052 -0.030465" quat="0.996179 0 -0.0873386 0">
+          <inertial pos="0.029812 -0.001045 -0.087934" quat="0.977808 -1.97119e-05 0.205576 -0.0403793" mass="1.52" diaginertia="0.00254986 0.00241169 0.00148755"/>
+          <joint name="left_hip_roll_joint" axis="1 0 0" range="-0.5236 2.9671"/>
+          <geom class="visual" mesh="left_hip_roll_link"/>
+          <geom class="collision" mesh="left_hip_roll_link"/>
+          <body name="left_hip_yaw_link" pos="0.025001 0 -0.12412">
+            <inertial pos="-0.057709 -0.010981 -0.15078" quat="0.600598 0.15832 0.223482 0.751181" mass="1.702" diaginertia="0.00776166 0.00717575 0.00160139"/>
+            <joint name="left_hip_yaw_joint" axis="0 0 1" range="-2.7576 2.7576"/>
+            <geom class="visual" mesh="left_hip_yaw_link"/>
+            <geom class="collision" mesh="left_hip_yaw_link"/>
+            <body name="left_knee_link" pos="-0.078273 0.0021489 -0.17734" quat="0.996179 0 0.0873386 0">
+              <inertial pos="0.005457 0.003964 -0.12074" quat="0.923418 -0.0327699 0.0158246 0.382067" mass="1.932" diaginertia="0.0113804 0.0112778 0.00146458"/>
+              <joint name="left_knee_joint" axis="0 1 0" range="-0.087267 2.8798"/>
+              <geom class="visual" mesh="left_knee_link"/>
+              <geom class="collision" mesh="left_knee_link"/>
+              <body name="left_ankle_pitch_link" pos="0 -9.4445e-05 -0.30001">
+                <inertial pos="-0.007269 0 0.011137" quat="0.603053 0.369225 0.369225 0.603053" mass="0.074" diaginertia="1.89e-05 1.40805e-05 6.9195e-06"/>
+                <joint name="left_ankle_pitch_joint" axis="0 1 0" range="-0.87267 0.5236"/>
+                <geom class="visual" mesh="left_ankle_pitch_link"/>
+                <geom class="collision" mesh="left_ankle_pitch_link"/>
+                <body name="left_ankle_roll_link" pos="0 0 -0.017558">
+                  <inertial pos="0.026505 0 -0.016425" quat="-0.000481092 0.728482 -0.000618967 0.685065" mass="0.608" diaginertia="0.00167218 0.0016161 0.000217621"/>
+                  <joint name="left_ankle_roll_joint" axis="1 0 0" range="-0.2618 0.2618"/>
+                  <geom class="visual" material="black" mesh="left_ankle_roll_link"/>
+                  <geom class="foot" pos="-0.05 0.025 -0.03"/>
+                  <geom class="foot" pos="-0.05 -0.025 -0.03"/>
+                  <geom class="foot" pos="0.12 0.03 -0.03"/>
+                  <geom class="foot" pos="0.12 -0.03 -0.03"/>
+                  <site name="left_foot"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="right_hip_pitch_link" pos="0 -0.064452 -0.1027">
+        <inertial pos="0.002741 -0.047791 -0.02606" quat="0.954862 -0.293964 0.0302556 -0.030122" mass="1.35" diaginertia="0.00181517 0.00153422 0.00116212"/>
+        <joint name="right_hip_pitch_joint" axis="0 1 0" range="-2.5307 2.8798"/>
+        <geom class="visual" material="black" mesh="right_hip_pitch_link"/>
+        <geom class="collision" material="black" mesh="right_hip_pitch_link"/>
+        <body name="right_hip_roll_link" pos="0 -0.052 -0.030465" quat="0.996179 0 -0.0873386 0">
+          <inertial pos="0.029812 0.001045 -0.087934" quat="0.977808 1.97119e-05 0.205576 0.0403793" mass="1.52" diaginertia="0.00254986 0.00241169 0.00148755"/>
+          <joint name="right_hip_roll_joint" axis="1 0 0" range="-2.9671 0.5236"/>
+          <geom class="visual" mesh="right_hip_roll_link"/>
+          <geom class="collision" mesh="right_hip_roll_link"/>
+          <body name="right_hip_yaw_link" pos="0.025001 0 -0.12412">
+            <inertial pos="-0.057709 0.010981 -0.15078" quat="0.751181 0.223482 0.15832 0.600598" mass="1.702" diaginertia="0.00776166 0.00717575 0.00160139"/>
+            <joint name="right_hip_yaw_joint" axis="0 0 1" range="-2.7576 2.7576"/>
+            <geom class="visual" mesh="right_hip_yaw_link"/>
+            <geom class="collision" mesh="right_hip_yaw_link"/>
+            <body name="right_knee_link" pos="-0.078273 -0.0021489 -0.17734" quat="0.996179 0 0.0873386 0">
+              <inertial pos="0.005457 -0.003964 -0.12074" quat="0.923439 0.0345276 0.0116333 -0.382012" mass="1.932" diaginertia="0.011374 0.0112843 0.00146452"/>
+              <joint name="right_knee_joint" axis="0 1 0" range="-0.087267 2.8798"/>
+              <geom class="visual" mesh="right_knee_link"/>
+              <geom class="collision" mesh="right_knee_link"/>
+              <body name="right_ankle_pitch_link" pos="0 9.4445e-05 -0.30001">
+                <inertial pos="-0.007269 0 0.011137" quat="0.603053 0.369225 0.369225 0.603053" mass="0.074" diaginertia="1.89e-05 1.40805e-05 6.9195e-06"/>
+                <joint name="right_ankle_pitch_joint" axis="0 1 0" range="-0.87267 0.5236"/>
+                <geom class="visual" mesh="right_ankle_pitch_link"/>
+                <geom class="collision" mesh="right_ankle_pitch_link"/>
+                <body name="right_ankle_roll_link" pos="0 0 -0.017558">
+                  <inertial pos="0.026505 0 -0.016425" quat="0.000481092 0.728482 0.000618967 0.685065" mass="0.608" diaginertia="0.00167218 0.0016161 0.000217621"/>
+                  <joint name="right_ankle_roll_joint" axis="1 0 0" range="-0.2618 0.2618"/>
+                  <geom class="visual" material="black" mesh="right_ankle_roll_link"/>
+                  <geom class="foot" pos="-0.05 0.025 -0.03"/>
+                  <geom class="foot" pos="-0.05 -0.025 -0.03"/>
+                  <geom class="foot" pos="0.12 0.03 -0.03"/>
+                  <geom class="foot" pos="0.12 -0.03 -0.03"/>
+                  <site name="right_foot"/>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+      <body name="waist_yaw_link">
+        <inertial pos="0.003494 0.000233 0.018034" quat="0.289697 0.591001 -0.337795 0.672821" mass="0.214" diaginertia="0.000163531 0.000107714 0.000102205"/>
+        <joint name="waist_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+        <geom class="visual" mesh="waist_yaw_link"/>
+        <body name="waist_roll_link" pos="-0.0039635 0 0.044">
+          <inertial pos="0 2.3e-05 0" quat="0.5 0.5 -0.5 0.5" mass="0.086" diaginertia="8.245e-06 7.079e-06 6.339e-06"/>
+          <joint name="waist_roll_joint" axis="1 0 0" range="-0.52 0.52"/>
+          <geom class="visual" mesh="waist_roll_link"/>
+          <body name="torso_link">
+            <inertial pos="0.00203158 0.000339683 0.184568" quat="0.999803 -6.03319e-05 0.0198256 0.00131986" mass="7.818" diaginertia="0.121847 0.109825 0.0273735"/>
+            <joint name="waist_pitch_joint" axis="0 1 0" range="-0.52 0.52"/>
+            <geom class="visual" mesh="torso_link"/>
+            <geom class="collision" mesh="torso_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="visual" material="black" mesh="logo_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="collision" material="black" mesh="logo_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="visual" material="black" mesh="head_link"/>
+            <geom pos="0.0039635 0 -0.044" quat="1 0 0 0" class="collision" material="black" mesh="head_link"/>
+            <site name="imu_in_torso" pos="-0.03959 -0.00224 0.14792" size="0.01"/>
+            <body name="left_shoulder_pitch_link" pos="0.0039563 0.10022 0.24778" quat="0.990264 0.139201 1.38722e-05 -9.86868e-05">
+              <inertial pos="0 0.035892 -0.011628" quat="0.654152 0.0130458 -0.326267 0.68225" mass="0.718" diaginertia="0.000465864 0.000432842 0.000406394"/>
+              <joint name="left_shoulder_pitch_joint" axis="0 1 0" range="-3.0892 2.6704"/>
+              <geom class="visual" mesh="left_shoulder_pitch_link"/>
+              <geom size="0.03 0.025" pos="0 0.04 -0.01" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+              <body name="left_shoulder_roll_link" pos="0 0.038 -0.013831" quat="0.990268 -0.139172 0 0">
+                <inertial pos="-0.000227 0.00727 -0.063243" quat="0.701256 -0.0196223 -0.00710317 0.712604" mass="0.643" diaginertia="0.000691311 0.000618011 0.000388977"/>
+                <joint name="left_shoulder_roll_joint" axis="1 0 0" range="-1.5882 2.2515"/>
+                <geom class="visual" mesh="left_shoulder_roll_link"/>
+                <geom size="0.03 0.015" pos="-0.004 0.006 -0.053" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+                <body name="left_shoulder_yaw_link" pos="0 0.00624 -0.1032">
+                  <inertial pos="0.010773 -0.002949 -0.072009" quat="0.716879 -0.0964829 -0.0679942 0.687134" mass="0.734" diaginertia="0.00106187 0.00103217 0.000400661"/>
+                  <joint name="left_shoulder_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+                  <geom class="visual" mesh="left_shoulder_yaw_link"/>
+                  <geom class="collision" mesh="left_shoulder_yaw_link"/>
+                  <body name="left_elbow_link" pos="0.015783 0 -0.080518">
+                    <inertial pos="0.064956 0.004454 -0.010062" quat="0.541765 0.636132 0.388821 0.388129" mass="0.6" diaginertia="0.000443035 0.000421612 0.000259353"/>
+                    <joint name="left_elbow_joint" axis="0 1 0" range="-1.0472 2.0944"/>
+                    <geom class="visual" mesh="left_elbow_link"/>
+                    <geom class="collision" mesh="left_elbow_link"/>
+                    <body name="left_wrist_roll_link" pos="0.1 0.00188791 -0.01">
+                      <inertial pos="0.0171394 0.000537591 4.8864e-07" quat="0.575338 0.411667 -0.574906 0.411094" mass="0.085445" diaginertia="5.48211e-05 4.96646e-05 3.57798e-05"/>
+                      <joint name="left_wrist_roll_joint" axis="1 0 0" range="-1.97222 1.97222"/>
+                      <geom class="visual" mesh="left_wrist_roll_link"/>
+                      <geom class="collision" mesh="left_wrist_roll_link"/>
+                      <body name="left_wrist_pitch_link" pos="0.038 0 0">
+                        <inertial pos="0.0229999 -0.00111685 -0.00111658" quat="0.249998 0.661363 0.293036 0.643608" mass="0.48405" diaginertia="0.000430353 0.000429873 0.000164648"/>
+                        <joint name="left_wrist_pitch_joint" axis="0 1 0" range="-1.61443 1.61443"/>
+                        <geom class="visual" mesh="left_wrist_pitch_link"/>
+                        <geom class="collision" mesh="left_wrist_pitch_link"/>
+                        <body name="left_wrist_yaw_link" pos="0.046 0 0">
+                          <inertial pos="0.0708244 0.000191745 0.00161742" quat="0.510571 0.526295 0.468078 0.493188" mass="0.254576" diaginertia="0.000646113 0.000559993 0.000147566"/>
+                          <joint name="left_wrist_yaw_joint" axis="0 0 1" range="-1.61443 1.61443"/>
+                          <geom class="visual" mesh="left_wrist_yaw_link"/>
+                          <geom class="collision" mesh="left_wrist_yaw_link"/>
+                          <geom pos="0.0415 0.003 0" quat="1 0 0 0" class="visual" mesh="left_rubber_hand"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+            <body name="right_shoulder_pitch_link" pos="0.0039563 -0.10021 0.24778" quat="0.990264 -0.139201 1.38722e-05 9.86868e-05">
+              <inertial pos="0 -0.035892 -0.011628" quat="0.68225 -0.326267 0.0130458 0.654152" mass="0.718" diaginertia="0.000465864 0.000432842 0.000406394"/>
+              <joint name="right_shoulder_pitch_joint" axis="0 1 0" range="-3.0892 2.6704"/>
+              <geom class="visual" mesh="right_shoulder_pitch_link"/>
+              <geom size="0.03 0.025" pos="0 -0.04 -0.01" quat="0.707107 0 0.707107 0" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+              <body name="right_shoulder_roll_link" pos="0 -0.038 -0.013831" quat="0.990268 0.139172 0 0">
+                <inertial pos="-0.000227 -0.00727 -0.063243" quat="0.712604 -0.00710317 -0.0196223 0.701256" mass="0.643" diaginertia="0.000691311 0.000618011 0.000388977"/>
+                <joint name="right_shoulder_roll_joint" axis="1 0 0" range="-2.2515 1.5882"/>
+                <geom class="visual" mesh="right_shoulder_roll_link"/>
+                <geom size="0.03 0.015" pos="-0.004 -0.006 -0.053" type="cylinder" rgba="0.7 0.7 0.7 1" class="collision"/>
+                <body name="right_shoulder_yaw_link" pos="0 -0.00624 -0.1032">
+                  <inertial pos="0.010773 0.002949 -0.072009" quat="0.687134 -0.0679942 -0.0964829 0.716879" mass="0.734" diaginertia="0.00106187 0.00103217 0.000400661"/>
+                  <joint name="right_shoulder_yaw_joint" axis="0 0 1" range="-2.618 2.618"/>
+                  <geom class="visual" mesh="right_shoulder_yaw_link"/>
+                  <geom class="collision" mesh="right_shoulder_yaw_link"/>
+                  <body name="right_elbow_link" pos="0.015783 0 -0.080518">
+                    <inertial pos="0.064956 -0.004454 -0.010062" quat="0.388129 0.388821 0.636132 0.541765" mass="0.6" diaginertia="0.000443035 0.000421612 0.000259353"/>
+                    <joint name="right_elbow_joint" axis="0 1 0" range="-1.0472 2.0944"/>
+                    <geom class="visual" mesh="right_elbow_link"/>
+                    <geom class="collision" mesh="right_elbow_link"/>
+                    <body name="right_wrist_roll_link" pos="0.1 -0.00188791 -0.01">
+                      <inertial pos="0.0171394 -0.000537591 4.8864e-07" quat="0.411667 0.575338 -0.411094 0.574906" mass="0.085445" diaginertia="5.48211e-05 4.96646e-05 3.57798e-05"/>
+                      <joint name="right_wrist_roll_joint" axis="1 0 0" range="-1.97222 1.97222"/>
+                      <geom class="visual" mesh="right_wrist_roll_link"/>
+                      <geom class="collision" mesh="right_wrist_roll_link"/>
+                      <body name="right_wrist_pitch_link" pos="0.038 0 0">
+                        <inertial pos="0.0229999 0.00111685 -0.00111658" quat="0.643608 0.293036 0.661363 0.249998" mass="0.48405" diaginertia="0.000430353 0.000429873 0.000164648"/>
+                        <joint name="right_wrist_pitch_joint" axis="0 1 0" range="-1.61443 1.61443"/>
+                        <geom class="visual" mesh="right_wrist_pitch_link"/>
+                        <geom class="collision" mesh="right_wrist_pitch_link"/>
+                        <body name="right_wrist_yaw_link" pos="0.046 0 0">
+                          <inertial pos="0.0708244 -0.000191745 0.00161742" quat="0.493188 0.468078 0.526295 0.510571" mass="0.254576" diaginertia="0.000646113 0.000559993 0.000147566"/>
+                          <joint name="right_wrist_yaw_joint" axis="0 0 1" range="-1.61443 1.61443"/>
+                          <geom class="visual" mesh="right_wrist_yaw_link"/>
+                          <geom class="collision" mesh="right_wrist_yaw_link"/>
+                          <geom pos="0.0415 -0.003 0" quat="1 0 0 0" class="visual" mesh="right_rubber_hand"/>
+                        </body>
+                      </body>
+                    </body>
+                  </body>
+                </body>
+              </body>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  <light name="room_sun" pos="0 0 11" dir="0 0 -1" directional="true" diffuse=".67 .69 .74" ambient=".15 .15 .16" castshadow="true"/>
+    <light name="room_ceiling_light_0" pos="0 -4.7 3.25" dir="0 0 -1" diffuse=".44 .43 .42" specular=".05 .05 .05" cutoff="85" castshadow="false"/>
+    <light name="room_ceiling_light_1" pos="0 1.0 3.25" dir="0 0 -1" diffuse=".44 .43 .42" specular=".05 .05 .05" cutoff="85" castshadow="false"/>
+    <light name="room_ceiling_light_2" pos="-8.7 -3.0 3.25" dir="0 0 -1" diffuse=".44 .43 .42" specular=".05 .05 .05" cutoff="85" castshadow="false"/>
+    <camera name="room_overview" pos="0 -16 12" xyaxes="1 0 0 0 .62 .785" fovy="68"/>
+    <camera name="room_topdown" pos="-2.85 0 24" xyaxes="1 0 0 0 1 0" fovy="65"/>
+    <camera name="room_stage_view" pos="0 5.65 1.65" xyaxes="-1 0 0 0 0 1" fovy="85"/>
+    <geom name="main_room_floor" type="box" pos="0 0 -0.09" size="6.1 7.2 0.09" material="v2_floor" contype="1" conaffinity="1" group="0"/>
+    <geom name="refreshments_annex_floor" type="box" pos="-8.95 -2.7 -0.09" size="2.85 4.5 0.09" material="v2_annex_floor" contype="1" conaffinity="1" group="0"/>
+    <geom name="east_wall" type="box" pos="6.13 0 1.8" size="0.12 7.2 1.8" material="room_wall" contype="1" conaffinity="1" group="0"/>
+    <geom name="front_stage_wall" type="box" pos="0 7.22 1.8" size="6.12 0.12 1.8" material="v2_wood" contype="1" conaffinity="1" group="0"/>
+    <geom name="main_entrance_left" type="box" pos="-3.65 -7.22 1.8" size="2.46 0.12 1.8" material="room_wall" contype="1" conaffinity="1" group="0"/>
+    <geom name="main_entrance_right" type="box" pos="3.65 -7.22 1.8" size="2.46 0.12 1.8" material="room_wall" contype="1" conaffinity="1" group="0"/>
+    <geom name="west_wall_south" type="box" pos="-6.13 -5.49 1.8" size="0.12 1.71 1.8" material="room_wall" contype="1" conaffinity="1" group="0"/>
+    <geom name="west_wall_north" type="box" pos="-6.13 3.42 1.8" size="0.12 3.8 1.8" material="room_wall" contype="1" conaffinity="1" group="0"/>
+    <geom name="annex_west_wall" type="box" pos="-11.83 -2.7 1.8" size="0.12 4.5 1.8" material="v2_wood" contype="1" conaffinity="1" group="0"/>
+    <geom name="annex_north_wall" type="box" pos="-8.95 1.83 1.8" size="2.85 0.12 1.8" material="v2_wood" contype="1" conaffinity="1" group="0"/>
+    <geom name="annex_south_wall" type="box" pos="-8.95 -7.23 1.8" size="2.85 0.12 1.8" material="v2_wood" contype="1" conaffinity="1" group="0"/>
+    <geom name="architectural_pillar_0" type="box" pos="-5.52 3 1.83" size="0.42 0.43 1.83" material="v2_pillar" contype="1" conaffinity="1" group="0"/>
+    <geom name="architectural_pillar_1" type="box" pos="5.57 1.85 1.83" size="0.42 0.43 1.83" material="v2_pillar" contype="1" conaffinity="1" group="0"/>
+    <geom name="architectural_pillar_2" type="box" pos="-6.9 -5.92 1.83" size="0.42 0.43 1.83" material="v2_pillar" contype="1" conaffinity="1" group="0"/>
+    <geom name="right_dark_wood_wall_panel_0" type="box" pos="5.95 -5.3 1.63" size="0.027 1.05 1.58" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="right_dark_wood_wall_panel_1" type="box" pos="5.95 -2.9 1.63" size="0.027 1.05 1.58" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="right_dark_wood_wall_panel_2" type="box" pos="5.95 -0.5 1.63" size="0.027 1.05 1.58" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="right_dark_wood_wall_panel_3" type="box" pos="5.95 1.9 1.63" size="0.027 1.05 1.58" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="right_dark_wood_wall_panel_4" type="box" pos="5.95 4.3 1.63" size="0.027 1.05 1.58" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_left_curtain" type="box" pos="-5.96 4.66 1.85" size="0.045 1.2 1.75" material="v2_curtain" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_right_wallpanel" type="box" pos="5.96 5.52 1.8" size="0.03 1.4 1.7" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_platform" type="box" pos="0 6.54 0.16" size="4.94 0.65 0.16" material="room_stage" contype="1" conaffinity="1" group="0"/>
+    <geom name="stage_front_fascia" type="box" pos="0 5.895 0.16" size="4.94 0.015 0.155" material="room_black" contype="1" conaffinity="1" group="0"/>
+    <geom name="stage_led_strip_0" type="box" pos="-4.2 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_1" type="box" pos="-2.8 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_2" type="box" pos="-1.4 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_3" type="box" pos="-8.8818e-16 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_4" type="box" pos="1.4 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_5" type="box" pos="2.8 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_led_strip_6" type="box" pos="4.2 5.876 0.29" size="0.35 0.012 0.01" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_display_frame" type="box" pos="0 7 2.33" size="4.2 0.055 1.36" material="room_black" contype="0" conaffinity="0" group="2"/>
+    <geom name="stage_display_surface" type="box" pos="0 6.93 2.33" size="4.09 0.011 1.25" material="room_screen_textured" contype="0" conaffinity="0" group="2"/>
+    <geom name="overhead_stage_light_0" type="cylinder" pos="-3 5 3.18" size="0.11 0.2" material="room_black" contype="0" conaffinity="0" group="2"/>
+    <geom name="blue_stage_light_0" type="cylinder" pos="-3 5 2.92" size="0.07 0.018" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="overhead_stage_light_1" type="cylinder" pos="-1 5 3.18" size="0.11 0.2" material="room_black" contype="0" conaffinity="0" group="2"/>
+    <geom name="blue_stage_light_1" type="cylinder" pos="-1 5 2.92" size="0.07 0.018" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="overhead_stage_light_2" type="cylinder" pos="1 5 3.18" size="0.11 0.2" material="room_black" contype="0" conaffinity="0" group="2"/>
+    <geom name="blue_stage_light_2" type="cylinder" pos="1 5 2.92" size="0.07 0.018" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="overhead_stage_light_3" type="cylinder" pos="3 5 3.18" size="0.11 0.2" material="room_black" contype="0" conaffinity="0" group="2"/>
+    <geom name="blue_stage_light_3" type="cylinder" pos="3 5 2.92" size="0.07 0.018" material="room_blue" contype="0" conaffinity="0" group="2"/>
+    <geom name="west_worktable_0_top" type="box" pos="-3.29 -3.45 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_0_drape" type="box" pos="-3.29 -3.45 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_0_leg_0_0" type="box" pos="-3.64 -4.39 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_0_leg_0_1" type="box" pos="-3.64 -2.51 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_0_leg_1_0" type="box" pos="-2.94 -4.39 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_0_leg_1_1" type="box" pos="-2.94 -2.51 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_seat" type="box" pos="-2.22 -4.17 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_back" type="box" pos="-2 -4.17 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_leg_0_0" type="cylinder" pos="-2.38 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_leg_0_1" type="cylinder" pos="-2.38 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_leg_1_0" type="cylinder" pos="-2.06 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_0_leg_1_1" type="cylinder" pos="-2.06 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_seat" type="box" pos="-4.42 -4.17 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_back" type="box" pos="-4.64 -4.17 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_leg_0_0" type="cylinder" pos="-4.58 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_leg_0_1" type="cylinder" pos="-4.58 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_leg_1_0" type="cylinder" pos="-4.26 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_0_leg_1_1" type="cylinder" pos="-4.26 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_seat" type="box" pos="-2.22 -2.73 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_back" type="box" pos="-2 -2.73 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_leg_0_0" type="cylinder" pos="-2.38 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_leg_0_1" type="cylinder" pos="-2.38 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_leg_1_0" type="cylinder" pos="-2.06 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_0_1_leg_1_1" type="cylinder" pos="-2.06 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_seat" type="box" pos="-4.42 -2.73 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_back" type="box" pos="-4.64 -2.73 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_leg_0_0" type="cylinder" pos="-4.58 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_leg_0_1" type="cylinder" pos="-4.58 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_leg_1_0" type="cylinder" pos="-4.26 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_0_1_leg_1_1" type="cylinder" pos="-4.26 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_top" type="box" pos="-3.29 0 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_drape" type="box" pos="-3.29 0 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_leg_0_0" type="box" pos="-3.64 -0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_leg_0_1" type="box" pos="-3.64 0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_leg_1_0" type="box" pos="-2.94 -0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_worktable_1_leg_1_1" type="box" pos="-2.94 0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_seat" type="box" pos="-2.22 -0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_back" type="box" pos="-2 -0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_leg_0_0" type="cylinder" pos="-2.38 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_leg_0_1" type="cylinder" pos="-2.38 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_leg_1_0" type="cylinder" pos="-2.06 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_0_leg_1_1" type="cylinder" pos="-2.06 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_seat" type="box" pos="-4.42 -0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_back" type="box" pos="-4.64 -0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_leg_0_0" type="cylinder" pos="-4.58 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_leg_0_1" type="cylinder" pos="-4.58 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_leg_1_0" type="cylinder" pos="-4.26 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_0_leg_1_1" type="cylinder" pos="-4.26 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_seat" type="box" pos="-2.22 0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_back" type="box" pos="-2 0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_leg_0_0" type="cylinder" pos="-2.38 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_leg_0_1" type="cylinder" pos="-2.38 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_leg_1_0" type="cylinder" pos="-2.06 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_inner_chair_1_1_leg_1_1" type="cylinder" pos="-2.06 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_seat" type="box" pos="-4.42 0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_back" type="box" pos="-4.64 0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_leg_0_0" type="cylinder" pos="-4.58 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_leg_0_1" type="cylinder" pos="-4.58 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_leg_1_0" type="cylinder" pos="-4.26 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_outer_chair_1_1_leg_1_1" type="cylinder" pos="-4.26 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_seat" type="box" pos="-2.27 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_back" type="box" pos="-2.27 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_leg_0_0" type="cylinder" pos="-2.43 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_leg_0_1" type="cylinder" pos="-2.43 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_leg_1_0" type="cylinder" pos="-2.11 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_0_leg_1_1" type="cylinder" pos="-2.11 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_seat" type="box" pos="-3.24 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_back" type="box" pos="-3.24 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_leg_0_0" type="cylinder" pos="-3.4 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_leg_0_1" type="cylinder" pos="-3.4 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_leg_1_0" type="cylinder" pos="-3.08 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_1_leg_1_1" type="cylinder" pos="-3.08 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_seat" type="box" pos="-4.21 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_back" type="box" pos="-4.21 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_leg_0_0" type="cylinder" pos="-4.37 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_leg_0_1" type="cylinder" pos="-4.37 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_leg_1_0" type="cylinder" pos="-4.05 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_0_2_leg_1_1" type="cylinder" pos="-4.05 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_seat" type="box" pos="-2.27 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_back" type="box" pos="-2.27 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_leg_0_0" type="cylinder" pos="-2.43 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_leg_0_1" type="cylinder" pos="-2.43 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_leg_1_0" type="cylinder" pos="-2.11 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_0_leg_1_1" type="cylinder" pos="-2.11 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_seat" type="box" pos="-3.24 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_back" type="box" pos="-3.24 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_leg_0_0" type="cylinder" pos="-3.4 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_leg_0_1" type="cylinder" pos="-3.4 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_leg_1_0" type="cylinder" pos="-3.08 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_1_leg_1_1" type="cylinder" pos="-3.08 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_seat" type="box" pos="-4.21 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_back" type="box" pos="-4.21 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_leg_0_0" type="cylinder" pos="-4.37 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_leg_0_1" type="cylinder" pos="-4.37 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_leg_1_0" type="cylinder" pos="-4.05 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="west_stage_seat_1_2_leg_1_1" type="cylinder" pos="-4.05 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_top" type="box" pos="3.29 -3.45 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_drape" type="box" pos="3.29 -3.45 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_leg_0_0" type="box" pos="2.94 -4.39 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_leg_0_1" type="box" pos="2.94 -2.51 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_leg_1_0" type="box" pos="3.64 -4.39 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_0_leg_1_1" type="box" pos="3.64 -2.51 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_seat" type="box" pos="2.22 -4.17 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_back" type="box" pos="2 -4.17 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_leg_0_0" type="cylinder" pos="2.06 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_leg_0_1" type="cylinder" pos="2.06 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_leg_1_0" type="cylinder" pos="2.38 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_0_leg_1_1" type="cylinder" pos="2.38 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_seat" type="box" pos="4.42 -4.17 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_back" type="box" pos="4.64 -4.17 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_leg_0_0" type="cylinder" pos="4.26 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_leg_0_1" type="cylinder" pos="4.26 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_leg_1_0" type="cylinder" pos="4.58 -4.33 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_0_leg_1_1" type="cylinder" pos="4.58 -4.01 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_seat" type="box" pos="2.22 -2.73 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_back" type="box" pos="2 -2.73 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_leg_0_0" type="cylinder" pos="2.06 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_leg_0_1" type="cylinder" pos="2.06 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_leg_1_0" type="cylinder" pos="2.38 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_0_1_leg_1_1" type="cylinder" pos="2.38 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_seat" type="box" pos="4.42 -2.73 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_back" type="box" pos="4.64 -2.73 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_leg_0_0" type="cylinder" pos="4.26 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_leg_0_1" type="cylinder" pos="4.26 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_leg_1_0" type="cylinder" pos="4.58 -2.89 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_0_1_leg_1_1" type="cylinder" pos="4.58 -2.57 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_top" type="box" pos="3.29 0 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_drape" type="box" pos="3.29 0 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_leg_0_0" type="box" pos="2.94 -0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_leg_0_1" type="box" pos="2.94 0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_leg_1_0" type="box" pos="3.64 -0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_worktable_1_leg_1_1" type="box" pos="3.64 0.94 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_seat" type="box" pos="2.22 -0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_back" type="box" pos="2 -0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_leg_0_0" type="cylinder" pos="2.06 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_leg_0_1" type="cylinder" pos="2.06 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_leg_1_0" type="cylinder" pos="2.38 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_0_leg_1_1" type="cylinder" pos="2.38 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_seat" type="box" pos="4.42 -0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_back" type="box" pos="4.64 -0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_leg_0_0" type="cylinder" pos="4.26 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_leg_0_1" type="cylinder" pos="4.26 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_leg_1_0" type="cylinder" pos="4.58 -0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_0_leg_1_1" type="cylinder" pos="4.58 -0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_seat" type="box" pos="2.22 0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_back" type="box" pos="2 0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_leg_0_0" type="cylinder" pos="2.06 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_leg_0_1" type="cylinder" pos="2.06 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_leg_1_0" type="cylinder" pos="2.38 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_inner_chair_1_1_leg_1_1" type="cylinder" pos="2.38 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_seat" type="box" pos="4.42 0.72 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_back" type="box" pos="4.64 0.72 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_leg_0_0" type="cylinder" pos="4.26 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_leg_0_1" type="cylinder" pos="4.26 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_leg_1_0" type="cylinder" pos="4.58 0.56 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_outer_chair_1_1_leg_1_1" type="cylinder" pos="4.58 0.88 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_seat" type="box" pos="2.27 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_back" type="box" pos="2.27 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_leg_0_0" type="cylinder" pos="2.11 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_leg_0_1" type="cylinder" pos="2.11 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_leg_1_0" type="cylinder" pos="2.43 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_0_leg_1_1" type="cylinder" pos="2.43 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_seat" type="box" pos="3.24 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_back" type="box" pos="3.24 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_leg_0_0" type="cylinder" pos="3.08 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_leg_0_1" type="cylinder" pos="3.08 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_leg_1_0" type="cylinder" pos="3.4 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_1_leg_1_1" type="cylinder" pos="3.4 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_seat" type="box" pos="4.21 3.16 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_back" type="box" pos="4.21 2.93 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_leg_0_0" type="cylinder" pos="4.05 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_leg_0_1" type="cylinder" pos="4.05 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_leg_1_0" type="cylinder" pos="4.37 3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_0_2_leg_1_1" type="cylinder" pos="4.37 3.32 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_seat" type="box" pos="2.27 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_back" type="box" pos="2.27 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_leg_0_0" type="cylinder" pos="2.11 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_leg_0_1" type="cylinder" pos="2.11 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_leg_1_0" type="cylinder" pos="2.43 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_0_leg_1_1" type="cylinder" pos="2.43 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_seat" type="box" pos="3.24 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_back" type="box" pos="3.24 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_leg_0_0" type="cylinder" pos="3.08 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_leg_0_1" type="cylinder" pos="3.08 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_leg_1_0" type="cylinder" pos="3.4 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_1_leg_1_1" type="cylinder" pos="3.4 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_seat" type="box" pos="4.21 4.46 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_back" type="box" pos="4.21 4.23 0.72" size="0.25 0.065 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_leg_0_0" type="cylinder" pos="4.05 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_leg_0_1" type="cylinder" pos="4.05 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_leg_1_0" type="cylinder" pos="4.37 4.3 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="east_stage_seat_1_2_leg_1_1" type="cylinder" pos="4.37 4.62 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_counter_base" type="box" pos="-11.12 -2.27 0.48" size="0.48 3.32 0.48" material="v2_wood" contype="1" conaffinity="1" group="0"/>
+    <geom name="annex_counter_top" type="box" pos="-11.07 -2.27 1" size="0.56 3.36 0.055" material="v2_marble" contype="1" conaffinity="1" group="0"/>
+    <geom name="bar_front_slatted_wood_0" type="box" pos="-10.55 -5.25 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_1" type="box" pos="-10.55 -4.65 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_2" type="box" pos="-10.55 -4.05 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_3" type="box" pos="-10.55 -3.45 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_4" type="box" pos="-10.55 -2.85 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_5" type="box" pos="-10.55 -2.25 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_6" type="box" pos="-10.55 -1.65 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_7" type="box" pos="-10.55 -1.05 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_8" type="box" pos="-10.55 -0.45 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_9" type="box" pos="-10.55 0.15 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_front_slatted_wood_10" type="box" pos="-10.55 0.75 0.5" size="0.015 0.025 0.38" material="v2_wood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_upper_cabinet_0" type="box" pos="-11.67 -4.2 2.3" size="0.08 0.85 0.58" material="v2_darkwood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_0_0" type="cylinder" pos="-11.32 -4.2 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_0_1" type="cylinder" pos="-10.8 -4.2 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_0_2" type="cylinder" pos="-10.28 -4.2 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_upper_cabinet_1" type="box" pos="-11.67 -2.1 2.3" size="0.08 0.85 0.58" material="v2_darkwood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_1_0" type="cylinder" pos="-11.32 -2.1 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_1_1" type="cylinder" pos="-10.8 -2.1 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_1_2" type="cylinder" pos="-10.28 -2.1 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_upper_cabinet_2" type="box" pos="-11.67 0 2.3" size="0.08 0.85 0.58" material="v2_darkwood" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_2_0" type="cylinder" pos="-11.32 0 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_2_1" type="cylinder" pos="-10.8 0 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="bar_pendant_light_2_2" type="cylinder" pos="-10.28 0 2.91" size="0.085 0.08" material="room_glow" contype="0" conaffinity="0" group="2"/>
+    <geom name="annex_table_0_top" type="box" pos="-8.83 -5.22 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_0_drape" type="box" pos="-8.83 -5.22 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_0_leg_0_0" type="box" pos="-9.18 -6.16 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_0_leg_0_1" type="box" pos="-9.18 -4.28 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_0_leg_1_0" type="box" pos="-8.48 -6.16 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_0_leg_1_1" type="box" pos="-8.48 -4.28 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_seat" type="box" pos="-8.01 -5.82 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_back" type="box" pos="-7.79 -5.82 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_leg_0_0" type="cylinder" pos="-8.17 -5.98 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_leg_0_1" type="cylinder" pos="-8.17 -5.66 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_leg_1_0" type="cylinder" pos="-7.85 -5.98 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_one_leg_1_1" type="cylinder" pos="-7.85 -5.66 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_seat" type="box" pos="-8.01 -4.62 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_back" type="box" pos="-7.79 -4.62 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_leg_0_0" type="cylinder" pos="-8.17 -4.78 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_leg_0_1" type="cylinder" pos="-8.17 -4.46 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_leg_1_0" type="cylinder" pos="-7.85 -4.78 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_0_two_leg_1_1" type="cylinder" pos="-7.85 -4.46 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_top" type="box" pos="-8.83 0.62 0.79" size="0.47 1.17 0.045" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_drape" type="box" pos="-8.83 0.62 0.375" size="0.445 1.15 0.375" material="v2_table" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_leg_0_0" type="box" pos="-9.18 -0.32 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_leg_0_1" type="box" pos="-9.18 1.56 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_leg_1_0" type="box" pos="-8.48 -0.32 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_table_1_leg_1_1" type="box" pos="-8.48 1.56 0.39" size="0.027 0.027 0.39" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_seat" type="box" pos="-8.01 0.02 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_back" type="box" pos="-7.79 0.02 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_leg_0_0" type="cylinder" pos="-8.17 -0.14 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_leg_0_1" type="cylinder" pos="-8.17 0.18 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_leg_1_0" type="cylinder" pos="-7.85 -0.14 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_one_leg_1_1" type="cylinder" pos="-7.85 0.18 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_seat" type="box" pos="-8.01 1.22 0.46" size="0.23 0.24 0.055" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_back" type="box" pos="-7.79 1.22 0.72" size="0.065 0.25 0.3" material="v2_chair" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_leg_0_0" type="cylinder" pos="-8.17 1.06 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_leg_0_1" type="cylinder" pos="-8.17 1.38 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_leg_1_0" type="cylinder" pos="-7.85 1.06 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="annex_seat_1_two_leg_1_1" type="cylinder" pos="-7.85 1.38 0.205" size="0.018 0.205" material="room_frame" contype="0" conaffinity="0" group="0"/>
+    <geom name="robot_spawning_disk" type="cylinder" pos="0 -5.65 0.008" size="0.46 0.008" material="room_marker" contype="0" conaffinity="0" group="2"/>
+    <site name="center_aisle_waypoint_0" pos="0 -5.65 0.035" type="sphere" size=".055" rgba=".05 .8 .7 .6" group="5"/>
+    <site name="center_aisle_waypoint_1" pos="0 -3.3 0.035" type="sphere" size=".055" rgba=".05 .8 .7 .6" group="5"/>
+    <site name="center_aisle_waypoint_2" pos="0 -0.6 0.035" type="sphere" size=".055" rgba=".05 .8 .7 .6" group="5"/>
+    <site name="center_aisle_waypoint_3" pos="0 2 0.035" type="sphere" size=".055" rgba=".05 .8 .7 .6" group="5"/>
+    <site name="center_aisle_waypoint_4" pos="0 5.15 0.035" type="sphere" size=".055" rgba=".05 .8 .7 .6" group="5"/>
+    <site name="annex_waypoint_0" pos="0 -5.65 0.035" type="sphere" size=".045" rgba=".8 .65 .08 .6" group="5"/>
+    <site name="annex_waypoint_1" pos="-5.35 -5.65 0.035" type="sphere" size=".045" rgba=".8 .65 .08 .6" group="5"/>
+    <site name="annex_waypoint_2" pos="-5.35 -2 0.035" type="sphere" size=".045" rgba=".8 .65 .08 .6" group="5"/>
+    <site name="annex_waypoint_3" pos="-7.35 -2 0.035" type="sphere" size=".045" rgba=".8 .65 .08 .6" group="5"/>
+    <body name="v2_west_south_laptop_a" pos="-3.39 -4.17 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_west_south_laptop_a_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_west_south_laptop_a_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_west_south_laptop_a_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_west_south_laptop_a_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_west_south_laptop_a_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_west_south_laptop_a_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_west_south_laptop_a_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_west_south_laptop_a_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_0"/>
+        <geom name="v2_west_south_laptop_a_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_west_south_laptop_a_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_west_south_laptop_a_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_south_laptop_a_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_south_laptop_b" pos="-3.22 -3.25 0.842" quat="0.707107 0 0 -0.707107">
+      <geom name="v2_west_south_laptop_b_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_west_south_laptop_b_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_west_south_laptop_b_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_west_south_laptop_b_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_west_south_laptop_b_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_west_south_laptop_b_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_west_south_laptop_b_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_west_south_laptop_b_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_2"/>
+        <geom name="v2_west_south_laptop_b_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_west_south_laptop_b_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_west_south_laptop_b_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_south_laptop_b_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_south_laptop_c" pos="-3.34 -2.68 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_west_south_laptop_c_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_west_south_laptop_c_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_west_south_laptop_c_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_west_south_laptop_c_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_west_south_laptop_c_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_west_south_laptop_c_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_west_south_laptop_c_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_west_south_laptop_c_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_3"/>
+        <geom name="v2_west_south_laptop_c_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_west_south_laptop_c_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_west_south_laptop_c_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_south_laptop_c_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_south_coffee" pos="-3.06 -4.41 0.837">
+      <geom name="v2_west_south_coffee_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_west_south_coffee_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_west_south_coffee_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_west_south_coffee_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_west_south_can" pos="-3.55 -2.48 0.837">
+      <geom name="v2_west_south_can_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_red"/>
+      <geom name="v2_west_south_can_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_west_south_can_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_paper_white"/>
+      <geom name="v2_west_south_can_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_west_south_notebook" pos="-3.07 -3.76 0.84" quat="0.974794 0 0 0.223106">
+      <geom name="v2_west_south_notebook_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_west_south_notebook_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_west_south_notebook_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_west_south_notebook_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_west_south_snack" pos="-3.5 -3.52 0.842" quat="1 0 0 0">
+      <geom name="v2_west_south_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_gold"/>
+      <geom name="v2_west_south_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_west_south_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_west_south_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_west_south_phone" pos="-3.05 -2.83 0.837" quat="0.921061 0 0 0.389418">
+      <geom name="v2_west_south_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_west_south_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_south_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_south_wire" pos="-3.27 -2.93 0.837">
+      <geom name="v2_west_south_wire_a" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="-0.12 -0.04 0.002 0.04 0.07 0.002"/>
+      <geom name="v2_west_south_wire_b" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.04 0.07 0.002 0.11 -0.025 0.002"/>
+      <geom name="v2_west_south_wire_c" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.11 -0.025 0.002 0.22 0.02 0.002"/>
+      <geom name="v2_west_south_wire_usb" type="box" contype="0" conaffinity="0" group="3" pos="0.225 0.021 0.003" size="0.013 0.009 0.006" material="v2_steel"/>
+    </body>
+    <body name="v2_west_south_power" pos="-3.58 -4.39 0.837" quat="1 0 0 0">
+      <geom name="v2_west_south_power_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.1 0.035 0.015" material="v2_paper_white"/>
+      <geom name="v2_west_south_power_socket_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_south_power_socket_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.023 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_south_power_socket_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0.021 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_south_power_socket_3" type="sphere" contype="0" conaffinity="0" group="3" pos="0.065 0 0.032" size="0.01" material="v2_metal_dark"/>
+    </body>
+    <geom name="v2_west_south_cloth_fold_0" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -4.4 0.31 -3.758 -4.4 0.68"/>
+    <geom name="v2_west_south_cloth_fold_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -3.92 0.31 -3.758 -3.92 0.68"/>
+    <geom name="v2_west_south_cloth_fold_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -3.44 0.31 -3.758 -3.44 0.68"/>
+    <geom name="v2_west_south_cloth_fold_3" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -2.96 0.31 -3.758 -2.96 0.68"/>
+    <geom name="v2_west_south_cloth_fold_4" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -2.48 0.31 -3.758 -2.48 0.68"/>
+    <body name="v2_west_mid_laptop_a" pos="-3.39 -0.72 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_west_mid_laptop_a_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_west_mid_laptop_a_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_west_mid_laptop_a_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_west_mid_laptop_a_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_west_mid_laptop_a_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_west_mid_laptop_a_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_west_mid_laptop_a_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_west_mid_laptop_a_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_1"/>
+        <geom name="v2_west_mid_laptop_a_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_west_mid_laptop_a_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_west_mid_laptop_a_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_mid_laptop_a_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_mid_laptop_b" pos="-3.22 0.2 0.842" quat="0.707107 0 0 -0.707107">
+      <geom name="v2_west_mid_laptop_b_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_west_mid_laptop_b_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_west_mid_laptop_b_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_west_mid_laptop_b_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_west_mid_laptop_b_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_west_mid_laptop_b_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_west_mid_laptop_b_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_west_mid_laptop_b_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_3"/>
+        <geom name="v2_west_mid_laptop_b_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_west_mid_laptop_b_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_west_mid_laptop_b_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_mid_laptop_b_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_mid_coffee" pos="-3.06 -0.96 0.837">
+      <geom name="v2_west_mid_coffee_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_west_mid_coffee_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_west_mid_coffee_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_west_mid_coffee_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_west_mid_can" pos="-3.55 0.97 0.837">
+      <geom name="v2_west_mid_can_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_energy_blue"/>
+      <geom name="v2_west_mid_can_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_west_mid_can_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_west_mid_can_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_west_mid_notebook" pos="-3.07 -0.31 0.84" quat="0.974794 0 0 0.223106">
+      <geom name="v2_west_mid_notebook_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_west_mid_notebook_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_west_mid_notebook_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_west_mid_notebook_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_west_mid_snack" pos="-3.5 -0.07 0.842" quat="0.995004 0 0 0.099833">
+      <geom name="v2_west_mid_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_blue"/>
+      <geom name="v2_west_mid_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_west_mid_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_west_mid_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_west_mid_phone" pos="-3.05 0.62 0.837" quat="0.921061 0 0 0.389418">
+      <geom name="v2_west_mid_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_west_mid_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_west_mid_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_west_mid_wire" pos="-3.27 0.52 0.837">
+      <geom name="v2_west_mid_wire_a" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="-0.12 -0.04 0.002 0.04 0.07 0.002"/>
+      <geom name="v2_west_mid_wire_b" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.04 0.07 0.002 0.11 -0.025 0.002"/>
+      <geom name="v2_west_mid_wire_c" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.11 -0.025 0.002 0.22 0.02 0.002"/>
+      <geom name="v2_west_mid_wire_usb" type="box" contype="0" conaffinity="0" group="3" pos="0.225 0.021 0.003" size="0.013 0.009 0.006" material="v2_steel"/>
+    </body>
+    <body name="v2_west_mid_power" pos="-3.58 -0.94 0.837" quat="1 0 0 0">
+      <geom name="v2_west_mid_power_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.1 0.035 0.015" material="v2_paper_white"/>
+      <geom name="v2_west_mid_power_socket_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_mid_power_socket_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.023 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_mid_power_socket_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0.021 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_west_mid_power_socket_3" type="sphere" contype="0" conaffinity="0" group="3" pos="0.065 0 0.032" size="0.01" material="v2_metal_dark"/>
+    </body>
+    <geom name="v2_west_mid_cloth_fold_0" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -0.95 0.31 -3.758 -0.95 0.68"/>
+    <geom name="v2_west_mid_cloth_fold_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 -0.47 0.31 -3.758 -0.47 0.68"/>
+    <geom name="v2_west_mid_cloth_fold_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 0.01 0.31 -3.758 0.01 0.68"/>
+    <geom name="v2_west_mid_cloth_fold_3" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 0.49 0.31 -3.758 0.49 0.68"/>
+    <geom name="v2_west_mid_cloth_fold_4" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="-3.758 0.97 0.31 -3.758 0.97 0.68"/>
+    <body name="v2_east_south_laptop_a" pos="3.19 -4.17 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_east_south_laptop_a_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_east_south_laptop_a_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_east_south_laptop_a_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_east_south_laptop_a_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_east_south_laptop_a_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_east_south_laptop_a_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_east_south_laptop_a_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_east_south_laptop_a_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_2"/>
+        <geom name="v2_east_south_laptop_a_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_east_south_laptop_a_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_east_south_laptop_a_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_south_laptop_a_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_south_laptop_b" pos="3.36 -3.25 0.842" quat="0.707107 0 0 -0.707107">
+      <geom name="v2_east_south_laptop_b_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_east_south_laptop_b_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_east_south_laptop_b_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_east_south_laptop_b_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_east_south_laptop_b_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_east_south_laptop_b_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_east_south_laptop_b_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_east_south_laptop_b_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_4"/>
+        <geom name="v2_east_south_laptop_b_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_east_south_laptop_b_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_east_south_laptop_b_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_south_laptop_b_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_south_laptop_c" pos="3.24 -2.68 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_east_south_laptop_c_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_east_south_laptop_c_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_east_south_laptop_c_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_east_south_laptop_c_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_east_south_laptop_c_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_east_south_laptop_c_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_east_south_laptop_c_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_east_south_laptop_c_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_0"/>
+        <geom name="v2_east_south_laptop_c_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_east_south_laptop_c_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_east_south_laptop_c_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_south_laptop_c_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_south_coffee" pos="3.52 -4.41 0.837">
+      <geom name="v2_east_south_coffee_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_east_south_coffee_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_east_south_coffee_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_east_south_coffee_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_east_south_can" pos="3.03 -2.48 0.837">
+      <geom name="v2_east_south_can_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_silver"/>
+      <geom name="v2_east_south_can_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_east_south_can_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_east_south_can_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_east_south_notebook" pos="3.51 -3.76 0.84" quat="0.974794 0 0 0.223106">
+      <geom name="v2_east_south_notebook_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_east_south_notebook_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_east_south_notebook_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_east_south_notebook_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_east_south_snack" pos="3.08 -3.52 0.842" quat="0.980067 0 0 0.198669">
+      <geom name="v2_east_south_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_red"/>
+      <geom name="v2_east_south_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_east_south_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_east_south_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_east_south_phone" pos="3.53 -2.83 0.837" quat="0.921061 0 0 0.389418">
+      <geom name="v2_east_south_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_east_south_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_south_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_south_wire" pos="3.31 -2.93 0.837">
+      <geom name="v2_east_south_wire_a" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="-0.12 -0.04 0.002 0.04 0.07 0.002"/>
+      <geom name="v2_east_south_wire_b" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.04 0.07 0.002 0.11 -0.025 0.002"/>
+      <geom name="v2_east_south_wire_c" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.11 -0.025 0.002 0.22 0.02 0.002"/>
+      <geom name="v2_east_south_wire_usb" type="box" contype="0" conaffinity="0" group="3" pos="0.225 0.021 0.003" size="0.013 0.009 0.006" material="v2_steel"/>
+    </body>
+    <body name="v2_east_south_power" pos="3 -4.39 0.837" quat="1 0 0 0">
+      <geom name="v2_east_south_power_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.1 0.035 0.015" material="v2_paper_white"/>
+      <geom name="v2_east_south_power_socket_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_south_power_socket_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.023 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_south_power_socket_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0.021 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_south_power_socket_3" type="sphere" contype="0" conaffinity="0" group="3" pos="0.065 0 0.032" size="0.01" material="v2_metal_dark"/>
+    </body>
+    <geom name="v2_east_south_cloth_fold_0" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -4.4 0.31 3.758 -4.4 0.68"/>
+    <geom name="v2_east_south_cloth_fold_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -3.92 0.31 3.758 -3.92 0.68"/>
+    <geom name="v2_east_south_cloth_fold_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -3.44 0.31 3.758 -3.44 0.68"/>
+    <geom name="v2_east_south_cloth_fold_3" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -2.96 0.31 3.758 -2.96 0.68"/>
+    <geom name="v2_east_south_cloth_fold_4" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -2.48 0.31 3.758 -2.48 0.68"/>
+    <body name="v2_east_mid_laptop_a" pos="3.19 -0.72 0.842" quat="0.707107 0 0 0.707107">
+      <geom name="v2_east_mid_laptop_a_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_east_mid_laptop_a_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_east_mid_laptop_a_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_east_mid_laptop_a_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_east_mid_laptop_a_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_east_mid_laptop_a_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_east_mid_laptop_a_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_east_mid_laptop_a_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_3"/>
+        <geom name="v2_east_mid_laptop_a_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_east_mid_laptop_a_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_east_mid_laptop_a_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_mid_laptop_a_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_mid_laptop_b" pos="3.36 0.2 0.842" quat="0.707107 0 0 -0.707107">
+      <geom name="v2_east_mid_laptop_b_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_east_mid_laptop_b_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_east_mid_laptop_b_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_east_mid_laptop_b_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_east_mid_laptop_b_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_east_mid_laptop_b_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_east_mid_laptop_b_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_east_mid_laptop_b_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_0"/>
+        <geom name="v2_east_mid_laptop_b_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_east_mid_laptop_b_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_east_mid_laptop_b_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_mid_laptop_b_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_mid_coffee" pos="3.52 -0.96 0.837">
+      <geom name="v2_east_mid_coffee_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_east_mid_coffee_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_east_mid_coffee_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_east_mid_coffee_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_east_mid_can" pos="3.03 0.97 0.837">
+      <geom name="v2_east_mid_can_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_red"/>
+      <geom name="v2_east_mid_can_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_east_mid_can_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_paper_white"/>
+      <geom name="v2_east_mid_can_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_east_mid_notebook" pos="3.51 -0.31 0.84" quat="0.974794 0 0 0.223106">
+      <geom name="v2_east_mid_notebook_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_east_mid_notebook_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_east_mid_notebook_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_east_mid_notebook_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_east_mid_snack" pos="3.08 -0.07 0.842" quat="0.955336 0 0 0.29552">
+      <geom name="v2_east_mid_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_gold"/>
+      <geom name="v2_east_mid_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_east_mid_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_east_mid_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_east_mid_phone" pos="3.53 0.62 0.837" quat="0.921061 0 0 0.389418">
+      <geom name="v2_east_mid_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_east_mid_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_east_mid_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_east_mid_wire" pos="3.31 0.52 0.837">
+      <geom name="v2_east_mid_wire_a" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="-0.12 -0.04 0.002 0.04 0.07 0.002"/>
+      <geom name="v2_east_mid_wire_b" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.04 0.07 0.002 0.11 -0.025 0.002"/>
+      <geom name="v2_east_mid_wire_c" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_cord" fromto="0.11 -0.025 0.002 0.22 0.02 0.002"/>
+      <geom name="v2_east_mid_wire_usb" type="box" contype="0" conaffinity="0" group="3" pos="0.225 0.021 0.003" size="0.013 0.009 0.006" material="v2_steel"/>
+    </body>
+    <body name="v2_east_mid_power" pos="3 -0.94 0.837" quat="1 0 0 0">
+      <geom name="v2_east_mid_power_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.1 0.035 0.015" material="v2_paper_white"/>
+      <geom name="v2_east_mid_power_socket_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_mid_power_socket_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.023 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_mid_power_socket_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0.021 0 0.032" size="0.01" material="v2_metal_dark"/>
+      <geom name="v2_east_mid_power_socket_3" type="sphere" contype="0" conaffinity="0" group="3" pos="0.065 0 0.032" size="0.01" material="v2_metal_dark"/>
+    </body>
+    <geom name="v2_east_mid_cloth_fold_0" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -0.95 0.31 3.758 -0.95 0.68"/>
+    <geom name="v2_east_mid_cloth_fold_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 -0.47 0.31 3.758 -0.47 0.68"/>
+    <geom name="v2_east_mid_cloth_fold_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 0.01 0.31 3.758 0.01 0.68"/>
+    <geom name="v2_east_mid_cloth_fold_3" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 0.49 0.31 3.758 0.49 0.68"/>
+    <geom name="v2_east_mid_cloth_fold_4" type="capsule" contype="0" conaffinity="0" group="3" size="0.002" material="v2_metal_dark" fromto="3.758 0.97 0.31 3.758 0.97 0.68"/>
+    <body name="v2_annex_south_laptop" pos="-8.93 -5.7 0.842" quat="0.707388 0 0 0.706825">
+      <geom name="v2_annex_south_laptop_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_annex_south_laptop_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_annex_south_laptop_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_annex_south_laptop_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_annex_south_laptop_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_annex_south_laptop_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_annex_south_laptop_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_annex_south_laptop_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_3"/>
+        <geom name="v2_annex_south_laptop_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_annex_south_laptop_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_south_laptop_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_south_laptop_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_south_laptop2" pos="-8.76 -4.69 0.842" quat="0.707388 0 0 -0.706825">
+      <geom name="v2_annex_south_laptop2_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_annex_south_laptop2_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_annex_south_laptop2_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_annex_south_laptop2_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_annex_south_laptop2_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_annex_south_laptop2_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_annex_south_laptop2_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_annex_south_laptop2_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_4"/>
+        <geom name="v2_annex_south_laptop2_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_annex_south_laptop2_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_south_laptop2_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_south_laptop2_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_south_cup" pos="-8.6 -6.13 0.837">
+      <geom name="v2_annex_south_cup_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_annex_south_cup_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_annex_south_cup_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_annex_south_cup_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_annex_south_bottle" pos="-9.02 -4.32 0.837">
+      <geom name="v2_annex_south_bottle_body" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.084" size="0.03 0.0805" material="v2_plastic_clear"/>
+      <geom name="v2_annex_south_bottle_water" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.027 0.039" material="v2_water_blue"/>
+      <geom name="v2_annex_south_bottle_neck" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.177" size="0.017 0.011" material="v2_plastic_clear"/>
+      <geom name="v2_annex_south_bottle_cap" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.193" size="0.019 0.008" material="v2_water_blue"/>
+      <geom name="v2_annex_south_bottle_label" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.105" size="0.031 0.011" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_south_notes" pos="-8.65 -5.13 0.84" quat="0.988771 0 0 -0.149438">
+      <geom name="v2_annex_south_notes_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_annex_south_notes_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_annex_south_notes_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_annex_south_notes_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_annex_south_snack" pos="-9.05 -5.1 0.842" quat="1 0 0 0">
+      <geom name="v2_annex_south_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_blue"/>
+      <geom name="v2_annex_south_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_annex_south_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_annex_south_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_annex_south_phone" pos="-8.61 -4.41 0.837" quat="1 0 0 0">
+      <geom name="v2_annex_south_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_south_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_south_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_north_laptop" pos="-8.93 0.14 0.842" quat="0.707388 0 0 0.706825">
+      <geom name="v2_annex_north_laptop_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_annex_north_laptop_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_annex_north_laptop_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_annex_north_laptop_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_annex_north_laptop_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_annex_north_laptop_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_annex_north_laptop_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_annex_north_laptop_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_4"/>
+        <geom name="v2_annex_north_laptop_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_annex_north_laptop_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_north_laptop_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_north_laptop_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_north_laptop2" pos="-8.76 1.15 0.842" quat="0.707388 0 0 -0.706825">
+      <geom name="v2_annex_north_laptop2_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_annex_north_laptop2_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_annex_north_laptop2_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_annex_north_laptop2_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_annex_north_laptop2_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_annex_north_laptop2_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_annex_north_laptop2_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_annex_north_laptop2_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_0"/>
+        <geom name="v2_annex_north_laptop2_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_annex_north_laptop2_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_north_laptop2_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_north_laptop2_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_north_cup" pos="-8.6 -0.29 0.837">
+      <geom name="v2_annex_north_cup_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_annex_north_cup_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_annex_north_cup_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_annex_north_cup_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_annex_north_bottle" pos="-9.02 1.52 0.837">
+      <geom name="v2_annex_north_bottle_body" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.084" size="0.03 0.0805" material="v2_plastic_clear"/>
+      <geom name="v2_annex_north_bottle_water" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.027 0.039" material="v2_water_blue"/>
+      <geom name="v2_annex_north_bottle_neck" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.177" size="0.017 0.011" material="v2_plastic_clear"/>
+      <geom name="v2_annex_north_bottle_cap" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.193" size="0.019 0.008" material="v2_water_blue"/>
+      <geom name="v2_annex_north_bottle_label" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.105" size="0.031 0.011" material="v2_paper_white"/>
+    </body>
+    <body name="v2_annex_north_notes" pos="-8.65 0.71 0.84" quat="0.988771 0 0 -0.149438">
+      <geom name="v2_annex_north_notes_cover" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.125 0.09 0.005" material="v2_notebook_cover"/>
+      <geom name="v2_annex_north_notes_page" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.117 0.084 0.0015" material="v2_notebook_paper"/>
+      <geom name="v2_annex_north_notes_spine" type="capsule" contype="0" conaffinity="0" group="3" size="0.004" material="v2_metal_dark" fromto="-0.12 -0.083 0.007 -0.12 0.083 0.007"/>
+      <geom name="v2_annex_north_notes_pen" type="capsule" contype="0" conaffinity="0" group="3" size="0.0045" material="v2_energy_blue" fromto="0.08 -0.04 0.012 0.08 0.07 0.012"/>
+    </body>
+    <body name="v2_annex_north_snack" pos="-9.05 0.74 0.842" quat="1 0 0 0">
+      <geom name="v2_annex_north_snack_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_blue"/>
+      <geom name="v2_annex_north_snack_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_annex_north_snack_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_annex_north_snack_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_annex_north_phone" pos="-8.61 1.43 0.837" quat="1 0 0 0">
+      <geom name="v2_annex_north_phone_body" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.005" size="0.043 0.082 0.005" material="v2_laptop_bezel"/>
+      <geom name="v2_annex_north_phone_display" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.0104" size="0.039 0.074 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_annex_north_phone_statusbar" type="box" contype="0" conaffinity="0" group="3" pos="0 0.052 0.011" size="0.033 0.004 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_rucksack_0" pos="-4.45 -4.73 0" quat="0.995953 0 0 0.089879">
+      <geom name="v2_rucksack_0_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_black"/>
+      <geom name="v2_rucksack_0_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_black"/>
+      <geom name="v2_rucksack_0_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_0_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_0_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_0_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_rucksack_1" pos="-4.96 -0.38 0" quat="0.995004 0 0 -0.099833">
+      <geom name="v2_rucksack_1_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_gray"/>
+      <geom name="v2_rucksack_1_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_gray"/>
+      <geom name="v2_rucksack_1_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_1_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_1_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_1_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_rucksack_2" pos="4.95 -4.7 0" quat="0.971338 0 0 0.237703">
+      <geom name="v2_rucksack_2_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_black"/>
+      <geom name="v2_rucksack_2_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_black"/>
+      <geom name="v2_rucksack_2_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_2_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_2_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_2_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_rucksack_3" pos="4.94 0.12 0" quat="0.988771 0 0 -0.149438">
+      <geom name="v2_rucksack_3_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_black"/>
+      <geom name="v2_rucksack_3_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_black"/>
+      <geom name="v2_rucksack_3_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_3_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_3_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_3_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_rucksack_4" pos="-9.8 -6 0" quat="0.995004 0 0 0.099833">
+      <geom name="v2_rucksack_4_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_gray"/>
+      <geom name="v2_rucksack_4_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_gray"/>
+      <geom name="v2_rucksack_4_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_4_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_4_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_4_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_rucksack_5" pos="-9.75 0.95 0" quat="0.988771 0 0 -0.149438">
+      <geom name="v2_rucksack_5_main" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.18 0.1 0.19" material="v2_bag_black"/>
+      <geom name="v2_rucksack_5_front" type="box" contype="0" conaffinity="0" group="3" pos="0.02 -0.1 0.14" size="0.13 0.028 0.092" material="v2_bag_black"/>
+      <geom name="v2_rucksack_5_strap_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="-0.12 0.09 0.34 -0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_5_strap_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.018" material="v2_cord" fromto="0.12 0.09 0.34 0.12 0.1 0.06"/>
+      <geom name="v2_rucksack_5_handle" type="capsule" contype="0" conaffinity="0" group="3" size="0.016" material="v2_steel" fromto="-0.04 0 0.39 0.04 0 0.39"/>
+      <geom name="v2_rucksack_5_zip" type="capsule" contype="0" conaffinity="0" group="3" size="0.003" material="v2_steel" fromto="-0.14 -0.127 0.198 0.14 -0.127 0.198"/>
+    </body>
+    <body name="v2_audience_cup_0" pos="-4.7 3.4 0.004">
+      <geom name="v2_audience_cup_0_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_audience_cup_0_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_audience_cup_0_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_audience_cup_0_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_audience_cup_1" pos="-4.5 4.75 0.004">
+      <geom name="v2_audience_cup_1_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_audience_cup_1_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_audience_cup_1_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_audience_cup_1_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_audience_cup_2" pos="4.7 3.4 0.004">
+      <geom name="v2_audience_cup_2_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_audience_cup_2_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_audience_cup_2_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_audience_cup_2_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <body name="v2_audience_cup_3" pos="4.65 4.75 0.004">
+      <geom name="v2_audience_cup_3_cup" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.047" size="0.035 0.045" material="v2_paper_cup"/>
+      <geom name="v2_audience_cup_3_sleeve" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.046" size="0.036 0.017" material="v2_coffee_sleeve"/>
+      <geom name="v2_audience_cup_3_lid" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.096" size="0.038 0.0045" material="v2_coffee_lid"/>
+      <geom name="v2_audience_cup_3_sipping" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0.022 0.104" size="0.01 0.0015" material="v2_coffee_lid"/>
+    </body>
+    <geom name="v2_sconce_back_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-5.92 -5.1 2.8" size="0.095 0.0275" material="v2_metal_dark"/>
+    <geom name="v2_sconce_globe_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-5.92 -5.1 2.82" size="0.075" material="v2_warm_glass"/>
+    <geom name="v2_sconce_back_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-5.92 1.3 2.8" size="0.095 0.0275" material="v2_metal_dark"/>
+    <geom name="v2_sconce_globe_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-5.92 1.3 2.82" size="0.075" material="v2_warm_glass"/>
+    <geom name="v2_sconce_back_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="5.92 -5.1 2.8" size="0.095 0.0275" material="v2_metal_dark"/>
+    <geom name="v2_sconce_globe_2" type="sphere" contype="0" conaffinity="0" group="3" pos="5.92 -5.1 2.82" size="0.075" material="v2_warm_glass"/>
+    <geom name="v2_sconce_back_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="5.92 1.3 2.8" size="0.095 0.0275" material="v2_metal_dark"/>
+    <geom name="v2_sconce_globe_3" type="sphere" contype="0" conaffinity="0" group="3" pos="5.92 1.3 2.82" size="0.075" material="v2_warm_glass"/>
+    <geom name="v2_stage_spot_housing_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-3.7 5.45 3.45" size="0.09 0.09" material="v2_metal_dark"/>
+    <geom name="v2_stage_spot_lens_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-3.7 5.45 3.32" size="0.075 0.0125" material="v2_blue_glow"/>
+    <geom name="v2_stage_spot_housing_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-1.8 5.45 3.45" size="0.09 0.09" material="v2_metal_dark"/>
+    <geom name="v2_stage_spot_lens_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-1.8 5.45 3.32" size="0.075 0.0125" material="v2_blue_glow"/>
+    <geom name="v2_stage_spot_housing_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 5.45 3.45" size="0.09 0.09" material="v2_metal_dark"/>
+    <geom name="v2_stage_spot_lens_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 5.45 3.32" size="0.075 0.0125" material="v2_blue_glow"/>
+    <geom name="v2_stage_spot_housing_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="1.8 5.45 3.45" size="0.09 0.09" material="v2_metal_dark"/>
+    <geom name="v2_stage_spot_lens_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="1.8 5.45 3.32" size="0.075 0.0125" material="v2_blue_glow"/>
+    <geom name="v2_stage_spot_housing_4" type="cylinder" contype="0" conaffinity="0" group="3" pos="3.7 5.45 3.45" size="0.09 0.09" material="v2_metal_dark"/>
+    <geom name="v2_stage_spot_lens_4" type="cylinder" contype="0" conaffinity="0" group="3" pos="3.7 5.45 3.32" size="0.075 0.0125" material="v2_blue_glow"/>
+    <geom name="v2_pendant_housing_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-4.8 -5 3.1" size="0.11 0.1" material="v2_metal_dark"/>
+    <geom name="v2_pendant_diffuser_0" type="sphere" contype="0" conaffinity="0" group="3" pos="-4.8 -5 2.97" size="0.085" material="v2_warm_glass"/>
+    <geom name="v2_pendant_housing_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-4.8 1.2 3.1" size="0.11 0.1" material="v2_metal_dark"/>
+    <geom name="v2_pendant_diffuser_1" type="sphere" contype="0" conaffinity="0" group="3" pos="-4.8 1.2 2.97" size="0.085" material="v2_warm_glass"/>
+    <geom name="v2_pendant_housing_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="4.7 -5 3.1" size="0.11 0.1" material="v2_metal_dark"/>
+    <geom name="v2_pendant_diffuser_2" type="sphere" contype="0" conaffinity="0" group="3" pos="4.7 -5 2.97" size="0.085" material="v2_warm_glass"/>
+    <geom name="v2_pendant_housing_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="4.7 1.2 3.1" size="0.11 0.1" material="v2_metal_dark"/>
+    <geom name="v2_pendant_diffuser_3" type="sphere" contype="0" conaffinity="0" group="3" pos="4.7 1.2 2.97" size="0.085" material="v2_warm_glass"/>
+    <geom name="v2_pillar_base_trim_0" type="box" contype="0" conaffinity="0" group="3" pos="-5.52 3 0.09" size="0.43 0.44 0.09" material="v2_wood_brown"/>
+    <geom name="v2_pillar_top_trim_0" type="box" contype="0" conaffinity="0" group="3" pos="-5.52 3 3.53" size="0.43 0.44 0.038" material="v2_wood_brown"/>
+    <geom name="v2_pillar_base_trim_1" type="box" contype="0" conaffinity="0" group="3" pos="5.57 1.85 0.09" size="0.43 0.44 0.09" material="v2_wood_brown"/>
+    <geom name="v2_pillar_top_trim_1" type="box" contype="0" conaffinity="0" group="3" pos="5.57 1.85 3.53" size="0.43 0.44 0.038" material="v2_wood_brown"/>
+    <geom name="v2_pillar_base_trim_2" type="box" contype="0" conaffinity="0" group="3" pos="-6.9 -5.92 0.09" size="0.43 0.44 0.09" material="v2_wood_brown"/>
+    <geom name="v2_pillar_top_trim_2" type="box" contype="0" conaffinity="0" group="3" pos="-6.9 -5.92 3.53" size="0.43 0.44 0.038" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_wood_0" type="box" contype="0" conaffinity="0" group="3" pos="-4.5 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_0" type="box" contype="0" conaffinity="0" group="3" pos="-4.5 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_1" type="box" contype="0" conaffinity="0" group="3" pos="-3.375 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_1" type="box" contype="0" conaffinity="0" group="3" pos="-3.375 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_2" type="box" contype="0" conaffinity="0" group="3" pos="-2.25 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_2" type="box" contype="0" conaffinity="0" group="3" pos="-2.25 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_3" type="box" contype="0" conaffinity="0" group="3" pos="-1.125 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_3" type="box" contype="0" conaffinity="0" group="3" pos="-1.125 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_4" type="box" contype="0" conaffinity="0" group="3" pos="0 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_4" type="box" contype="0" conaffinity="0" group="3" pos="0 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_5" type="box" contype="0" conaffinity="0" group="3" pos="1.125 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_5" type="box" contype="0" conaffinity="0" group="3" pos="1.125 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_6" type="box" contype="0" conaffinity="0" group="3" pos="2.25 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_6" type="box" contype="0" conaffinity="0" group="3" pos="2.25 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_7" type="box" contype="0" conaffinity="0" group="3" pos="3.375 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_7" type="box" contype="0" conaffinity="0" group="3" pos="3.375 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <geom name="v2_stage_front_wood_8" type="box" contype="0" conaffinity="0" group="3" pos="4.5 5.878 0.16" size="0.52 0.014 0.112" material="v2_wood_brown"/>
+    <geom name="v2_stage_front_glow_8" type="box" contype="0" conaffinity="0" group="3" pos="4.5 5.859 0.292" size="0.51 0.008 0.008" material="v2_blue_glow"/>
+    <body name="v2_podium" pos="4.35 6.32 0">
+      <geom name="v2_podium_base" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.58" size="0.23 0.23 0.58" material="v2_wood_brown"/>
+      <geom name="v2_podium_top" type="box" contype="0" conaffinity="0" group="3" pos="0 0 1.16" size="0.31 0.28 0.032" material="v2_metal_dark"/>
+    </body>
+    <body name="v2_stage_laptop" pos="4.35 6.3 1.2" quat="0 0 0 1">
+      <geom name="v2_stage_laptop_case" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.183 0.13 0.013" material="v2_laptop_metal"/>
+      <geom name="v2_stage_laptop_lip" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.123 0.014" size="0.181 0.004 0.003" material="v2_laptop_edge"/>
+      <geom name="v2_stage_laptop_keyboard" type="box" contype="0" conaffinity="0" group="3" pos="0 0.02 0.016" size="0.169 0.091 0.0015" material="v2_keyboard"/>
+      <geom name="v2_stage_laptop_trackpad" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.091 0.016" size="0.06 0.026 0.001" material="v2_laptop_trackpad"/>
+      <body name="v2_stage_laptop_lid" pos="0 0.125 0.014" quat="0.997888 0.064954 0 0">
+        <geom name="v2_stage_laptop_screen_back" type="box" contype="0" conaffinity="0" group="3" pos="0 0.006 0.116" size="0.185 0.008 0.115" material="v2_laptop_metal"/>
+        <geom name="v2_stage_laptop_screen_bezel" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.004 0.118" size="0.18 0.005 0.108" material="v2_laptop_bezel"/>
+        <geom name="v2_stage_laptop_screen_pixels" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.01 0.115" size="0.169 0.001 0.095" material="v2_screen_4"/>
+        <geom name="v2_stage_laptop_webcam" type="sphere" contype="0" conaffinity="0" group="3" pos="0 -0.011 0.218" size="0.0025" material="v2_steel"/>
+      </body>
+      <geom name="v2_stage_laptop_port" type="box" contype="0" conaffinity="0" group="3" pos="0.183 0 0.001" size="0.002 0.024 0.002" material="v2_laptop_bezel"/>
+      <geom name="v2_stage_laptop_sticker_0" type="box" contype="0" conaffinity="0" group="3" pos="-0.12 -0.065 0.0142" size="0.022 0.011 0.0007" material="v2_blue_glow"/>
+      <geom name="v2_stage_laptop_sticker_1" type="box" contype="0" conaffinity="0" group="3" pos="-0.08 -0.087 0.0142" size="0.022 0.011 0.0007" material="v2_paper_white"/>
+    </body>
+    <body name="v2_event_poster" pos="-6.03 1.55 1.7" quat="0.707107 0 0 0.707107">
+      <geom name="v2_poster_frame" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0" size="0.68 0.034 1.03" material="v2_poster_frame"/>
+      <geom name="v2_poster_art" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.037 0" size="0.62 0.002 0.95" material="v2_poster"/>
+    </body>
+    <geom name="v2_east_wood_baseboard_0" type="box" contype="0" conaffinity="0" group="3" pos="5.98 -6.6 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_1" type="box" contype="0" conaffinity="0" group="3" pos="5.98 -5.2 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_2" type="box" contype="0" conaffinity="0" group="3" pos="5.98 -3.8 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_3" type="box" contype="0" conaffinity="0" group="3" pos="5.98 -2.4 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_4" type="box" contype="0" conaffinity="0" group="3" pos="5.98 -1 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_5" type="box" contype="0" conaffinity="0" group="3" pos="5.98 0.4 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_6" type="box" contype="0" conaffinity="0" group="3" pos="5.98 1.8 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_7" type="box" contype="0" conaffinity="0" group="3" pos="5.98 3.2 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_8" type="box" contype="0" conaffinity="0" group="3" pos="5.98 4.6 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_east_wood_baseboard_9" type="box" contype="0" conaffinity="0" group="3" pos="5.98 6 0.15" size="0.02 0.66 0.13" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_0" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -6.55 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_1" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -5.33 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_2" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -4.11 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_3" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -2.89 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_4" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -1.67 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_5" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 -0.45 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <geom name="v2_annex_baseboard_6" type="box" contype="0" conaffinity="0" group="3" pos="-11.67 0.77 0.14" size="0.02 0.55 0.11" material="v2_wood_brown"/>
+    <body name="v2_coffee_urn_0" pos="-10.68 -4.65 1.055">
+      <geom name="v2_urn_tank_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.134 0.18" material="v2_steel"/>
+      <geom name="v2_urn_top_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.37" size="0.147 0.014" material="v2_metal_dark"/>
+      <geom name="v2_urn_base_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.018" size="0.15 0.019" material="v2_metal_dark"/>
+      <geom name="v2_urn_spigot_0" type="capsule" contype="0" conaffinity="0" group="3" size="0.015" material="v2_metal_dark" fromto="-0.09 -0.12 0.1 -0.09 -0.18 0.1"/>
+      <geom name="v2_urn_gauge_0" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.136 0.22" size="0.05 0.01 0.05" material="v2_paper_white"/>
+    </body>
+    <body name="v2_coffee_urn_1" pos="-10.68 -2.2 1.055">
+      <geom name="v2_urn_tank_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.134 0.18" material="v2_steel"/>
+      <geom name="v2_urn_top_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.37" size="0.147 0.014" material="v2_metal_dark"/>
+      <geom name="v2_urn_base_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.018" size="0.15 0.019" material="v2_metal_dark"/>
+      <geom name="v2_urn_spigot_1" type="capsule" contype="0" conaffinity="0" group="3" size="0.015" material="v2_metal_dark" fromto="-0.09 -0.12 0.1 -0.09 -0.18 0.1"/>
+      <geom name="v2_urn_gauge_1" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.136 0.22" size="0.05 0.01 0.05" material="v2_paper_white"/>
+    </body>
+    <body name="v2_coffee_urn_2" pos="-10.68 0.2 1.055">
+      <geom name="v2_urn_tank_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.19" size="0.134 0.18" material="v2_steel"/>
+      <geom name="v2_urn_top_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.37" size="0.147 0.014" material="v2_metal_dark"/>
+      <geom name="v2_urn_base_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.018" size="0.15 0.019" material="v2_metal_dark"/>
+      <geom name="v2_urn_spigot_2" type="capsule" contype="0" conaffinity="0" group="3" size="0.015" material="v2_metal_dark" fromto="-0.09 -0.12 0.1 -0.09 -0.18 0.1"/>
+      <geom name="v2_urn_gauge_2" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.136 0.22" size="0.05 0.01 0.05" material="v2_paper_white"/>
+    </body>
+    <geom name="v2_cup_stack_0_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -5.78 1.075" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_0_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -5.78 1.107" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_0_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -5.78 1.139" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_0_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -5.78 1.171" size="0.041 0.0275" material="v2_paper_cup"/>
+    <body name="v2_bar_drink_0_0" pos="-10.32 -5.54 1.055">
+      <geom name="v2_bar_drink_0_0_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_red"/>
+      <geom name="v2_bar_drink_0_0_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_0_0_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_paper_white"/>
+      <geom name="v2_bar_drink_0_0_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_bar_drink_0_1" pos="-10.32 -5.4 1.055">
+      <geom name="v2_bar_drink_0_1_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_energy_blue"/>
+      <geom name="v2_bar_drink_0_1_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_0_1_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_0_1_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <geom name="v2_cup_stack_1_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -3.48 1.075" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_1_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -3.48 1.107" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_1_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -3.48 1.139" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_1_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -3.48 1.171" size="0.041 0.0275" material="v2_paper_cup"/>
+    <body name="v2_bar_drink_1_0" pos="-10.32 -3.24 1.055">
+      <geom name="v2_bar_drink_1_0_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_energy_blue"/>
+      <geom name="v2_bar_drink_1_0_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_1_0_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_1_0_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_bar_drink_1_1" pos="-10.32 -3.1 1.055">
+      <geom name="v2_bar_drink_1_1_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_1_1_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_1_1_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_1_1_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <geom name="v2_cup_stack_2_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -0.99 1.075" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_2_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -0.99 1.107" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_2_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -0.99 1.139" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_2_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 -0.99 1.171" size="0.041 0.0275" material="v2_paper_cup"/>
+    <body name="v2_bar_drink_2_0" pos="-10.32 -0.75 1.055">
+      <geom name="v2_bar_drink_2_0_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_2_0_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_2_0_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_2_0_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_bar_drink_2_1" pos="-10.32 -0.61 1.055">
+      <geom name="v2_bar_drink_2_1_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_red"/>
+      <geom name="v2_bar_drink_2_1_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_2_1_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_paper_white"/>
+      <geom name="v2_bar_drink_2_1_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <geom name="v2_cup_stack_3_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 1.1 1.075" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_3_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 1.1 1.107" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_3_2" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 1.1 1.139" size="0.041 0.0275" material="v2_paper_cup"/>
+    <geom name="v2_cup_stack_3_3" type="cylinder" contype="0" conaffinity="0" group="3" pos="-10.45 1.1 1.171" size="0.041 0.0275" material="v2_paper_cup"/>
+    <body name="v2_bar_drink_3_0" pos="-10.32 1.34 1.055">
+      <geom name="v2_bar_drink_3_0_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_soda_red"/>
+      <geom name="v2_bar_drink_3_0_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_3_0_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_paper_white"/>
+      <geom name="v2_bar_drink_3_0_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_bar_drink_3_1" pos="-10.32 1.48 1.055">
+      <geom name="v2_bar_drink_3_1_can" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.064" size="0.03 0.064" material="v2_energy_blue"/>
+      <geom name="v2_bar_drink_3_1_rim" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.129" size="0.03 0.0025" material="v2_can_rim"/>
+      <geom name="v2_bar_drink_3_1_logo_band" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.061" size="0.0307 0.012" material="v2_soda_silver"/>
+      <geom name="v2_bar_drink_3_1_can_foot" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.004" size="0.03 0.0035" material="v2_can_rim"/>
+    </body>
+    <body name="v2_buffet_bag_0" pos="-10.92 -5.6 1.055" quat="1 0 0 0">
+      <geom name="v2_buffet_bag_0_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_gold"/>
+      <geom name="v2_buffet_bag_0_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_0_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_0_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_buffet_bag_1" pos="-10.86 -4 1.055" quat="0.978031 0 0 0.20846">
+      <geom name="v2_buffet_bag_1_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_red"/>
+      <geom name="v2_buffet_bag_1_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_1_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_1_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_buffet_bag_2" pos="-10.85 -3.25 1.055" quat="0.913089 0 0 0.40776">
+      <geom name="v2_buffet_bag_2_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_blue"/>
+      <geom name="v2_buffet_bag_2_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_2_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_2_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_buffet_bag_3" pos="-10.93 -1.5 1.055" quat="0.808028 0 0 0.589145">
+      <geom name="v2_buffet_bag_3_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_gold"/>
+      <geom name="v2_buffet_bag_3_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_3_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_3_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_buffet_bag_4" pos="-10.85 -0.65 1.055" quat="0.667463 0 0 0.744643">
+      <geom name="v2_buffet_bag_4_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_red"/>
+      <geom name="v2_buffet_bag_4_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_4_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_4_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_buffet_bag_5" pos="-10.86 0.75 1.055" quat="0.497571 0 0 0.867423">
+      <geom name="v2_buffet_bag_5_foil" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.015" size="0.075 0.056 0.015" material="v2_snack_blue"/>
+      <geom name="v2_buffet_bag_5_label" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.055 0.019" size="0.048 0.002 0.012" material="v2_paper_white"/>
+      <geom name="v2_buffet_bag_5_crimp_l" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+      <geom name="v2_buffet_bag_5_crimp_r" type="box" contype="0" conaffinity="0" group="3" pos="0 0.065 0.009" size="0.074 0.006 0.002" material="v2_soda_silver"/>
+    </body>
+    <body name="v2_snack_bowl_0" pos="-10.47 -4.1 1.055">
+      <geom name="v2_snack_bowl_rim_0" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.016" size="0.17 0.016" material="v2_soda_silver"/>
+      <geom name="v2_fruit_0_0" type="sphere" contype="0" conaffinity="0" group="3" pos="0.095 0 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_0_1" type="sphere" contype="0" conaffinity="0" group="3" pos="0.067175 0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_0_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0 0.095 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_0_3" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067175 0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_0_4" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.095 0 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_0_5" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067175 -0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_0_6" type="sphere" contype="0" conaffinity="0" group="3" pos="-0 -0.095 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_0_7" type="sphere" contype="0" conaffinity="0" group="3" pos="0.067175 -0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+    </body>
+    <body name="v2_snack_bowl_1" pos="-10.45 -1.6 1.055">
+      <geom name="v2_snack_bowl_rim_1" type="cylinder" contype="0" conaffinity="0" group="3" pos="0 0 0.016" size="0.17 0.016" material="v2_soda_silver"/>
+      <geom name="v2_fruit_1_0" type="sphere" contype="0" conaffinity="0" group="3" pos="0.095 0 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_1_1" type="sphere" contype="0" conaffinity="0" group="3" pos="0.067175 0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_1_2" type="sphere" contype="0" conaffinity="0" group="3" pos="0 0.095 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_1_3" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067175 0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_1_4" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.095 0 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_1_5" type="sphere" contype="0" conaffinity="0" group="3" pos="-0.067175 -0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+      <geom name="v2_fruit_1_6" type="sphere" contype="0" conaffinity="0" group="3" pos="-0 -0.095 0.055" size="0.048" material="v2_green_snack"/>
+      <geom name="v2_fruit_1_7" type="sphere" contype="0" conaffinity="0" group="3" pos="0.067175 -0.067175 0.055" size="0.048" material="v2_orange_fruit"/>
+    </body>
+    <body name="v2_badge_stand_0" pos="-3.38 -2.55 0.836">
+      <geom name="v2_badge_foot_0" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.006" size="0.078 0.035 0.006" material="v2_steel"/>
+      <geom name="v2_badge_card_0" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.13" size="0.09 0.006 0.12" material="v2_paper_white"/>
+      <geom name="v2_badge_print_0" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.007 0.13" size="0.087 0.001 0.058" material="v2_badge"/>
+    </body>
+    <body name="v2_badge_stand_1" pos="3.4 -2.6 0.836">
+      <geom name="v2_badge_foot_1" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.006" size="0.078 0.035 0.006" material="v2_steel"/>
+      <geom name="v2_badge_card_1" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.13" size="0.09 0.006 0.12" material="v2_paper_white"/>
+      <geom name="v2_badge_print_1" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.007 0.13" size="0.087 0.001 0.058" material="v2_badge"/>
+    </body>
+    <body name="v2_badge_stand_2" pos="-8.7 -4.37 0.836">
+      <geom name="v2_badge_foot_2" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.006" size="0.078 0.035 0.006" material="v2_steel"/>
+      <geom name="v2_badge_card_2" type="box" contype="0" conaffinity="0" group="3" pos="0 0 0.13" size="0.09 0.006 0.12" material="v2_paper_white"/>
+      <geom name="v2_badge_print_2" type="box" contype="0" conaffinity="0" group="3" pos="0 -0.007 0.13" size="0.087 0.001 0.058" material="v2_badge"/>
+    </body>
+    <camera name="v2_from_entrance" pos="0 -6.25 1.64" xyaxes="1 0 0 0 0 1" fovy="67"/>
+    <camera name="v2_stage_facing_audience" pos="-0.3 6.45 1.65" xyaxes="-1 0 0 0 0 1" fovy="70"/>
+    <camera name="v2_side_wide" pos="5.2 -4.8 2" xyaxes="0.68 0.73 0 0 0 1" fovy="77"/>
+    <camera name="v2_refreshment_walkthrough" pos="-7.5 -2.9 1.55" xyaxes="0.72 0.69 0 0 0 1" fovy="67"/>
+    <camera name="v2_robot_aisle" pos="0 -4.9 1.3" xyaxes="1 0 0 0 0 1" fovy="62"/>
+    <camera name="v2_clean_topdown" pos="-2.85 0 19" xyaxes="1 0 0 0 1 0" fovy="64"/>
+    <light name="v2_warm_left" pos="-2.8 -2.5 3.40" dir="0 0 -1" diffuse=".47 .41 .35" specular=".02 .02 .02" cutoff="80" castshadow="false"/>
+    <light name="v2_warm_right" pos="2.8 -2.5 3.40" dir="0 0 -1" diffuse=".47 .41 .35" specular=".02 .02 .02" cutoff="80" castshadow="false"/>
+    <light name="v2_warm_bar" pos="-9.1 -2.1 3.25" dir="0 0 -1" diffuse=".53 .44 .33" specular=".02 .02 .02" cutoff="80" castshadow="false"/>
+    <light name="v2_blue_stage" pos="0 5.40 3.30" dir="0 0 -1" diffuse=".15 .22 .48" specular=".02 .02 .02" cutoff="80" castshadow="false"/>
+    <geom name="collision_proxy_west_tables_south" type="box" pos="-3.29 -3.45 0.65" size="1.36 1.43 0.65" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_west_tables_mid" type="box" pos="-3.29 0 0.65" size="1.36 1.43 0.65" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_east_tables_south" type="box" pos="3.29 -3.45 0.65" size="1.36 1.43 0.65" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_east_tables_mid" type="box" pos="3.29 0 0.65" size="1.36 1.43 0.65" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_audience_west" type="box" pos="-3.23 3.81 0.59" size="1.37 1.14 0.59" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_audience_east" type="box" pos="3.23 3.81 0.59" size="1.37 1.14 0.59" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_annex_table_south" type="box" pos="-8.55 -5.22 0.62" size="0.89 1.39 0.62" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_annex_table_north" type="box" pos="-8.55 0.62 0.62" size="0.89 1.39 0.62" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_0" type="box" pos="-4.45 -4.73 0.20" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_1" type="box" pos="-4.96 -0.38 0.2" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_2" type="box" pos="4.95 -4.7 0.2" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_3" type="box" pos="4.94 0.12 0.2" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_4" type="box" pos="-9.8 -6 0.2" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="collision_proxy_backpack_5" type="box" pos="-9.75 0.95 0.2" size=".25 .20 .20" rgba="0 0 0 0" contype="1" conaffinity="1" group="4"/>
+    <geom name="v2_curtain_pleat_0" type="box" pos="-5.92 3.550 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_1" type="box" pos="-5.92 3.730 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_2" type="box" pos="-5.92 3.910 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_3" type="box" pos="-5.92 4.090 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_4" type="box" pos="-5.92 4.270 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_5" type="box" pos="-5.92 4.450 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_6" type="box" pos="-5.92 4.630 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_7" type="box" pos="-5.92 4.810 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_8" type="box" pos="-5.92 4.990 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_9" type="box" pos="-5.92 5.170 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_10" type="box" pos="-5.92 5.350 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_11" type="box" pos="-5.92 5.530 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+    <geom name="v2_curtain_pleat_12" type="box" pos="-5.92 5.710 1.74" size=".028 .068 1.70" material="v2_curtain" contype="0" conaffinity="0" group="3"/>
+  </worldbody>
+
+  <actuator>
+    <position class="g1" name="left_hip_pitch_joint" joint="left_hip_pitch_joint" forcerange="-88 88"/>
+    <position class="g1" name="left_hip_roll_joint" joint="left_hip_roll_joint" forcerange="-139 139"/>
+    <position class="g1" name="left_hip_yaw_joint" joint="left_hip_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="left_knee_joint" joint="left_knee_joint" forcerange="-139 139"/>
+    <position class="g1" name="left_ankle_pitch_joint" joint="left_ankle_pitch_joint" forcerange="-50 50"/>
+    <position class="g1" name="left_ankle_roll_joint" joint="left_ankle_roll_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="right_hip_pitch_joint" joint="right_hip_pitch_joint" forcerange="-88 88"/>
+    <position class="g1" name="right_hip_roll_joint" joint="right_hip_roll_joint" forcerange="-139 139"/>
+    <position class="g1" name="right_hip_yaw_joint" joint="right_hip_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="right_knee_joint" joint="right_knee_joint" forcerange="-139 139"/>
+    <position class="g1" name="right_ankle_pitch_joint" joint="right_ankle_pitch_joint" forcerange="-50 50"/>
+    <position class="g1" name="right_ankle_roll_joint" joint="right_ankle_roll_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="waist_yaw_joint" joint="waist_yaw_joint" forcerange="-88 88"/>
+    <position class="g1" name="waist_roll_joint" joint="waist_roll_joint" forcerange="-50 50"/>
+    <position class="g1" name="waist_pitch_joint" joint="waist_pitch_joint" forcerange="-50 50"/>
+
+    <position class="g1" name="left_shoulder_pitch_joint" joint="left_shoulder_pitch_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_shoulder_roll_joint" joint="left_shoulder_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_shoulder_yaw_joint" joint="left_shoulder_yaw_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_elbow_joint" joint="left_elbow_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_wrist_roll_joint" joint="left_wrist_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="left_wrist_pitch_joint" joint="left_wrist_pitch_joint" forcerange="-5 5"/>
+    <position class="g1" name="left_wrist_yaw_joint" joint="left_wrist_yaw_joint" forcerange="-5 5"/>
+
+    <position class="g1" name="right_shoulder_pitch_joint" joint="right_shoulder_pitch_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_shoulder_roll_joint" joint="right_shoulder_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_shoulder_yaw_joint" joint="right_shoulder_yaw_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_elbow_joint" joint="right_elbow_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_wrist_roll_joint" joint="right_wrist_roll_joint" forcerange="-25 25"/>
+    <position class="g1" name="right_wrist_pitch_joint" joint="right_wrist_pitch_joint" forcerange="-5 5"/>
+    <position class="g1" name="right_wrist_yaw_joint" joint="right_wrist_yaw_joint" forcerange="-5 5"/>
+  </actuator>
+
+  <sensor>
+    <gyro site="imu_in_torso" name="imu-torso-angular-velocity" cutoff="34.9" noise="0.0005"/>
+    <accelerometer site="imu_in_torso" name="imu-torso-linear-acceleration" cutoff="157" noise="0.01"/>
+    <gyro site="imu_in_pelvis" name="imu-pelvis-angular-velocity" cutoff="34.9" noise="0.0005"/>
+    <accelerometer site="imu_in_pelvis" name="imu-pelvis-linear-acceleration" cutoff="157" noise="0.01"/>
+  </sensor>
+
+  <keyframe>
+    <key name="stand" qpos="0 -5.65 0.793 .7071067812 0 0 .7071067812 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0.2 0 1.28 0 0 0 0.2 -0.2 0 1.28 0 0 0" ctrl="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.2 0.2 0 1.28 0 0 0 0.2 -0.2 0 1.28 0 0 0"/>
+  </keyframe>
+<statistic center="-1 0 1.4" extent="10"/>
+  </mujoco>

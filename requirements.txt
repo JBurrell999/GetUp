@@ -1,0 +1,7 @@
+# OpenCV 5 removed Caffe model loading, which OpenPose's BODY_25 model needs: stay on 4.x.
+# Use the contrib build: mediapipe depends on opencv-contrib-python, and having both it and
+# opencv-python installed makes them overwrite each other's cv2 module.
+opencv-contrib-python>=4.8,<5
+numpy>=1.24
+mediapipe>=1.2      # 3D pose (lift3d.py)
+mujoco>=4.0         # replay in the simulator (view_mujoco.py)
