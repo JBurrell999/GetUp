@@ -11,7 +11,7 @@ const when = (iso: string) =>
   new Date(iso).toLocaleString(undefined, { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" });
 
 export function TaskSheet() {
-  const { openId, openTask, order, takesByTask, judge } = useCapture();
+  const { openId, openTask, order, takesByTask } = useCapture();
   const ref = useRef<HTMLDialogElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -55,34 +55,17 @@ export function TaskSheet() {
     >
       {task && (
         <div className="sheet-inner">
-          <header className="slate">
-            <div className="slate-grid">
-              <div className="slate-cell">
-                <span className="slate-k mono">Scene</span>
-                <span className="slate-v">{sceneNo(task)}</span>
-              </div>
-              <div className="slate-cell">
-                <span className="slate-k mono">Take</span>
-                <span className="slate-v">
-                  <i className="rec" aria-hidden="true" />
-                  {two(mine.length + 1)}
-                </span>
-              </div>
-              <div className="slate-cell slate-cell--judge">
-                <span className="slate-k mono">Judge</span>
-                <span className="slate-v slate-v--sm mono">{judge?.id ?? "—"}</span>
-              </div>
-            </div>
-            <div className="slate-foot mono">
-              <span>
-                {task.category} · {task.tier} · <span className="slate-id">{task.id}</span>
-              </span>
-              <button type="button" className="slate-close" onClick={() => openTask(null)} aria-label="Close">
-                <svg viewBox="0 0 16 16" aria-hidden="true">
-                  <path d="M3.5 3.5l9 9M12.5 3.5l-9 9" />
-                </svg>
-              </button>
-            </div>
+          <header className="sheet-head">
+            <p className="sheet-meta">
+              <span className="num">{sceneNo(task)}</span>
+              <span>{task.category[0].toUpperCase() + task.category.slice(1)}</span>
+              {task.tier !== "extended" && <span className={`tag tag--${task.tier}`}>{task.tier}</span>}
+            </p>
+            <button type="button" className="sheet-close" onClick={() => openTask(null)} aria-label="Close">
+              <svg viewBox="0 0 20 20" aria-hidden="true">
+                <path d="M5 5l10 10M15 5L5 15" />
+              </svg>
+            </button>
           </header>
 
           <div className="sheet-body" ref={bodyRef}>
@@ -91,20 +74,20 @@ export function TaskSheet() {
             </h2>
             <p className="sheet-instr">{task.instruction}</p>
 
-            <dl className="spec">
+            <dl className="facts">
               <div>
-                <dt className="mono">Props</dt>
+                <dt>You&apos;ll need</dt>
                 <dd>
                   {task.props.length === 0 ? (
-                    <span className="none">Nothing, just you.</span>
+                    "Nothing but you."
                   ) : (
-                    <ul className="spec-props">
+                    <ul>
                       {task.props.map((p) => {
                         const { name, extra } = splitProp(p);
                         return (
                           <li key={p}>
-                            {name}
-                            {extra && <span className="spec-extra">{extra}</span>}
+                            {name[0].toUpperCase() + name.slice(1)}
+                            {extra && <span className="facts-extra"> ({extra})</span>}
                           </li>
                         );
                       })}
@@ -113,33 +96,28 @@ export function TaskSheet() {
                 </dd>
               </div>
               <div>
-                <dt className="mono">Ending</dt>
+                <dt>Ending the take</dt>
                 <dd>{endHint(task)}</dd>
               </div>
               {task.note && (
                 <div>
-                  <dt className="mono">Note</dt>
+                  <dt>Worth knowing</dt>
                   <dd>{task.note}</dd>
                 </div>
               )}
             </dl>
 
-            <Uploader
-              key={task.id}
-              task={task}
-              takeNo={mine.length + 1}
-              next={nextOpen ? TASK_BY_ID.get(nextOpen) : undefined}
-            />
+            <Uploader key={task.id} task={task} takeNo={mine.length + 1} next={nextOpen ? TASK_BY_ID.get(nextOpen) : undefined} />
 
             {mine.length > 0 && (
               <div className="mine">
-                <h3 className="mono">Your takes</h3>
+                <h3>Your takes</h3>
                 <ol>
                   {mine.map((t, i) => (
                     <li key={t.pathname}>
-                      <span className="mono">Take {two(i + 1)}</span>
+                      <span>Take {two(i + 1)}</span>
                       <span>{when(t.uploadedAt)}</span>
-                      <span className="mono">{formatBytes(t.size)}</span>
+                      <span className="num">{formatBytes(t.size)}</span>
                     </li>
                   ))}
                 </ol>
@@ -149,11 +127,11 @@ export function TaskSheet() {
 
           <nav className="sheet-nav" aria-label="Other tasks">
             <button type="button" disabled={!prev} onClick={() => prev && openTask(prev.id)}>
-              <span className="mono">Previous</span>
+              <span className="sheet-nav-k">Previous</span>
               <span className="sheet-nav-name">{prev?.name ?? "—"}</span>
             </button>
             <button type="button" disabled={!next} onClick={() => next && openTask(next.id)}>
-              <span className="mono">Next</span>
+              <span className="sheet-nav-k">Next</span>
               <span className="sheet-nav-name">{next?.name ?? "—"}</span>
             </button>
           </nav>

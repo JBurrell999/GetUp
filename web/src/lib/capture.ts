@@ -14,22 +14,3 @@ export const CAMERA = {
   x: ZONE.x + CAMERA_DIST * Math.cos(rad),
   y: ZONE.y + CAMERA_DIST * Math.sin(rad),
 };
-
-export const SETUP_STEPS = [
-  {
-    title: "Camera 3–4 m away",
-    body: "At hip height, on a tripod or propped on something that won't move. Landscape is best for walking tasks.",
-  },
-  {
-    title: "45° off your front",
-    body: "Halfway between facing you and side-on, so the camera sees depth in your arms and legs.",
-  },
-  {
-    title: "Clear 4 × 3 m",
-    body: "Your whole body and every prop stays in frame for the whole take, feet included.",
-  },
-  {
-    title: "Same spot all session",
-    body: "Don't move the camera between takes. Even light, nothing bright behind you.",
-  },
-];

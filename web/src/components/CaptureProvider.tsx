@@ -4,6 +4,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import type { PublicConfig } from "@/lib/config";
 import { TASK_BY_ID } from "@/lib/tasks";
 import type { TakeSummary } from "@/lib/takes";
+import type { Mode } from "./sim/engine";
 
 export interface Judge {
   id: string;
@@ -31,6 +32,10 @@ interface CaptureState {
   /** Ids in the shot list's current order and filter, for previous/next in the sheet. */
   order: string[];
   setOrder: (ids: string[]) => void;
+
+  /** What the 3D view at the top is showing: the robot, or where to film. */
+  simMode: Mode;
+  setSimMode: (m: Mode) => void;
 }
 
 const Ctx = createContext<CaptureState | null>(null);
@@ -56,6 +61,7 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
   const [openId, setOpenId] = useState<string | null>(null);
   const [order, setOrder] = useState<string[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [simMode, setSimMode] = useState<Mode>("follow");
   const resolver = useRef<((j: Judge | null) => void) | null>(null);
 
   useEffect(() => {
@@ -165,6 +171,8 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
     openTask,
     order,
     setOrder,
+    simMode,
+    setSimMode,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

@@ -54,7 +54,7 @@ export function JudgeDialog() {
       onClose={() => judgeDialog.open && judgeDialog.resolve(null)}
     >
       <form onSubmit={submit} noValidate>
-        <p className="eyebrow mono">Before your first take</p>
+        <p className="modal-kicker">Before your first take</p>
         <h2 className="modal-title" id="judge-title">
           Who&apos;s filming?
         </h2>
@@ -63,7 +63,7 @@ export function JudgeDialog() {
         </p>
 
         <label className="field">
-          <span className="field-k mono">Name</span>
+          <span className="field-k">Name</span>
           <input
             autoFocus
             autoComplete="name"
@@ -76,7 +76,7 @@ export function JudgeDialog() {
 
         {config.codeRequired && (
           <label className="field">
-            <span className="field-k mono">Event code</span>
+            <span className="field-k">Event code</span>
             <input
               value={code}
               autoCapitalize="characters"
@@ -103,10 +103,10 @@ export function JudgeDialog() {
         )}
 
         <div className="modal-actions">
-          <button type="submit" className="btn btn--ink" disabled={busy}>
+          <button type="submit" className="btn btn--accent" disabled={busy}>
             {busy ? "Checking…" : "Continue"}
           </button>
-          <button type="button" className="link" onClick={() => judgeDialog.resolve(null)}>
+          <button type="button" className="link-btn" onClick={() => judgeDialog.resolve(null)}>
             Cancel
           </button>
         </div>

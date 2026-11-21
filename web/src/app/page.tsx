@@ -1,6 +1,6 @@
 import { CaptureProvider } from "@/components/CaptureProvider";
-import { Footer, Hero, Setup } from "@/components/Intro";
 import { JudgeDialog } from "@/components/JudgeDialog";
+import { Footer, Hero, Setup } from "@/components/Sections";
 import { ShotList } from "@/components/ShotList";
 import { TaskSheet } from "@/components/TaskSheet";
 import { TopBar } from "@/components/TopBar";

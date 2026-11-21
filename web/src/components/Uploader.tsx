@@ -202,7 +202,7 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
   if (phase.kind === "idle") {
     return (
       <div className="up">
-        <h3 className="up-title mono">Upload take {two(takeNo)}</h3>
+        <h3 className="up-title">Upload take {two(takeNo)}</h3>
         <div
           className={drag ? "drop drop--over" : "drop"}
           onDragOver={(e) => {
@@ -217,11 +217,11 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
             <span className="drop-desk">Drop the video here, or</span>
             <span className="drop-touch">Record it now, or pick one you&apos;ve filmed.</span>
           </p>
-          <button type="button" className="btn btn--ink" onClick={() => input.current?.click()}>
+          <button type="button" className="btn btn--accent" onClick={() => input.current?.click()}>
             <span className="drop-desk">Choose a file</span>
             <span className="drop-touch">Record or choose video</span>
           </button>
-          <p className="drop-fine mono">MP4 · MOV · WebM · up to 2 GB · one task per video</p>
+          <p className="drop-fine">MP4, MOV or WebM, up to 2 GB. One task per video.</p>
         </div>
       </div>
     );
@@ -234,7 +234,7 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
     const left = rate > 0 ? (phase.total - phase.loaded) / rate : null;
     return (
       <div className="up" aria-live="polite">
-        <h3 className="up-title mono">Sending take {two(takeNo)}</h3>
+        <h3 className="up-title">Sending take {two(takeNo)}</h3>
         <div className="send">
           <div className="send-pct">
             {Math.floor(pct)}
@@ -250,13 +250,13 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
           >
             <span style={{ transform: `scaleX(${pct / 100})` }} />
           </div>
-          <p className="send-meta mono">
+          <p className="send-meta num">
             {size(phase.loaded)} of {size(phase.total)}
             {rate > 0 && <> · {(rate / 1e6).toFixed(1)} MB/s</>}
             {left !== null && left > 1 && pct < 100 && <> · about {left < 60 ? `${Math.ceil(left)} s` : `${Math.ceil(left / 60)} min`} left</>}
           </p>
           <p className="send-keep">Keep this page open until it finishes.</p>
-          <button type="button" className="link" onClick={() => abort.current?.abort()}>
+          <button type="button" className="link-btn" onClick={() => abort.current?.abort()}>
             Cancel
           </button>
         </div>
@@ -279,14 +279,14 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
         </div>
         <div className="done-actions">
           {next && (
-            <button type="button" className="btn btn--rec" onClick={() => openTask(next.id)}>
+            <button type="button" className="btn btn--accent" onClick={() => openTask(next.id)}>
               Next: {next.name}
               <svg viewBox="0 0 16 16" aria-hidden="true">
                 <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
               </svg>
             </button>
           )}
-          <button type="button" className="btn btn--ghost" onClick={reset}>
+          <button type="button" className="btn btn--quiet" onClick={reset}>
             Add another take
           </button>
         </div>
@@ -304,7 +304,7 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
 
   return (
     <div className="up">
-      <h3 className="up-title mono">Upload take {two(takeNo)}</h3>
+      <h3 className="up-title">Upload take {two(takeNo)}</h3>
       {fileInput}
       <div className="picked">
         {url && !blocked && (
@@ -312,9 +312,9 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
         )}
         <div className="picked-info">
           <p className="picked-name">{file?.name}</p>
-          <p className="mono picked-size">{file ? size(file.size) : ""}</p>
+          <p className="picked-size num">{file ? size(file.size) : ""}</p>
           {probing ? (
-            <p className="mono picked-probing">Reading the video…</p>
+            <p className="picked-probing">Reading the video…</p>
           ) : (
             <ul className="checks">
               {checks.map((c, i) => (
@@ -343,16 +343,16 @@ export function Uploader({ task, takeNo, next }: { task: Task; takeNo: number; n
       <div className="up-actions">
         <button
           type="button"
-          className="btn btn--rec"
+          className="btn btn--accent"
           disabled={!file || blocked || probing || !config.uploadsReady}
           onClick={() => file && send(file, p)}
         >
           {phase.kind === "error" ? "Try again" : `Upload take ${two(takeNo)}`}
         </button>
-        <button type="button" className="btn btn--ghost" onClick={() => input.current?.click()}>
+        <button type="button" className="btn btn--quiet" onClick={() => input.current?.click()}>
           Choose another
         </button>
-        <button type="button" className="link" onClick={reset}>
+        <button type="button" className="link-btn" onClick={reset}>
           Remove
         </button>
       </div>
