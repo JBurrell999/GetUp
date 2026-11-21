@@ -8,6 +8,11 @@ Phase 2 - MOTION: inside the locked scene Gemini writes the motion (keyframes, g
           Gemini judges and revises, until the robot does what the human does.
 
 ./mm mirror videos/IMG_6520.mp4 --name bottle --fact "uses his RIGHT hand"
+./mm mirror videos/IMG_6520.mp4 --name bottle --room kitchen     # phase 2 replayed and judged inside the kitchen
+
+--room puts every phase 2 round inside one of the project's rooms (in_env.ENVS): the robot is placed on clear floor
+there, rendered from Gemini's camera, and collisions with the room's furniture are reported like any other.
+Phase 1 stays in the plain scene, since it matches Gemini's reconstruction against the video's first frame.
 """
 import argparse
 import json
@@ -21,6 +26,7 @@ from google import genai
 from google.genai import types
 
 from . import config as C
+from .in_env import ENVS, EnvReplay, choose_place
 from .replay import Replay
 
 # ---------------------------------------------------------------- shared conventions
@@ -266,25 +272,47 @@ def phase_env(g, video, out, facts, iters, threshold, W, H, gj=None):
     return env
 
 
-def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None):
+def motion_replay(interp, W, H, room=None):
+    """The replay a phase 2 round is rendered and judged in: the plain scene, or the given room
+    (placed by in_env.choose_place, which depends only on the interpretation, so a later
+    in_env.render_in_env of the same final.json reproduces it). Returns (replay, placement or None)."""
+    if room is None:
+        return Replay(interp, W, H), None
+    place = choose_place(interp, room)
+    return EnvReplay(interp, place, W, H, "match"), place
+
+
+ROOM_NOTE = """In the side-by-side video below, the robot (RIGHT half) is rendered inside a simulated {room}, not the
+human's real surroundings: the walls and furniture behind the robot are not meant to match the video, so ignore them. Only the reconstructed surfaces and the
+object are part of the locked environment. Collisions with the room's own furniture are listed in TELEMETRY like any
+other and must still be fixed."""
+
+
+def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None, room=None):
     gj = gj or g
-    print("== PHASE 2: motion (environment locked)", flush=True)
+    where = f" in the {ENVS[room]['name']}" if room else ""
+    print(f"== PHASE 2: motion (environment locked){where}", flush=True)
     envs = json.dumps(env)
     t0 = time.time()
     motion = g.ask([vpart(video, fps=5.0), MOTION_PROMPT.format(env=envs, conv=CONVENTIONS, schema=MOTION_SCHEMA) + facts])
     print(f"[motion] {time.time()-t0:.0f}s  {len(motion.get('keyframes', []))} keyframes, contacts {motion.get('contacts')}", flush=True)
     judge = MOTION_JUDGE.format(env=envs, conv=CONVENTIONS, schema=MOTION_SCHEMA)
+    if room:
+        judge = ROOM_NOTE.format(room=ENVS[room]["name"]) + "\n" + judge
     best = None
     for k in range(iters):
         d = out / "motion" / f"iter{k}"
         d.mkdir(parents=True, exist_ok=True)
         (d / "motion.json").write_text(json.dumps(motion, indent=1))
         t1 = time.time()
-        tel = Replay(merge(env, motion), W, H).run(fps, d / "robot.mp4")
+        replay, place = motion_replay(merge(env, motion), W, H, room)
+        if place:
+            (d / "place.json").write_text(json.dumps(place, indent=1))
+        tel = replay.run(fps, d / "robot.mp4")
         tel_short = {k_: v for k_, v in tel.items() if k_ != "samples"}
         tel_short["samples"] = tel.get("samples", [])[::2]
         (d / "telemetry.json").write_text(json.dumps(tel, indent=1, default=float))
-        side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}")
+        side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}{where}")
         t_rep = time.time() - t1
         t1 = time.time()
         j = gj.ask([vpart(d / "side_by_side.mp4", fps=3.0),
@@ -340,7 +368,12 @@ def prepare_video(video, out):
     return dst
 
 
-def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None, judge_model=None):
+def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None, judge_model=None, bench=True,
+        room=None):
+    """bench=False skips copying the result into benchmarks/ (used for website jobs, see site_job.py).
+    room: one of in_env.ENVS to run phase 2 inside that room; None keeps the plain scene."""
+    if room is not None and room not in ENVS:
+        raise ValueError(f"Unknown room {room!r}; choose one of {', '.join(ENVS)}")
     out = C.ROOT / "runs" / "mirror2" / name
     if env_from:
         env_from = Path(env_from)
@@ -356,13 +389,15 @@ def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, e
     t0 = time.time()
     env = keep if env_from else phase_env(g, video, out, fx, env_iters, env_threshold, W, H, gj)
     (out / "environment_locked.json").write_text(json.dumps(env, indent=1))
-    best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps, gj)
-    bench = C.ROOT / "benchmarks"
-    bench.mkdir(exist_ok=True)
-    shutil.copy(sbs, bench / f"{name}_v2_score{best[4]}.mp4")
-    shutil.copy(out / "final.json", bench / f"{name}_v2_score{best[4]}.json")
+    best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps, gj, room=room)
+    if bench:
+        bdir = C.ROOT / "benchmarks"
+        bdir.mkdir(exist_ok=True)
+        shutil.copy(sbs, bdir / f"{name}_v2_score{best[4]}.mp4")
+        shutil.copy(out / "final.json", bdir / f"{name}_v2_score{best[4]}.json")
     print(f"[done] {time.time()-t0:.0f}s total", flush=True)
-    STATS.update(total_s=round(time.time() - t0, 1), model=model, judge_model=judge_model or model, facts=facts)
+    STATS.update(total_s=round(time.time() - t0, 1), model=model, judge_model=judge_model or model, facts=facts,
+                 room=room)
     tel = STATS["motion"].pop("telemetry")
     STATS["best_telemetry"] = {k: v for k, v in tel.items() if k != "samples"}
     (out / "summary.json").write_text(json.dumps(STATS, indent=1, default=float))
@@ -380,9 +415,11 @@ def main():
     ap.add_argument("--threshold", type=float, default=9.0)
     ap.add_argument("--fact", action="append", default=[], help="locked fact, e.g. --fact 'uses his RIGHT hand'")
     ap.add_argument("--env-from", default=None, help="skip phase 1 and use this locked environment JSON")
+    ap.add_argument("--room", choices=sorted(ENVS), default=None,
+                    help="replay and judge phase 2 inside this room (default: the plain scene)")
     a = ap.parse_args()
     run(a.video, a.name or Path(a.video).stem.replace(" ", "_"), a.model, a.env_iters, a.env_threshold,
-        a.iters, a.threshold, a.fact, a.env_from, a.judge_model)
+        a.iters, a.threshold, a.fact, a.env_from, a.judge_model, room=a.room)
 
 
 if __name__ == "__main__":
