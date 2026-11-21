@@ -4,3 +4,11 @@ __pycache__/
 # downloaded OpenPose weights (~100 MB) and recordings
 models/
 outputs/
+
+# --- motion-mirror (Gemini video -> G1) ---
+.env
+runs/
+*.mp4
+assets/unitree_g1/_*.xml
+benchmarks/*.mp4
+!videos/*.mp4
