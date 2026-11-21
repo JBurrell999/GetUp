@@ -222,10 +222,14 @@ def side_by_side(human, robot, out, text):
         if not (ok1 and ok2):
             break
         f2 = cv2.resize(f2, (f1.shape[1], f1.shape[0]))
-        f = np.hstack([f1, f2])
+        stack = f1.shape[1] > f1.shape[0]          # landscape clips: person on top, robot below (fits a page/phone)
+        f = np.vstack([f1, f2]) if stack else np.hstack([f1, f2])
         label(f, f"t={len(frames) / fps:.1f}s  {text}", (12, 30))
-        label(f, "HUMAN", (12, f.shape[0] - 14))
-        label(f, "ROBOT", (f1.shape[1] + 12, f.shape[0] - 14))
+        label(f, "HUMAN", (12, f1.shape[0] - 14))
+        if stack:
+            label(f, "ROBOT", (12, f.shape[0] - 14))
+        else:
+            label(f, "ROBOT", (f1.shape[1] + 12, f.shape[0] - 14))
         frames.append(f[:, :, ::-1])
     if frames:
         imageio.mimsave(out, frames, fps=fps, macro_block_size=8)
