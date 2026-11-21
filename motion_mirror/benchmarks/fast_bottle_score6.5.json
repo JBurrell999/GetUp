@@ -1,0 +1,319 @@
+{
+ "summary": "A seated man reaches across his body with his right hand to pick up a plastic water bottle from the table, holds it up in front of his chest while looking at the camera, and then places it back down on the table.",
+ "environment": {
+  "description": "Indoor event/office space with a long folding table covered by a black tablecloth, a white structural pillar behind the person, and other tables and chairs in the background.",
+  "surfaces": [
+   {
+    "name": "main_table",
+    "kind": "table",
+    "forward_m": 0.55,
+    "left_m": -0.25,
+    "depth_m": 0.75,
+    "width_m": 1.8,
+    "height_m": 0.74
+   }
+  ],
+  "furniture": [
+   {
+    "kind": "chair",
+    "forward_m": -0.1,
+    "left_m": 0.0,
+    "yaw_deg": 0.0
+   },
+   {
+    "kind": "laptop",
+    "forward_m": 0.5,
+    "left_m": -0.85,
+    "yaw_deg": 180.0
+   }
+  ]
+ },
+ "object": {
+  "name": "water_bottle",
+  "description": "A standard 500 ml clear plastic water bottle with a white cap and a blue label.",
+  "mass_kg": 0.5,
+  "parts": [
+   {
+    "shape": "cylinder",
+    "size": [
+     0.065,
+     0.15
+    ],
+    "pos": [
+     0.0,
+     0.0,
+     0.075
+    ],
+    "color_rgb": [
+     0.85,
+     0.9,
+     0.95
+    ]
+   },
+   {
+    "shape": "cylinder",
+    "size": [
+     0.066,
+     0.05
+    ],
+    "pos": [
+     0.0,
+     0.0,
+     0.075
+    ],
+    "color_rgb": [
+     0.2,
+     0.4,
+     0.75
+    ]
+   },
+   {
+    "shape": "cylinder",
+    "size": [
+     0.04,
+     0.03
+    ],
+    "pos": [
+     0.0,
+     0.0,
+     0.165
+    ],
+    "color_rgb": [
+     0.85,
+     0.9,
+     0.95
+    ]
+   },
+   {
+    "shape": "cylinder",
+    "size": [
+     0.03,
+     0.02
+    ],
+    "pos": [
+     0.0,
+     0.0,
+     0.19
+    ],
+    "color_rgb": [
+     0.95,
+     0.95,
+     0.95
+    ]
+   }
+  ],
+  "start": {
+   "forward_m": 0.48,
+   "left_m": 0.25,
+   "on_surface_height_m": 0.74,
+   "yaw_deg": 0.0
+  },
+  "end": {
+   "forward_m": 0.48,
+   "left_m": 0.25,
+   "on_surface_height_m": 0.74,
+   "yaw_deg": 0.0
+  },
+  "grasp_points": {
+   "right": {
+    "pos": [
+     0.0,
+     -0.033,
+     0.09
+    ],
+    "palm_dir": [
+     0.0,
+     1.0,
+     0.0
+    ],
+    "finger_dir": [
+     1.0,
+     0.0,
+     0.0
+    ]
+   }
+  }
+ },
+ "camera": {
+  "horizontal_distance_m": 1.8,
+  "height_m": 1.15,
+  "azimuth_deg": -5.0,
+  "vertical_fov_deg": 50.0,
+  "look_at_forward_m": 0.2,
+  "look_at_left_m": 0.0,
+  "look_at_height_m": 0.95
+ },
+ "duration_s": 6.5,
+ "contacts": [
+  {
+   "t_grasp": 2.0,
+   "t_release": 5.6,
+   "hand": "right"
+  }
+ ],
+ "footsteps": [],
+ "camera_path": [],
+ "keyframes": [
+  {
+   "t": 0.0,
+   "pelvis": {
+    "forward_m": 0.0,
+    "left_m": 0.0,
+    "facing_left_deg": 0.0
+   },
+   "trunk": {
+    "lean_forward_deg": 5.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "left_leg": {
+    "thigh_forward_deg": 90.0,
+    "knee_flexion_deg": 90.0,
+    "hip_abduction_deg": 5.0
+   },
+   "right_leg": {
+    "thigh_forward_deg": 90.0,
+    "knee_flexion_deg": 90.0,
+    "hip_abduction_deg": 5.0
+   },
+   "left_arm": {
+    "shoulder_flexion_deg": 30.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 95.0,
+    "shoulder_external_rotation_deg": 30.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 35.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 95.0,
+    "shoulder_external_rotation_deg": -30.0
+   }
+  },
+  {
+   "t": 1.0,
+   "trunk": {
+    "lean_forward_deg": 6.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 2.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 40.0,
+    "shoulder_abduction_deg": 10.0,
+    "elbow_flexion_deg": 80.0,
+    "shoulder_external_rotation_deg": -20.0
+   }
+  },
+  {
+   "t": 1.6,
+   "trunk": {
+    "lean_forward_deg": 15.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 10.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 65.0,
+    "shoulder_abduction_deg": -10.0,
+    "elbow_flexion_deg": 35.0,
+    "shoulder_external_rotation_deg": -10.0
+   }
+  },
+  {
+   "t": 2.0,
+   "trunk": {
+    "lean_forward_deg": 18.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 12.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 75.0,
+    "shoulder_abduction_deg": -15.0,
+    "elbow_flexion_deg": 25.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 2.8,
+   "trunk": {
+    "lean_forward_deg": 8.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 2.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 65.0,
+    "shoulder_abduction_deg": 5.0,
+    "elbow_flexion_deg": 105.0,
+    "shoulder_external_rotation_deg": 20.0
+   }
+  },
+  {
+   "t": 3.6,
+   "trunk": {
+    "lean_forward_deg": 5.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 65.0,
+    "shoulder_abduction_deg": 5.0,
+    "elbow_flexion_deg": 110.0,
+    "shoulder_external_rotation_deg": 25.0
+   }
+  },
+  {
+   "t": 4.4,
+   "trunk": {
+    "lean_forward_deg": 8.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 2.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 60.0,
+    "shoulder_abduction_deg": 0.0,
+    "elbow_flexion_deg": 90.0,
+    "shoulder_external_rotation_deg": 15.0
+   }
+  },
+  {
+   "t": 5.2,
+   "trunk": {
+    "lean_forward_deg": 16.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 10.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 70.0,
+    "shoulder_abduction_deg": -12.0,
+    "elbow_flexion_deg": 30.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 5.6,
+   "trunk": {
+    "lean_forward_deg": 18.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 12.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 75.0,
+    "shoulder_abduction_deg": -15.0,
+    "elbow_flexion_deg": 25.0,
+    "shoulder_external_rotation_deg": 0.0
+   }
+  },
+  {
+   "t": 6.5,
+   "trunk": {
+    "lean_forward_deg": 5.0,
+    "side_bend_left_deg": 0.0,
+    "twist_left_deg": 0.0
+   },
+   "right_arm": {
+    "shoulder_flexion_deg": 35.0,
+    "shoulder_abduction_deg": 15.0,
+    "elbow_flexion_deg": 95.0,
+    "shoulder_external_rotation_deg": -30.0
+   }
+  }
+ ]
+}

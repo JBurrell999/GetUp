@@ -39,18 +39,23 @@ the ARM back to its shoulder - do not go by which side of the image the object i
 - camera: where the video was filmed from, relative to the person's START pose. azimuth_deg 0 = camera directly in
   front of the person looking at them, 90 = on the person's left, 180 = behind. height_m = lens height above floor.
   look_at_* = the point the camera centers on. vertical_fov_deg: phone ~ 45-60 (portrait videos ~ 60-70).
-- The robot is a Unitree G1 (1.3 m tall) with 3-finger hands. Hand placement, wrist orientation and finger closure
-  at a grasp are solved automatically from the object geometry and grasp_style."""
+- The robot is a """ + C.ROBOTS[C.ROBOT]["desc"] + """. At a grasp, the arm is solved so the palm lands on the
+  grasp point facing palm_dir (fingers curl around it if the robot has fingers)."""
 
 ENV_SCHEMA = """Return JSON:
 {
  "summary": str,                          # what happens in the video, step by step
  "environment": {"description": str,
      "surfaces": [{"name": str, "kind": "table|solid", "forward_m": f, "left_m": f,
-                   "depth_m": f, "width_m": f, "height_m": f}]},   # table = top + legs; solid = counter/stool/block
- "object": null | {"type": "bottle|chair|box|other", "description": str, "color_rgb": [r, g, b] (0-1),
-     "grasp_style": "side|top",           # side = hand wraps around (bottle); top = overhand grip (chair backrest)
-     "size_m": [depth, width, height], "seat_height_m": f (chairs only), "grasp_height_frac": f,
+                   "depth_m": f, "width_m": f, "height_m": f}],   # table = top + legs; solid = counter/stool/block
+     "furniture": [{"kind": "chair|stool|table|backpack|laptop|...", "forward_m": f, "left_m": f, "yaw_deg": f}]},
+         # other furniture / items near the person that you can see (where they are), so the scene can be arranged
+ "object": null | {"name": str, "description": str, "mass_kg": f,
+     "parts": [{"shape": "box|cylinder|sphere|capsule", "size": [...], "pos": [x, y, z], "euler_deg": [r, p, y] (optional),
+                "color_rgb": [r, g, b] (0-1)}],
+         # build the object's real shape from a few primitives, in the OBJECT frame: origin = center of its base on the
+         # surface it rests on, +x = its front, +z up. box size = [x, y, z] extents; cylinder = [diameter, height] (axis z,
+         # tilt with euler_deg); sphere = [diameter]; capsule = [diameter, length]. pos = part center. 1-12 parts.
      "start": {"forward_m": f, "left_m": f, "on_surface_height_m": f, "yaw_deg": f}},
  "camera": {"horizontal_distance_m": f, "height_m": f, "azimuth_deg": f, "vertical_fov_deg": f,
             "look_at_forward_m": f, "look_at_left_m": f, "look_at_height_m": f},
@@ -61,20 +66,32 @@ ENV_SCHEMA = """Return JSON:
 MOTION_SCHEMA = """Return JSON:
 {
  "contacts": [{"t_grasp": f, "t_release": f|null, "hand": "left|right|both"}],
+ "grasp_points": {"left": {"pos": [x, y, z], "palm_dir": [x, y, z], "finger_dir": [x, y, z]}, "right": {...}},
+     # where each hand that grasps touches the object, in the OBJECT frame (see object.parts): pos = point on the
+     # object's surface under the palm center; palm_dir = direction the palm faces (into the object);
+     # finger_dir = direction the fingers point (optional). Only for the hand(s) that grasp.
+ "camera_path": [{"t": f, <any camera fields that change>}],
+     # if the camera MOVES (handheld, pans to follow the person, walks), its pose over time in the same camera fields as
+     # environment.camera; [] for a static camera.
+ "footsteps": [{"foot": "left|right", "t_lift": f, "t_land": f, "land": {"forward_m": f, "left_m": f} | null}],
+     # EVERY step the person takes (walking, turning, side steps, small shuffles), in video time, with where the foot
+     # lands if you can tell (else null = under the hip). Feet stay planted between steps. [] if they never step.
  "object_end": null | {"forward_m": f, "left_m": f, "on_surface_height_m": f, "yaw_deg": f},  # where it is put down
  "keyframes": [{"t": f, <pose fields>}]   # first keyframe at t=0 = start_pose; every ~0.3-0.7 s, more in fast motion
 }"""
 
 ENV_PROMPT = f"""Watch this casual, uncalibrated video. Recreate its ENVIRONMENT for a simulator: the surfaces
 (tables, counters...), the object the person manipulates (type, size, color, where it starts), the camera viewpoint,
-and the person's posture in the first frame. Estimate metric sizes from human proportions (adult ~1.7 m,
-shoulders ~0.4 m, table ~0.75 m high, chair seat ~0.45 m, water bottle ~0.22 m).
+and the person's posture in the first frame. Estimate metric sizes from human proportions (an adult is ~1.7 m tall,
+shoulders ~0.4 m wide) and the typical real-world size of the objects you see.
 {CONVENTIONS}
 {ENV_SCHEMA}"""
 
 ENV_JUDGE = f"""This image is side by side. LEFT: the first frame of the original video. RIGHT: the simulator
-recreation of the scene with the robot (1.3 m, shorter than the person) in the person's start pose, rendered from the
-estimated camera. Ignore textures, lighting, background clutter, people other than the subject.
+recreation of the scene with the robot (""" + C.ROBOTS[C.ROBOT]["desc"] + """) in the person's start pose, rendered from the
+estimated camera. Ignore the background, textures, lighting and other people; judge the camera viewpoint and framing
+of the subject, the surfaces the person actually uses (height, position relative to them), the object, and the
+person's position and posture.
 Compare: camera viewpoint and framing (angle, height, distance, where things appear in the image), every relevant
 surface (position, size, height), the object (type, size, color, position), the person's position and posture.
 COLLISIONS lists interpenetrations in the recreation (e.g. legs inside the table): physically impossible, fix them.
@@ -92,26 +109,58 @@ LOCKED ENVIRONMENT:
 
 MOTION_JUDGE = """This is ONE side-by-side video. LEFT half: the original human video. RIGHT half: the robot replaying
 the current motion in the simulator, in the locked environment, from the same camera. Time-synced; timestamp top-left.
-The robot is shorter (1.3 m): ignore that and visual style.
-Compare frame by frame: posture over time (trunk, legs, arms), which hand does what, timing of each phase, the object
+The robot (""" + C.ROBOTS[C.ROBOT]["desc"] + """) is not the person: ignore its looks, the background and visual style.
+Compare frame by frame: posture over time (trunk, legs, arms), steps (which foot, when, where), which hand does what,
+timing of each phase, the object
 (when grasped, how it moves, where/when it is put down).
 TELEMETRY.collisions = interpenetrations detected by the simulator (e.g. "right hand inside table, 4 cm"): physically
 impossible, they MUST be fixed (raise the arm/trunk, retime). TELEMETRY.grasps / placements say whether the hand could
 reach the object / put it down at object_end; if not, move the body closer/lower at that moment.
+TELEMETRY.pose_match is an OBJECTIVE measurement: the person's 2D pose detected in the video vs the robot's joints seen
+through the same camera, per limb, with the worst time windows, plus framing (robot's on-screen size relative to the
+person, center offset, % of frames off-screen) and hard failures (body flipped, object above the head). Trust it over
+your visual impression; fix the worst windows first. If the robot is off-screen or framed very differently, fix the
+camera / camera_path.
+IMPORTANT: the robot's VISIBLE limbs are driven directly by video body tracking, frame by frame (TELEMETRY.retarget
+says how many frames). Your keyframe arm/leg/trunk angles only matter where the camera cannot see the limb (occluded,
+out of frame). So put your patches where they matter: the object (where it starts / ends, grasp_points), contacts
+(which hand, grasp / release times), footsteps, pelvis position / facing, camera, and occluded limbs.
 TELEMETRY.auto_fixed lists problems already corrected automatically (e.g. a hand lifted out of the table): don't redo them.
 Cite timestamps; be quantitative. Score 0-10 and return a PATCH to the motion (the environment stays locked):
 only the keyframes you add or change (each with its "t" and ONLY the fields that change), keyframe times to remove,
-and contacts / object_end only if they change.
+and contacts / object_end / grasp_points / footsteps / camera_path only if they change.
 LOCKED ENVIRONMENT:
 {env}
 {conv}
 Return JSON: {{"score": f, "differences": [str],
-  "patch": {{"keyframes": [{{"t": f, <changed pose fields only>}}], "remove_keyframe_t": [f], "contacts": <optional>, "object_end": <optional>}}}}
+  "patch": {{"keyframes": [{{"t": f, <changed pose fields only>}}], "remove_keyframe_t": [f], "contacts": <optional>, "object_end": <optional>, "grasp_points": <optional>, "footsteps": <optional>, "camera_path": <optional>}}}}
 Motion schema (for reference):
 {schema}"""
 
 
 # ---------------------------------------------------------------- helpers
+class DualJudge:
+    """Two different Gemini models judge the same round in parallel. Score = mean (less noise); the patch of the
+    stricter judge (lower score, i.e. it found more problems) is applied; both critiques are kept."""
+
+    def __init__(self, a, b):
+        self.a, self.b = a, b
+        self.model = f"{a.model}+{b.model}"
+
+    def ask(self, parts, **kw):
+        from concurrent.futures import ThreadPoolExecutor
+        with ThreadPoolExecutor(2) as ex:
+            ja, jb = ex.map(lambda g: g.ask(parts, **kw), (self.a, self.b))
+        sa, sb = float(ja.get("score") or 0), float(jb.get("score") or 0)
+        strict, other = (ja, jb) if sa <= sb else (jb, ja)
+        out = dict(strict)
+        out["score"] = round((sa + sb) / 2, 2)
+        out["scores"] = {self.a.model: sa, self.b.model: sb}
+        out["differences"] = list(strict.get("differences") or []) + \
+            [f"[2nd judge] {x}" for x in (other.get("differences") or [])[:3]]
+        return out
+
+
 class Gemini:
     def __init__(self, model):
         self.client, self.model = genai.Client(), model
@@ -206,10 +255,123 @@ def apply_patch(motion, patch, tol=0.06):
             prev = max((k for k in kfs if k["t"] <= pk.get("t", 0)), key=lambda k: k["t"], default=kfs[0] if kfs else {})
             kfs.append(_deep(prev, pk))
     m["keyframes"] = sorted(kfs, key=lambda k: k["t"])
-    for key in ("contacts", "object_end"):
+    for key in ("contacts", "object_end", "grasp_points", "footsteps", "camera_path"):
         if patch.get(key) is not None:
             m[key] = patch[key]
     return m
+
+
+_TORSO_LEN = [None]
+
+
+def _surfaces_under_hands(it, ofh, margin=0.06):
+    """The hands (from the video) say where the object starts and ends. Move the surface that supports it - sideways,
+    as little as possible - so both spots are on it. Gemini's surface placement is an estimate; the hands are data."""
+    obj = it.get("object")
+    if not ofh or not obj or ofh.get("start") is None:
+        return it
+    surfs = [dict(x) for x in (it.get("environment") or {}).get("surfaces") or []]
+    if not surfs:
+        return it
+    pts = [np.asarray(ofh["start"], float)] + ([np.asarray(ofh["end"], float)] if ofh.get("end") is not None else [])
+    st_h = (obj.get("start") or {}).get("on_surface_height_m", 0.0)
+    cands = [s for s in surfs if abs(s.get("height_m", 0.75) - st_h) < 0.15]
+    if not cands or st_h < 0.05:                          # floor objects: nothing to move
+        return it
+    s = min(cands, key=lambda x: np.hypot(x.get("forward_m", 0) - pts[0][0], x.get("left_m", 0) - pts[0][1]))
+    c = np.array([s.get("forward_m", 0.0), s.get("left_m", 0.0)])
+    half = np.array([s.get("depth_m", 0.6), s.get("width_m", 0.8)]) / 2 - margin
+    lo = np.max([p[:2] - half for p in pts], 0)           # feasible centers contain every point
+    hi = np.min([p[:2] + half for p in pts], 0)
+    newc = np.clip(c, lo, hi) if np.all(lo <= hi) else np.mean([p[:2] for p in pts], 0)
+    s.update(forward_m=float(newc[0]), left_m=float(newc[1]))
+    if ofh.get("implied_z") is not None:   # the surface is where the robot's hand actually picks the object up
+        h0 = s.get("height_m", st_h)
+        s["height_m"] = float(np.clip(ofh["implied_z"], h0 - 0.15, h0 + 0.35))   # lowering it risks the legs
+    new_h = s.get("height_m", st_h)
+    it = dict(it)
+    env = dict(it.get("environment") or {})
+    env["surfaces"] = surfs
+    it["environment"] = env
+    o = dict(obj)
+    o["start"] = dict(o.get("start") or {}, forward_m=float(pts[0][0]), left_m=float(pts[0][1]), on_surface_height_m=float(new_h))
+    if len(pts) > 1:
+        o["end"] = dict(o.get("end") or o["start"], forward_m=float(pts[1][0]), left_m=float(pts[1][1]),
+                        on_surface_height_m=float(new_h))
+    it["object"] = o
+    it["_surface_moved_m"] = round(float(np.linalg.norm(newc - c)), 3)
+    return it
+
+
+def replay_matched(interp, video, out, W, H, fps, video_path):
+    """Replay with posture retargeted from the video and a camera that reproduces the video's perspective."""
+    from .posematch import human_pose
+    from .retarget import camera_from_perspective
+    human = None
+    if C.USE_VIDEO_POSE:
+        try:
+            w2, w3 = human_pose(video, out, full=True)
+            human = (w2, w3)
+        except Exception as e:  # noqa: BLE001
+            print(f"  (pose unavailable: {str(e)[:80]})", flush=True)
+    it = dict(interp)
+    cam_info = None
+    if human is not None:
+        rp0 = Replay(it, W, H, human=human)
+        rp0.run(fps, None)
+        if _TORSO_LEN[0] is None:
+            import mujoco as _mj
+            d = _mj.MjData(rp0.m)
+            d.qpos[3] = 1.0
+            d.qpos[rp0.jq] = C.DEFAULT_Q
+            _mj.mj_kinematics(rp0.m, d)
+            b = lambda n: _mj.mj_name2id(rp0.m, _mj.mjtObj.mjOBJ_BODY, n)
+            hip = (d.xpos[b("left_hip_roll_link")] + d.xpos[b("right_hip_roll_link")]) / 2
+            sho = (d.xpos[b("left_shoulder_roll_link")] + d.xpos[b("right_shoulder_roll_link")]) / 2
+            _TORSO_LEN[0] = float(np.linalg.norm(sho - hip))
+        fovy = float((it.get("camera") or {}).get("vertical_fov_deg") or (62.0 if H > W else 50.0))
+        cam_info = camera_from_perspective(rp0.rel, w2, rp0.pelvis_pose, _TORSO_LEN[0], fovy, W, H, fps) if C.PERSPECTIVE_CAMERA else None
+        if cam_info:
+            it["_camera_fit"] = dict(fovy=fovy, static=[x.tolist() for x in cam_info["static"]],
+                                     path=[(tt, p.tolist(), l.tolist()) for tt, p, l in cam_info["path"]])
+            from .retarget import root_from_video
+            T = len(rp0.pelvis_pose)
+            start = rp0.pelvis_pose[0][1][:2]
+            ro = root_from_video(rp0.rel, w2, cam_info["static"], _TORSO_LEN[0], fovy, W, H, fps, start, T) if C.VIDEO_ROOT else None
+            if ro is not None:
+                it["_root_override"] = ro.tolist()
+        rp1 = Replay(it, W, H, human=human)                 # with the video's heading + movement applied
+        rp1.run(fps, None)
+        if C.MOVE_SURFACES:
+            it = _surfaces_under_hands(it, getattr(rp1, "obj_from_hands", None))
+    rp = Replay(it, W, H, human=human)
+    tel = rp.run(fps, video_path)
+    if cam_info:
+        tel["camera_from_perspective"] = dict(moving=bool(cam_info["path"]), spread_m=cam_info["spread_m"])
+    return rp, tel
+
+
+def _pose_match(video, out, rp, fps, W, H):
+    from .posematch import compare, human_pose
+    try:
+        human = human_pose(video, out)
+        return compare(human, np.array(rp.robot_kp), fps, W / H, extra=dict(rp.flags))
+    except Exception as e:  # noqa: BLE001
+        return dict(error=str(e)[:200])
+
+
+def quality(score, tel):
+    """Judge score, penalised by what the simulator says is physically wrong."""
+    coll = tel.get("collisions", [])
+    sustained = sum(1 for c in coll if c["t_end"] - c["t_start"] > 0.1 and c["max_depth_cm"] > 2)
+    grasp = max((x["grip_pos_err_m"] for g in tel.get("grasps", []) for x in g["detail"]), default=0.0)
+    place = max((p["placement_err_m"] for p in tel.get("placements", [])), default=0.0)
+    q = score - 0.5 * sustained - 0.1 * (len(coll) - sustained) - 2.0 * (grasp > 0.03) - 1.0 * (place > 0.05)
+    pm = tel.get("pose_match") or {}
+    if pm.get("limb_angle_err_deg") is not None:
+        q -= max(0.0, pm["limb_angle_err_deg"] - 20.0) / 10.0         # each 10 deg of limb error beyond 20 costs 1 point
+    q -= 4.0 * pm.get("robot_offscreen_frac", 0.0) + 2.0 * (pm.get("flipped_frames", 0) > 0) + 1.0 * (pm.get("object_above_head_frames", 0) > 3)
+    return q
 
 
 def merge(env, motion):
@@ -217,7 +379,11 @@ def merge(env, motion):
     it["object"] = dict(env["object"]) if env.get("object") else None
     if it["object"] is not None and motion.get("object_end"):
         it["object"]["end"] = motion["object_end"]
+    if it["object"] is not None and motion.get("grasp_points"):
+        it["object"]["grasp_points"] = motion["grasp_points"]
     it["contacts"] = motion.get("contacts", [])
+    it["footsteps"] = motion.get("footsteps", [])
+    it["camera_path"] = motion.get("camera_path", [])
     it["keyframes"] = motion.get("keyframes") or [dict(t=0.0, **env.get("start_pose", {}))]
     return it
 
@@ -271,7 +437,13 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None
     print("== PHASE 2: motion (environment locked)", flush=True)
     envs = json.dumps(env)
     t0 = time.time()
-    motion = g.ask([vpart(video, fps=5.0), MOTION_PROMPT.format(env=envs, conv=CONVENTIONS, schema=MOTION_SCHEMA) + facts])
+    from .posematch import hand_activity, hand_activity_text, human_pose
+    try:
+        _, w3 = human_pose(video, out, full=True)
+        ha_txt = hand_activity_text(hand_activity(w3, fps))
+    except Exception:  # noqa: BLE001
+        w3, ha_txt = None, ""
+    motion = g.ask([vpart(video, fps=5.0), MOTION_PROMPT.format(env=envs, conv=CONVENTIONS, schema=MOTION_SCHEMA) + facts + "\n" + ha_txt])
     print(f"[motion] {time.time()-t0:.0f}s  {len(motion.get('keyframes', []))} keyframes, contacts {motion.get('contacts')}", flush=True)
     judge = MOTION_JUDGE.format(env=envs, conv=CONVENTIONS, schema=MOTION_SCHEMA)
     best = None
@@ -280,8 +452,15 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None
         d.mkdir(parents=True, exist_ok=True)
         (d / "motion.json").write_text(json.dumps(motion, indent=1))
         t1 = time.time()
-        tel = Replay(merge(env, motion), W, H).run(fps, d / "robot.mp4")
-        tel_short = {k_: v for k_, v in tel.items() if k_ != "samples"}
+        rp, tel = replay_matched(merge(env, motion), video, out, W, H, fps, d / "robot.mp4")
+        tel["pose_match"] = _pose_match(video, out, rp, fps, W, H)
+        from .posematch import feedback as _pm_text
+        tel_short = {k_: v for k_, v in tel.items() if k_ not in ("samples", "pose_match")}
+        tel_short["pose_match"] = _pm_text(tel.get("pose_match"))
+        try:
+            tel_short["video_tracking"] = hand_activity_text(hand_activity(w3, fps, motion.get("contacts")))
+        except Exception:  # noqa: BLE001
+            pass
         tel_short["samples"] = tel.get("samples", [])[::2]
         (d / "telemetry.json").write_text(json.dumps(tel, indent=1, default=float))
         side_by_side(video, d / "robot.mp4", d / "side_by_side.mp4", f"motion iter {k}")
@@ -293,15 +472,16 @@ def phase_motion(g, video, out, env, facts, iters, threshold, W, H, fps, gj=None
         (d / "judge.json").write_text(json.dumps(j, indent=1))
         sc = float(j.get("score") or 0)
         nc = len(tel.get("collisions", []))
-        print(f"[motion {k}] replay {t_rep:.1f}s  judge {time.time()-t1:.0f}s  score {sc}/10  collisions {nc}", flush=True)
+        print(f"[motion {k}] replay {t_rep:.1f}s  judge {time.time()-t1:.0f}s  score {sc}/10  collisions {nc}  "
+              f"quality {quality(sc, tel):.1f}", flush=True)
         for x in (j.get("differences") or [])[:4]:
             print(f"   - {x[:150]}", flush=True)
-        key = sc - 0.25 * nc
+        key = quality(sc, tel)
         STATS.setdefault("motion_rounds", []).append(dict(iter=k, score=sc, collisions=nc, replay_s=round(t_rep, 1),
                                                           judge_s=round(time.time() - t1, 1)))
         if best is None or key > best[0]:
             best = (key, k, motion, j, sc)
-        if sc >= threshold and nc == 0:
+        if sc >= threshold and key >= sc - 0.3:      # good score and physically clean
             break
         if k - best[1] >= 2:
             print("  no improvement for 2 rounds; stopping", flush=True)
@@ -340,7 +520,46 @@ def prepare_video(video, out):
     return dst
 
 
-def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None, judge_model=None):
+def parallel_attempts(video, name, out, env, facts, n, model, judge_model, iters, threshold, judge_model2=None):
+    """Run the motion phase n times at once (Gemini is the bottleneck, so this costs no extra wall time) and keep the
+    attempt with the best physical-quality score. Results vary a lot between runs, so this is a cheap win."""
+    import subprocess
+    locked = out / "environment_locked.json"
+    locked.write_text(json.dumps(env, indent=1))
+    procs = []
+    for i in range(n):
+        cmd = [str(C.ROOT / "mm"), "mirror", str(video), "--name", f"{name}/attempt{i}", "--env-from", str(locked),
+               "--attempts", "1", "--iters", str(iters), "--threshold", str(threshold), "--model", model, "--no-bench"]
+        if judge_model:
+            cmd += ["--judge-model", judge_model]
+        if judge_model2:
+            cmd += ["--judge-model2", judge_model2]
+        for f in facts or []:
+            cmd += ["--fact", f]
+        procs.append(subprocess.Popen(cmd, cwd=C.ROOT, stdout=open(out / f"attempt{i}.log", "w"), stderr=subprocess.STDOUT))
+    for p in procs:
+        p.wait()
+    cands = []
+    for i in range(n):
+        sf = out / f"attempt{i}" / "summary.json"
+        if sf.exists():
+            S = json.loads(sf.read_text())
+            q = quality(S["motion"]["best_score"], S["best_telemetry"])
+            cands.append((q, i, S))
+            print(f"[attempt {i}] score {S['motion']['best_score']}  quality {q:.1f}", flush=True)
+    q, i, S = max(cands)
+    a = out / f"attempt{i}"
+    shutil.copy(a / "final.json", out / "final.json")
+    STATS.update(attempts=[dict(attempt=j, quality=round(qq, 2), score=SS["motion"]["best_score"]) for qq, j, SS in cands],
+                 motion=S["motion"], motion_rounds=S["motion_rounds"])
+    STATS["motion"]["telemetry"] = dict(S["best_telemetry"])
+    sbs = a / "motion" / f"iter{S['motion']['best_iter']}" / "side_by_side.mp4"
+    print(f"[attempts] best = attempt {i} (score {S['motion']['best_score']}, quality {q:.1f})", flush=True)
+    return (q, S["motion"]["best_iter"], None, None, S["motion"]["best_score"]), sbs
+
+
+def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, env_from=None, judge_model=None,
+        attempts=1, bench=True, judge_model2=None):
     out = C.ROOT / "runs" / "mirror2" / name
     if env_from:
         env_from = Path(env_from)
@@ -352,17 +571,25 @@ def run(video, name, model, env_iters, env_threshold, iters, threshold, facts, e
     W, H, fps = video_info(video)
     g = Gemini(model)
     gj = Gemini(judge_model) if judge_model else g
+    if judge_model2:
+        gj = DualJudge(gj, Gemini(judge_model2))
     fx = ("\nUSER-VERIFIED FACTS (ground truth; never contradict or change these):\n- " + "\n- ".join(facts) + "\n") if facts else ""
     t0 = time.time()
     env = keep if env_from else phase_env(g, video, out, fx, env_iters, env_threshold, W, H, gj)
     (out / "environment_locked.json").write_text(json.dumps(env, indent=1))
-    best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps, gj)
-    bench = C.ROOT / "benchmarks"
-    bench.mkdir(exist_ok=True)
-    shutil.copy(sbs, bench / f"{name}_v2_score{best[4]}.mp4")
-    shutil.copy(out / "final.json", bench / f"{name}_v2_score{best[4]}.json")
+    if attempts > 1:
+        best, sbs = parallel_attempts(video, name, out, env, facts, attempts, model, judge_model, iters, threshold,
+                                      judge_model2)
+    else:
+        best, sbs = phase_motion(g, video, out, env, fx, iters, threshold, W, H, fps, gj)
+    shutil.copy(sbs, out / "best_side_by_side.mp4")
+    if bench:
+        bdir = C.ROOT / "benchmarks"
+        bdir.mkdir(exist_ok=True)
+        shutil.copy(sbs, bdir / f"{name}_score{best[4]}.mp4")
+        shutil.copy(out / "final.json", bdir / f"{name}_score{best[4]}.json")
     print(f"[done] {time.time()-t0:.0f}s total", flush=True)
-    STATS.update(total_s=round(time.time() - t0, 1), model=model, judge_model=judge_model or model, facts=facts)
+    STATS.update(total_s=round(time.time() - t0, 1), model=model, judge_model=gj.model, facts=facts)
     tel = STATS["motion"].pop("telemetry")
     STATS["best_telemetry"] = {k: v for k, v in tel.items() if k != "samples"}
     (out / "summary.json").write_text(json.dumps(STATS, indent=1, default=float))
@@ -373,16 +600,19 @@ def main():
     ap.add_argument("video")
     ap.add_argument("--name", default=None)
     ap.add_argument("--model", default="gemini-4-hydrogen")
-    ap.add_argument("--env-iters", type=int, default=3)
+    ap.add_argument("--env-iters", type=int, default=2)
     ap.add_argument("--env-threshold", type=float, default=8.0)
-    ap.add_argument("--iters", type=int, default=10)
+    ap.add_argument("--iters", type=int, default=4)
     ap.add_argument("--judge-model", default=None, help="model for the judge rounds (default: --model), e.g. gemini-3.6-flash")
     ap.add_argument("--threshold", type=float, default=9.0)
     ap.add_argument("--fact", action="append", default=[], help="locked fact, e.g. --fact 'uses his RIGHT hand'")
     ap.add_argument("--env-from", default=None, help="skip phase 1 and use this locked environment JSON")
+    ap.add_argument("--attempts", type=int, default=2, help="parallel motion attempts on the locked scene; best is kept")
+    ap.add_argument("--no-bench", action="store_true", help="don't copy the result into benchmarks/")
+    ap.add_argument("--judge-model2", default=None, help="second judge model (dual judge), e.g. gemini-4-carbon")
     a = ap.parse_args()
     run(a.video, a.name or Path(a.video).stem.replace(" ", "_"), a.model, a.env_iters, a.env_threshold,
-        a.iters, a.threshold, a.fact, a.env_from, a.judge_model)
+        a.iters, a.threshold, a.fact, a.env_from, a.judge_model, a.attempts, not a.no_bench, a.judge_model2)
 
 
 if __name__ == "__main__":

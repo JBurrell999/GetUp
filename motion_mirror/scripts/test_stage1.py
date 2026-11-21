@@ -11,10 +11,17 @@ sys.path.insert(0, str(ROOT / "src"))
 import numpy as np  # noqa: E402
 
 from motion_mirror import config as C  # noqa: E402
-from motion_mirror.mirror import apply_patch, merge, prepare_video, video_info  # noqa: E402
+from motion_mirror.mirror import apply_patch, merge, prepare_video, replay_matched, video_info  # noqa: E402
 from motion_mirror.replay import Replay  # noqa: E402
 
-BENCH = {"bottle": ROOT / "benchmarks/bottle_v2_score8.5.json", "chair": ROOT / "benchmarks/chair_v2_score9.0.json"}
+# latest full-pipeline results (interpretation + the converted input video)
+def _latest(clip):
+    runs = sorted((ROOT / "runs/mirror2").glob(f"*{clip}*/final.json"), key=lambda p: p.stat().st_mtime)
+    runs = [r for r in runs if (r.parent / "input.mp4").exists()]
+    return runs[-1] if runs else None
+
+
+BENCH = {c: _latest(c) for c in ("bottle", "chair")}
 results = []
 
 
@@ -46,22 +53,30 @@ check("patch: original motion not mutated", motion["keyframes"][1]["left_arm"] =
 
 # 3. benchmark interpretations: grasp / placement accuracy, deterministic replay, speed
 for name, path in BENCH.items():
+    if path is None:
+        check(f"{name}: a full-pipeline result exists", False)
+        continue
     it = json.loads(path.read_text())
-    wh = (854, 480) if name == "bottle" else (480, 854)
+    vid = path.parent / "input.mp4"
+    W, H, fps = video_info(vid)
     t0 = time.time()
-    tel = Replay(it, *wh).run(30, None)
+    rp, tel = replay_matched(it, vid, path.parent, W, H, fps, None)
     dt = time.time() - t0
-    tel2 = Replay(it, *wh).run(30, None)
-    g = tel["grasps"][0]["detail"]
-    check(f"{name}: grasp reached (<3 cm)", all(x["grip_pos_err_m"] < 0.03 for x in g),
+    _, tel2 = replay_matched(it, vid, path.parent, W, H, fps, None)
+    print(f"   ({name}: {path.parent.name})")
+    g = tel["grasps"][0]["detail"] if tel["grasps"] else []
+    check(f"{name}: grasp reached (<3 cm)", bool(g) and all(x["grip_pos_err_m"] < 0.03 for x in g),
           f"{[(x['hand'], x['grip_pos_err_m'], x['grip_rot_err_deg'], x['fingers_touching']) for x in g]}")
-    check(f"{name}: fingers touch the object", all(x["fingers_touching"] >= 1 for x in g))
+    check(f"{name}: fingers touch the object", bool(g) and all(x["fingers_touching"] >= 1 for x in g))
     if tel.get("placements"):
         check(f"{name}: placed at target (<3 cm)", all(p["placement_err_m"] < 0.03 for p in tel["placements"]), f"{tel['placements']}")
-    long_coll = [c for c in tel["collisions"] if c["t_end"] - c["t_start"] > 0.1]
-    check(f"{name}: no sustained collisions (>0.1 s, >2 cm)", not [c for c in long_coll if c["max_depth_cm"] > 2.0], f"{long_coll}")
+    long_coll = [c for c in tel["collisions"] if c["t_end"] - c["t_start"] > 0.1 and c["max_depth_cm"] > 2.0]
+    check(f"{name}: no sustained collisions (>0.1 s, >2 cm)", not long_coll, f"{long_coll[:3]}")
+    check(f"{name}: posture retargeted from the video", (tel.get("retarget") or {}).get("arm_frames_from_video", 0) > 0, f"{tel.get('retarget')}")
+    check(f"{name}: static camera", not (tel.get("camera_from_perspective") or {}).get("moving", False))
+    check(f"{name}: body never flipped", not rp.flags.get("flipped_frames"), f"{rp.flags}")
     check(f"{name}: replay deterministic", json.dumps(tel, default=float) == json.dumps(tel2, default=float))
-    check(f"{name}: kinematic replay fast (<1 s, no render)", dt < 1.0, f"{dt:.2f}s")
+    check(f"{name}: matched replay fast (<10 s, no render)", dt < 10.0, f"{dt:.2f}s")
 
 # 4. any upload: MOV / 1080p is converted to ~854 px mp4
 src = ROOT / "videos/IMG_6520.MOV"

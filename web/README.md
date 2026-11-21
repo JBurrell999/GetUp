@@ -10,6 +10,16 @@ that flies to the filming spot.
 Next.js on Vercel. Videos go straight from the browser to a private Vercel Blob store; the
 site's functions only hand out short-lived upload tokens, so there's no 4.5 MB body limit.
 
+## Robot section ("From a phone video to the robot")
+
+Plays the best side-by-side results (`public/mirror/*.mp4`, human | robot) and, when the site runs on the same machine
+as the pipeline, lets anyone upload a video and run it: `POST /api/mirror` saves the file and starts
+`motion_mirror/mm mirror <video>` in the background, `GET /api/mirror/<id>` reports progress and what Gemini understood,
+and `GET /api/mirror/<id>/video` streams the finished side-by-side. It needs `motion_mirror/.env` (Gemini key) and its
+Python environment, so it only works locally (`npm run dev` next to the repo, shareable with ngrok); on Vercel the
+section shows the gallery and says the pipeline runs on the team laptop. At most 2 runs at once; a run takes ~2-3 min.
+If `UPLOAD_CODE` is set, the same event code is required. `MIRROR_DIR` overrides where the pipeline lives.
+
 ## Deploy
 
 From this folder:
