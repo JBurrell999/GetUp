@@ -1,0 +1,6 @@
+.env
+.venv/
+runs/
+*.mp4
+!videos/*.mp4
+assets/unitree_g1/_*.xml
