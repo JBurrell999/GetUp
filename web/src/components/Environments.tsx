@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { ENV_BY_ID, ENVIRONMENTS, type EnvId, type Environment } from "@/lib/environments";
 import { useCapture } from "./CaptureProvider";
+import { STATIC } from "@/lib/site";
 
 export function Check() {
   return (
@@ -86,12 +87,14 @@ export function Environments() {
               <p>
                 Your videos will be matched to the <strong>{chosen.name.toLowerCase()}</strong>. You can change it any time.
               </p>
-              <button type="button" className="btn btn--accent" onClick={() => openUpload()}>
-                <svg viewBox="0 0 16 16" aria-hidden="true">
-                  <path d="M8 12.5V3.5M4.5 7L8 3.5 11.5 7M2.5 13.5h11" />
-                </svg>
-                Upload a video
-              </button>
+              {!STATIC && (
+                <button type="button" className="btn btn--accent" onClick={() => openUpload()}>
+                  <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M8 12.5V3.5M4.5 7L8 3.5 11.5 7M2.5 13.5h11" />
+                  </svg>
+                  Upload a video
+                </button>
+              )}
             </>
           ) : (
             <p>Choose one to continue. You can change it later, even for a single video.</p>

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useCapture } from "./CaptureProvider";
 import { SimView, type SimInfo } from "./sim/SimView";
+import { REPO_URL, STATIC } from "@/lib/site";
 
 const fmt = (n: number, d = 1) => n.toFixed(d).replace(/\.0$/, "");
 
@@ -23,24 +24,43 @@ export function Hero() {
           <br />
           Teach it the rest.
         </h1>
-        <p className="hero-lede">
-          We&apos;re collecting videos of people doing everyday things, from moving a chair to getting up off the floor,
-          so the robot can learn to copy them. Film anything you like on your phone and upload it here.
-        </p>
+        {STATIC ? (
+          <p className="hero-lede">
+            Film someone doing an everyday task on a phone. Gemini works out what&apos;s happening, and a Unitree humanoid in
+            MuJoCo does the same thing, seen from the same camera. Built in one day at the Gemini 4 NYC hackathon.
+          </p>
+        ) : (
+          <p className="hero-lede">
+            We&apos;re collecting videos of people doing everyday things, from moving a chair to getting up off the floor,
+            so the robot can learn to copy them. Film anything you like on your phone and upload it here.
+          </p>
+        )}
         <div className="hero-actions">
-          <button type="button" className="btn btn--accent" onClick={() => openUpload()}>
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M8 12.5V3.5M4.5 7L8 3.5 11.5 7M2.5 13.5h11" />
-            </svg>
-            Upload a video
-          </button>
+          {STATIC ? (
+            <a className="btn btn--accent" href="#mirror">
+              See the results
+            </a>
+          ) : (
+            <button type="button" className="btn btn--accent" onClick={() => openUpload()}>
+              <svg viewBox="0 0 16 16" aria-hidden="true">
+                <path d="M8 12.5V3.5M4.5 7L8 3.5 11.5 7M2.5 13.5h11" />
+              </svg>
+              Upload a video
+            </button>
+          )}
           <button type="button" className="btn btn--quiet" aria-pressed={film} onClick={() => setSimMode(film ? "follow" : "film")}>
             {film ? "Back to the robot" : "Where to stand"}
           </button>
         </div>
-        <a className="hero-browse" href="#ideas">
-          Need an idea? See a few examples
-        </a>
+        {STATIC ? (
+          <a className="hero-browse" href={REPO_URL}>
+            Code and how it works on GitHub
+          </a>
+        ) : (
+          <a className="hero-browse" href="#ideas">
+            Need an idea? See a few examples
+          </a>
+        )}
       </div>
 
       <p className="hero-meta" aria-hidden={!info}>

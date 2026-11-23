@@ -8,11 +8,13 @@ import { Footer, Hero, Setup } from "@/components/Sections";
 import { TopBar } from "@/components/TopBar";
 import { UploadSheet } from "@/components/UploadSheet";
 import { publicConfig } from "@/lib/config";
+import { STATIC } from "@/lib/site";
+import { connection } from "next/server";
 
-// Read the Blob/event-code settings per request, so changing them never leaves a stale page.
-export const dynamic = "force-dynamic";
-
-export default function Page() {
+export default async function Page() {
+  // Read the Blob/event-code settings per request, so changing them never leaves a stale page.
+  // The GitHub Pages build is static, with no server and no uploads.
+  if (!STATIC) await connection();
   return (
     <CaptureProvider config={publicConfig()}>
       <TopBar />
@@ -22,11 +24,15 @@ export default function Page() {
         <Mirror />
         <Environments />
         <Setup />
-        <Ideas />
+        {!STATIC && <Ideas />}
       </main>
       <Footer />
-      <UploadSheet />
-      <JudgeDialog />
+      {!STATIC && (
+        <>
+          <UploadSheet />
+          <JudgeDialog />
+        </>
+      )}
     </CaptureProvider>
   );
 }

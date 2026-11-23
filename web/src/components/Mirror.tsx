@@ -2,13 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useCapture } from "./CaptureProvider";
+import { REPO_URL, STATIC, asset } from "@/lib/site";
 
 // Results of the motion_mirror pipeline: Gemini interprets a phone video (scene, object, which hand, when), the
 // person's body is tracked from the video, and a Unitree H2 replays it in MuJoCo from the same camera viewpoint.
 const GALLERY = [
-  { src: "/mirror/chair.mp4", title: "Moving a chair", note: "Walk over, bend, lift it by the backrest, carry it, set it down." },
-  { src: "/mirror/cup.mp4", title: "Fetching a cup", note: "Walk to the table, pick up a cup with the left hand, walk back holding it." },
-  { src: "/mirror/bottle.mp4", title: "Drinking from a bottle", note: "Seated: reach across with the right hand, drink, put it back." },
+  { src: asset("/mirror/chair.mp4"), title: "Moving a chair", note: "Walk over, bend, lift it by the backrest, carry it, set it down." },
+  { src: asset("/mirror/cup.mp4"), title: "Fetching a cup", note: "Walk to the table, pick up a cup with the left hand, walk back holding it." },
 ];
 
 interface Status {
@@ -170,6 +170,7 @@ function TryIt() {
 export function Mirror() {
   const [avail, setAvail] = useState<boolean | null>(null);
   useEffect(() => {
+    if (STATIC) return;
     fetch("/api/mirror", { cache: "no-store" })
       .then((r) => r.json())
       .then((j: { available?: boolean }) => setAvail(Boolean(j.available)))
@@ -202,7 +203,14 @@ export function Mirror() {
 
         <div className="mirror-run">
           <h3 className="vids-title">Try it with your own video</h3>
-          {avail === null && <p className="mirror-pick">Checking whether the robot pipeline is running…</p>}
+          {STATIC && (
+            <p className="mirror-pick">
+              Running a video needs the Python pipeline and a Gemini API key, so it runs on your own machine.{" "}
+              <a href={`${REPO_URL}#try-it`}>Set it up from the GitHub repo</a>: one command per video, about 2 to 3
+              minutes each.
+            </p>
+          )}
+          {!STATIC && avail === null && <p className="mirror-pick">Checking whether the robot pipeline is running…</p>}
           {avail === false && (
             <p className="mirror-pick">
               The robot pipeline runs on the team&apos;s laptop. Open this site from there (or through its ngrok link) to

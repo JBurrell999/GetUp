@@ -1,15 +1,17 @@
 // Two finished runs, shown so people can see what their upload turns into: the person on the left,
 // the simulated G1 copying them on the right. The clips are static files in public/demos/.
 
+import { asset } from "@/lib/site";
+
 const DEMOS = [
   {
-    src: "/demos/lift-a-chair.mp4",
+    src: asset("/demos/lift-a-chair.mp4"),
     title: "Lifting a chair",
     note: "Both hands on the backrest, lift, set it down.",
     label: "Side by side: a person lifts a chair by its backrest with both hands, and the simulated G1 robot does the same",
   },
   {
-    src: "/demos/walk.mp4",
+    src: asset("/demos/walk.mp4"),
     title: "Walking",
     note: "Walking along a counter, step for step.",
     label: "Side by side: a person walks along a counter, and the simulated G1 robot walks the same way",

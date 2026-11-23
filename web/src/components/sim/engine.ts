@@ -6,6 +6,7 @@
 // forward kinematics (body offset, then hinge rotation), so what you see is the sim's pose.
 
 import * as THREE from "three";
+import { asset } from "@/lib/site";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { mergeGeometries, toCreasedNormals } from "three/examples/jsm/utils/BufferGeometryUtils.js";
 import { CAMERA as TRIPOD, ZONE } from "@/lib/capture";
@@ -68,7 +69,7 @@ export interface Anchor {
   visible: boolean;
 }
 
-const BASE = "/sim/";
+const BASE = asset("/sim/");
 const BG = new THREE.Color("#0e0d0c");
 const AMBER = new THREE.Color("#ffa22e");
 const quat = (q: V4) => new THREE.Quaternion(q[1], q[2], q[3], q[0]); // MuJoCo is w,x,y,z

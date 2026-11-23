@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useCapture } from "./CaptureProvider";
+import { REPO_URL, STATIC } from "@/lib/site";
 
 export function TopBar() {
   const { hydrated, judge, setJudge, requestJudge, takes, openUpload } = useCapture();
@@ -31,32 +32,40 @@ export function TopBar() {
         GetUp
       </a>
       <div className="bar-right">
-        {hydrated && judge && n > 0 && (
-          <a className="bar-count" href="#mine">
-            <span className="num">{n}</span> {n === 1 ? "video" : "videos"}
+        {STATIC ? (
+          <a className="btn btn--accent btn--sm" href={REPO_URL}>
+            GitHub
           </a>
-        )}
-        {!hydrated ? null : judge ? (
-          <span className="bar-who">
-            {judge.name}
-            <button
-              type="button"
-              onClick={() => {
-                setJudge(null);
-                requestJudge();
-              }}
-            >
-              Not you?
-            </button>
-          </span>
         ) : (
-          <button type="button" className="bar-who-btn" onClick={() => requestJudge()}>
-            Add your name
-          </button>
+          <>
+            {hydrated && judge && n > 0 && (
+              <a className="bar-count" href="#mine">
+                <span className="num">{n}</span> {n === 1 ? "video" : "videos"}
+              </a>
+            )}
+            {!hydrated ? null : judge ? (
+              <span className="bar-who">
+                {judge.name}
+                <button
+                  type="button"
+                  onClick={() => {
+                    setJudge(null);
+                    requestJudge();
+                  }}
+                >
+                  Not you?
+                </button>
+              </span>
+            ) : (
+              <button type="button" className="bar-who-btn" onClick={() => requestJudge()}>
+                Add your name
+              </button>
+            )}
+            <button type="button" className="btn btn--accent btn--sm" onClick={() => openUpload()}>
+              Upload
+            </button>
+          </>
         )}
-        <button type="button" className="btn btn--accent btn--sm" onClick={() => openUpload()}>
-          Upload
-        </button>
       </div>
     </header>
   );

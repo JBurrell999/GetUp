@@ -2,6 +2,8 @@
 // and a take records which one so the robot copies it in a matching room.
 // Screenshots: web/scripts/sim/screenshots.py renders public/envs/<id>-<n>[-sm].webp.
 
+import { asset } from "./site";
+
 export const ENV_IDS = ["hackathon", "kitchen", "warehouse"] as const;
 export type EnvId = (typeof ENV_IDS)[number];
 
@@ -25,7 +27,7 @@ export interface Environment {
 }
 
 const shots = (id: EnvId, alts: string[]): Shot[] =>
-  alts.map((alt, i) => ({ src: `/envs/${id}-${i + 1}.webp`, small: `/envs/${id}-${i + 1}-sm.webp`, alt }));
+  alts.map((alt, i) => ({ src: asset(`/envs/${id}-${i + 1}.webp`), small: asset(`/envs/${id}-${i + 1}-sm.webp`), alt }));
 
 export const ENVIRONMENTS: Environment[] = [
   {

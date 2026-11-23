@@ -5,6 +5,7 @@ import type { PublicConfig } from "@/lib/config";
 import { isEnvId, type EnvId } from "@/lib/environments";
 import type { TakeSummary } from "@/lib/takes";
 import type { Mode } from "./sim/engine";
+import { STATIC } from "@/lib/site";
 
 export interface Judge {
   id: string;
@@ -108,7 +109,7 @@ export function CaptureProvider({ config, children }: { config: PublicConfig; ch
   const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
-    if (!judge) return;
+    if (STATIC || !judge) return; // no uploads on the static site
     let live = true;
     setTakesError(null);
     fetch(`/api/takes?judge=${encodeURIComponent(judge.id)}`, { cache: "no-store" })
